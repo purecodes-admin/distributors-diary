@@ -57,14 +57,15 @@ class supplierController extends Controller
     public function update(Request $req){
 		
 		$supplier=supplier::find($req->id);
-		$supplier->name=$req->name;
+        $supplier->name=$req->name;
         $supplier->address=$req->address;
         $supplier->email=$req->email;
     	$supplier->contact=$req->contact;
         $supplier->discription=$req->discription;
         $supplier->category=$req->category;
         $supplier->save();
-		return redirect('supplier');
+
+        return response()->json(['success' => true]);
 
     }
     public function delete($id)

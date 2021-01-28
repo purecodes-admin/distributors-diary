@@ -4,7 +4,6 @@
 
 <input type="hidden" id="csrf-token" value="{{ csrf_token() }}" />
      <div class="mb-3 flex justify-end">
-     <input type="hidden" id="csrf-token" value="{{ csrf_token() }}" />
              <a href="add"> 
                 
                     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-4">Add Record</button>
@@ -66,10 +65,10 @@
                         data: { _token: token}, 
                         success: function(response) {
                            alert('success here');
-                           // $('#demo_'+ id).remove();
-                        var col = document.getElementById("demo-" + id);
-                           col.remove();
-                           console.log(response);
+                           $('#demo_'+ id).remove();
+                        // var col = document.getElementById("demo-" + id);
+                        //    col.remove();
+                        //    console.log(response);
 
 
                         },
