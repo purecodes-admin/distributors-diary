@@ -34,10 +34,11 @@ Route::post("update",[supplierController::class,'update']);
 Route::get("delete/{id}",[supplierController::class,'delete']);
 Route::view("add","addsupplier");
 // Route::view("order","order");
-Route::get("order",[supplierController::class,'index2']);
+Route::get("addStock",[supplierController::class,'index2']);
 Route::post("store",[InventoryController::class,'store']);
 Route::get("inventory",[InventoryController::class,'index']);
 Route::get("editstock/{id}",[InventoryController::class,'edit']);
+Route::post("updatestock",[InventoryController::class,'update']);
 Route::get("deletestock/{id}",[InventoryController::class,'destroy']);
 
 Route::get("items",[ItemController::class,'index']);

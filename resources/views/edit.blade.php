@@ -107,8 +107,9 @@
             for (let el of document.querySelectorAll('.error')) el.style.display = 'none';
 
             var token = document.forms["myForm"]["_token"].value;
-            var name = document.forms["myForm"]["name"].value;
             var id = document.forms["myForm"]["id"].value;
+
+            var name = document.forms["myForm"]["name"].value;
             if (name == "") {
                 document.getElementById("namemsg").style.display = ""
                 return false;

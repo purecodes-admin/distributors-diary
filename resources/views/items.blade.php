@@ -15,7 +15,7 @@
         Item Deleted Successfully...!!!
     </span>
     <span class="ml-60 font-bold" id="danger" style="color:red; display:none;">
-        Item Not Failed...!!!
+        Item Not Deleted...!!!
     </span>
     <h1 class="text-4xl text-blue-500 font-bold m-4">Items List</h1>
 
@@ -43,7 +43,7 @@
                             <button class="bg-green-500  hover:bg-green-700 text-white font-bold px-2 rounded">Edit</button>
                         </a>
                         <!-- </td>
-                                            <td> -->
+                                                            <td> -->
                         <a href="" class="ml-4">
                             <button class="bg-red-500  hover:bg-red-700 text-white font-bold px-2 rounded"
                                 onclick="deleteitem({{ $item->id }})">Delete</button>

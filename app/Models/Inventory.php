@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Inventory extends Model
 {
     use HasFactory;
+
+    public function item()
+    {
+        return $this->belongsTo(Item::class);
+    }
+
+    public function inventrable()
+    {
+        return $this->morphTo();
+    }
 }

@@ -33,17 +33,13 @@ class supplierController extends Controller
 
     public function index2()
 	{
-        // return view('order', ['data' => supplier::all()]);
-        // $data= DB::table('suppliers')
-        //        ->join('items','items.id','=','suppliers.id')
-        //        ->select('suppliers','items')
-        //        ->get();
-        //        return view('order',compact('data'));
+        //  Code for Getting Data From two Tables..
+        
         $suppliers = DB::table('suppliers')->get(); 
 
         $items = DB::table('items')->get();
       
-        return view('order',compact('suppliers','items'));
+        return view('addinventory',compact('suppliers','items'));
 
 
     }

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\supplier;
 use App\Models\Inventory;
 use Illuminate\Http\Request;
 use Illuminate\support\Facades\DB;
@@ -15,7 +16,13 @@ class InventoryController extends Controller
      */
     public function index()
     {
+
         return view('inventory', ['data' => Inventory::all()]);
+
+            // $inventories = Inventory::with('item')->get();
+            // $suppliers= supplier::find(1);
+            // $inventories = $suppliers->inventrable;
+            // return view('inventory',['data'=>$inventories]);
     }
 
     /**
@@ -36,14 +43,20 @@ class InventoryController extends Controller
      */
     public function store(Request $request)
     {
-        $inventory= new Inventory;
-    	$inventory->item_id=$request->item_id;
-        $inventory->category=$request->category;
-        $inventory->customer_id=$request->customer_id;
-    	$inventory->quantity=$request->quantity;
-        $inventory->price=$request->price;
-        $inventory->save();
-        return redirect('inventory');
+        $user=new Inventory;
+
+            $user->inventories()->create([
+            'item_id' => $request->body,
+            'quantity'=> $request->quantity,
+            'price'=> $request->price,
+        ]);
+        // $inventory= new Inventory;
+    	// $inventory->item_id=$request->item_id;
+        // $inventory->inventrable_type=$request->category;
+        // $inventory->inventrable_id=$request->customer_id;
+    	// $inventory->quantity=$request->quantity;
+        // $inventory->price=$request->price;
+        // $inventory->save();
     }
 
     /**
@@ -68,12 +81,10 @@ class InventoryController extends Controller
         $inventory=Inventory::find($id);
         // return view('editstock',['inventory'=>$inventory]);
 
-        $inventory = DB::table('inventories')->get(); 
-
         $items = DB::table('items')->get();
         $suppliers = DB::table('suppliers')->get();
       
-        return view('editstock',compact('inventory','items','suppliers'));
+        return view('editinventory',compact('inventory','items','suppliers'));
     }
 
     /**
@@ -83,9 +94,15 @@ class InventoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $inventory=Inventory::find($request->id);
+        $inventory->item_id=$request->item_id;
+        $inventory->inventrable_type=$request->category;
+        $inventory->inventrable_id=$request->customer_id;
+    	$inventory->quantity=$request->quantity;
+        $inventory->price=$request->price;
+        $inventory->save();
     }
 
     /**
@@ -98,6 +115,5 @@ class InventoryController extends Controller
     {
         $inventory=Inventory::find($id);
         $inventory->delete();
-		return redirect('inventory');
     }
 }
