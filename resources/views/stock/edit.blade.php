@@ -1,25 +1,30 @@
 @extends('layout/master')
-@section('category', 'Add Stock')
+@section('address', 'Update Stock')
 @section('content')
-    <h3 class="p-5 font-semibold text-lg underline text-blue-500 hover:text-blue-700">
+    <h3 class="p-5 font-semibold text-lg underline text-green-500 hover:text-green-700">
         <span class="fas fa-user"></span>
-        <a>Add Stock</a>
+        <a>Update Stock</a>
         <span class="ml-60 font-bold" id="success" style="color:green; display:none;">
-            Stock Add to Inventory Successfully...!!!
+            Stock Updated to Inventory Successfully...!!!
         </span>
         <span class="ml-60 font-bold" id="danger" style="color:red; display:none;">
-            Stock Addition Failed...!!!
+            Stock Updation is Failed...!!!
         </span>
     </h3>
-    <form action="/store" method="POST" name="myForm" id="addForm" onsubmit=" return AddStock()">
+    <form action="" method="POST" name="myForm" id="addForm" onsubmit=" return UpdateStock()">
         @csrf
+        <input type="hidden" name="id" value="{{ $inventory->id }}">
+
+
         <div class="flex flex-col w-1/2">
             <label for="item_id" class="leading-10 pl-2">Item ID:</label>
             <select name="item_id" id="item_id"
                 class=" ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600">
                 <option value="">Select Item_id</option>
                 @foreach ($items as $item)
-                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                    <option value="{{ $item->id }}" @if ($inventory->item->id == $item->id)
+                        selected='selected'
+                @endif>{{ $item->name }}</option>
                 @endforeach
             </select>
             <span class="ml-4 error font-bold" id="itemmsg" style="color:Red;display:none">Item Id must be
@@ -28,12 +33,12 @@
         </div>
 
         <div class="flex flex-col w-1/2">
-            <label for="price" class="leading-10 pl-2">Customer Type:</label>
+            <label for="discription" class="leading-10 pl-2">Catogery:</label>
             <select name="category" id="category"
                 class=" ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600">
                 <option value="">Select Category</option>
-                <option value="supplier">Supplier</option>
-                <option value="purchaser">Purchaser</option>
+                <option value="supplier" @if ($inventory->customer->category == 'supplier') selected='selected' @endif>Supplier</option>
+                <option value="purchaser" @if ($inventory->customer->category == 'purchaser') selected='selected' @endif>Purchaser</option>
             </select>
             <span class="ml-4 error font-bold" id="categorymsg" style="color:Red;display:none">Category must be
                 filled
@@ -49,20 +54,22 @@
 
                 <option value="">Select ID</option>
                 @foreach ($suppliers as $supplier)
-                    <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
+                    <option value="{{ $supplier->id }}" @if ($inventory->customer->id == $supplier->id)
+                        selected='selected'
+                @endif>{{ $supplier->name }}</option>
                 @endforeach
-
 
             </select>
             <span class="ml-4 error font-bold" id="customermsg" style="color:Red;display:none">Customer ID must be
                 filled
                 out!</span>
 
+
         </div>
 
         <div class="flex flex-col w-1/2">
             <label for="quantity" class="leading-10 pl-2">Quantity:</label>
-            <input type="text" value="{{ old('quantity') }}" name="quantity"
+            <input type="text" value="{{ old('quantity', $inventory->quantity) }}" name="quantity"
                 class=" ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
                 placeholder="Quantity">
 
@@ -78,7 +85,7 @@
 
         <div class="flex flex-col w-1/2">
             <label for="price" class="leading-10 pl-2">Price:</label>
-            <input type="text" value="{{ old('price') }}" name="price"
+            <input type="text" value="{{ old('price', $inventory->price) }}" name="price"
                 class=" ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
                 placeholder="Enter Price">
 
@@ -92,18 +99,20 @@
 
 
         <div class="flex flex-col w-1/2 mt-2">
-            <button class="bg-blue-500 hover:bg-blue-700 font-bold text-white ml-2 py-2 rounded" type="submit">Confirm
-                Order</button><br>
+            <button class="bg-green-500 hover:bg-green-700 font-bold text-white ml-2 py-2 rounded" type="submit">Update
+                Record</button><br>
         </div>
 
     </form>
 
     <script>
-        function AddStock() {
+        function UpdateStock() {
             window.setTimeout("document.getElementById('success').style.display='none';", 3000);
             window.setTimeout("document.getElementById('danger').style.display='none';", 3000);
             for (let el of document.querySelectorAll('.error')) el.style.display = 'none';
             var token = document.forms["myForm"]["_token"].value;
+            var id = document.forms["myForm"]["id"].value;
+
             var item_id = document.forms["myForm"]["item_id"].value;
             if (item_id == "") {
                 document.getElementById("itemmsg").style.display = ""
@@ -143,14 +152,15 @@
 
             $.ajax({
                 type: 'POST',
-                url: '/store',
+                url: '/stock/update',
                 data: {
                     item_id: item_id,
                     category: category,
                     customer_id: customer_id,
                     quantity: quantity,
                     price: price,
-                    _token: token
+                    _token: token,
+                    id: id
                 },
                 success: function(response) {
                     document.getElementById("success").style.display = ""
@@ -166,6 +176,5 @@
         }
 
     </script>
-
 
 @endsection

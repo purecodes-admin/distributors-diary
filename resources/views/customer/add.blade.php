@@ -11,7 +11,7 @@
             Data Submittion Failed...!!!
         </span>
     </h3>
-    <form action="addsupplier" method="POST" name="myForm" onsubmit="return validateForm()" id="addForm">
+    <form action="add" method="POST" name="myForm" onsubmit="return validateForm()" id="addForm">
         @csrf
         <div class="flex">
             <div class="flex flex-col w-1/2">
@@ -148,7 +148,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: '/addsupplier',
+                url: 'add',
                 data: {
                     name: name,
                     address: address,

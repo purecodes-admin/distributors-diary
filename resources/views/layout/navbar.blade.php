@@ -18,10 +18,10 @@
                 </div>
             </div>
             <div :class="open ? 'block' : 'hidden'" class="flex flex-col text-left md:block md:text-right mt-3 md:mt-0">
-                <a href="supplier" class="mt-3 md:mx-3 hover:text-blue-500 font-bold">Suppliers</a>
-                <a href="purchaser" class="mt-3 md:mx-3 hover:text-blue-500 font-bold">Purchasers</a>
-                <a href="items" class="mt-3 md:mx-3 hover:text-green-500 font-bold">Items</a>
-                <a href="inventory" class="mt-3 md:mx-3 hover:text-green-500 font-bold">Stock</a>
+                <a href="/customer/supplier" class="mt-3 md:mx-3 hover:text-blue-500 font-bold">Suppliers</a>
+                <a href="/customer/purchaser" class="mt-3 md:mx-3 hover:text-blue-500 font-bold">Purchasers</a>
+                <a href="/item/items" class="mt-3 md:mx-3 hover:text-green-500 font-bold">Items</a>
+                <a href="/stock/inventory" class="mt-3 md:mx-3 hover:text-green-500 font-bold">Stock</a>
                 <a href="" class="mt-3 md:mx-3 hover:text-red-500 font-bold">Logout </a>
 
             </div>

@@ -8,16 +8,16 @@ use App\Http\Controllers\supplierController;
 
 class supplierController extends Controller
 {
-    public function index()
+    public function suppliers()
 	{
-		return view('supplier', ['data' => supplier::where('category','supplier')->get()]);
+		return view('customer.supplier', ['data' => supplier::where('category','supplier')->get()]);
     }
-    public function index1()
+    public function purchasers()
 	{
-		return view('purchaser', ['data' => supplier::where('category','purchaser')->get()]);
+		return view('customer.purchaser', ['data' => supplier::where('category','purchaser')->get()]);
     }
     
-    public function addsupplier(Request $req)
+    public function add(Request $req)
     {
         $supplier= new supplier;
     	$supplier->name=$req->name;
@@ -48,9 +48,10 @@ class supplierController extends Controller
 	{
 
 		$supplier=supplier::find($id);
-		return view('edit',['supplier'=>$supplier]);
+		return view('customer.edit',['supplier'=>$supplier]);
     }
-    public function update(Request $req){
+    public function update(Request $req)
+    {
 		
 		$supplier=supplier::find($req->id);
         $supplier->name=$req->name;
@@ -68,6 +69,6 @@ class supplierController extends Controller
 	{
 		$supplier=supplier::find($id);
         $supplier->delete();
-		return redirect('supplier');
+		return redirect('customer.supplier');
     }
 }

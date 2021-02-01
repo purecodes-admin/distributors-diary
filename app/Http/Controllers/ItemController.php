@@ -16,7 +16,7 @@ class ItemController extends Controller
     public function index()
     {
         {
-            return view('items', ['data' => Item::all()]);
+            return view('item.items', ['data' => Item::all()]);
         }
     }
 
@@ -63,7 +63,7 @@ class ItemController extends Controller
     public function edit($id)
     {
         $item=Item::find($id);
-        return view('edititem',['item'=>$item]);
+        return view('item.edit',['item'=>$item]);
     }
 
     /**
@@ -78,7 +78,6 @@ class ItemController extends Controller
         $item=Item::find($request->id);
         $item->name=$request->name;
         $item->save();
-        return redirect('items');
     }
 
     /**

@@ -5,7 +5,7 @@
 
     <div class="mb-3 flex justify-end">
         <input type="hidden" id="csrf-token" value="{{ csrf_token() }}" />
-        <a href="addStock">
+        <a href="create">
 
             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-4">Add Record</button>
 
@@ -44,16 +44,17 @@
             </tr>
         </thead>
         @foreach ($data as $record)
+
             <tbody>
                 <tr>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-red-700">{{ $record->id }}</td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->item->name }}</td>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->inventrable_type }}</td>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->inventrable_id }}</td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->customer->category }}</td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->customer->name }}</td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->quantity }}</td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->price }}</td>
                     <td>
-                        <a href={{ 'editstock/' . $record->id }} class="ml-3">
+                        <a href={{ 'edit/' . $record->id }} class="ml-3">
                             <button class="bg-green-500  hover:bg-green-700 text-white font-bold px-2 rounded">Edit</button>
                         </a>
                     </td>
@@ -79,7 +80,7 @@
             if (confirm("Do you Really Want to Delete This Stock Record?")) {
                 $.ajax({
                     type: 'get',
-                    url: '/deletestock/' + id,
+                    url: 'delete/' + id,
                     success: function(response) {
                         document.getElementById("success").style.display = ""
                         $('#demo_' + id).remove();

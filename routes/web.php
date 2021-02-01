@@ -26,26 +26,42 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
-Route::get("supplier",[supplierController::class,'index']);
-Route::get("purchaser",[supplierController::class,'index1']);
-Route::post("addsupplier",[supplierController::class,'addsupplier']);
-Route::get("edit/{id}",[supplierController::class,'edit']);
-Route::post("update",[supplierController::class,'update']);
-Route::get("delete/{id}",[supplierController::class,'delete']);
-Route::view("add","addsupplier");
-// Route::view("order","order");
-Route::get("addStock",[supplierController::class,'index2']);
-Route::post("store",[InventoryController::class,'store']);
-Route::get("inventory",[InventoryController::class,'index']);
-Route::get("editstock/{id}",[InventoryController::class,'edit']);
-Route::post("updatestock",[InventoryController::class,'update']);
-Route::get("deletestock/{id}",[InventoryController::class,'destroy']);
 
-Route::get("items",[ItemController::class,'index']);
-Route::view("additem","additem");
-Route::post("additem",[ItemController::class,'store']);
-Route::get("edititem/{id}",[ItemController::class,'edit']);
-Route::post("updateitem",[ItemController::class,'update']);
-Route::get("deleteitem/{id}",[ItemController::class,'destroy']);
+Route::group(['prefix' => 'customer'], function() {
+    Route::get("supplier",[supplierController::class,'suppliers']);
+    Route::get("purchaser",[supplierController::class,'purchasers']);
+    Route::view("add","customer/add");
+    Route::post("add",[supplierController::class,'add']);
+    Route::get("edit/{id}",[supplierController::class,'edit']);
+    Route::post("update",[supplierController::class,'update']); 
+    Route::get("delete/{id}",[supplierController::class,'delete']);
+    
+});
+
+
+
+
+
+// Route::view("order","order");
+
+Route::group(['prefix' => 'stock'], function() {
+    Route::get('/create', [InventoryController::class,'create']);
+    Route::get('edit/{id}', [InventoryController::class,'edit']);
+    Route::post("store",[InventoryController::class,'store']);
+    Route::get("inventory",[InventoryController::class,'index']);
+    Route::post("update",[InventoryController::class,'update']);
+    Route::get("delete/{id}",[InventoryController::class,'destroy']);
+});
+
+
+Route::group(['prefix' => 'item'], function() {
+
+        Route::get("items",[ItemController::class,'index']);
+        Route::view("add","item/store");
+        Route::post("add",[ItemController::class,'store']);
+        Route::get("edit/{id}",[ItemController::class,'edit']);
+        Route::post("update",[ItemController::class,'update']);
+        Route::get("delete/{id}",[ItemController::class,'destroy']);
+});
 
 

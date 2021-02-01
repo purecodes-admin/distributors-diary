@@ -17,12 +17,11 @@ class InventoryController extends Controller
     public function index()
     {
 
-        return view('inventory', ['data' => Inventory::all()]);
+        //return view('inventory', ['data' => Inventory::all()]);
 
-            // $inventories = Inventory::with('item')->get();
-            // $suppliers= supplier::find(1);
-            // $inventories = $suppliers->inventrable;
-            // return view('inventory',['data'=>$inventories]);
+        $inventories = Inventory::with('item')->with('customer')
+            ->get();
+        return view('stock.inventory', ['data' => $inventories]);
     }
 
     /**
@@ -32,7 +31,19 @@ class InventoryController extends Controller
      */
     public function create()
     {
-        //
+        //  Code for Getting Data From two Tables..
+         
+        $suppliers = DB::table('suppliers')->get();
+        $customers = supplier::query();
+        if(request()->get('category')) {
+            $customers->where('category', request()->get('category'));
+        } else {
+            $customers->where('category', 'do-not-exist');
+        }
+
+        $customers = $customers->get();
+        $items = DB::table('items')->get();
+        return view('stock.create', compact('customers','items'));
     }
 
     /**
@@ -43,20 +54,12 @@ class InventoryController extends Controller
      */
     public function store(Request $request)
     {
-        $user=new Inventory;
-
-            $user->inventories()->create([
-            'item_id' => $request->body,
-            'quantity'=> $request->quantity,
-            'price'=> $request->price,
-        ]);
-        // $inventory= new Inventory;
-    	// $inventory->item_id=$request->item_id;
-        // $inventory->inventrable_type=$request->category;
-        // $inventory->inventrable_id=$request->customer_id;
-    	// $inventory->quantity=$request->quantity;
-        // $inventory->price=$request->price;
-        // $inventory->save();
+        $inventory= new Inventory;
+    	$inventory->item_id=$request->item_id;
+        $inventory->customer_id=$request->customer_id;
+    	$inventory->quantity=$request->quantity;
+        $inventory->price=$request->price;
+        $inventory->save();
     }
 
     /**
@@ -84,7 +87,7 @@ class InventoryController extends Controller
         $items = DB::table('items')->get();
         $suppliers = DB::table('suppliers')->get();
       
-        return view('editinventory',compact('inventory','items','suppliers'));
+        return view('stock.edit',compact('inventory','items','suppliers'));
     }
 
     /**
@@ -97,9 +100,8 @@ class InventoryController extends Controller
     public function update(Request $request)
     {
         $inventory=Inventory::find($request->id);
-        $inventory->item_id=$request->item_id;
-        $inventory->inventrable_type=$request->category;
-        $inventory->inventrable_id=$request->customer_id;
+    	$inventory->item_id=$request->item_id;
+        $inventory->customer_id=$request->customer_id;
     	$inventory->quantity=$request->quantity;
         $inventory->price=$request->price;
         $inventory->save();

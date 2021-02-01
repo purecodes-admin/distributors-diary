@@ -4,6 +4,7 @@
 
     <input type="hidden" id="csrf-token" value="{{ csrf_token() }}" />
     <div class="mb-3 flex justify-end">
+        <input type="hidden" id="csrf-token" value="{{ csrf_token() }}" />
         <a href="add">
 
             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-4">Add Record</button>
@@ -11,7 +12,7 @@
         </a>
 
     </div>
-    <h1 class="text-4xl text-green-500 font-bold m-4">Suppliers List</h1>
+    <h1 class="text-4xl text-green-500 font-bold m-4">Purchasers List</h1>
 
     <table class="min-w-full leading-normal">
         <thead>
@@ -37,6 +38,7 @@
                 <th
                     class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                     Category</th>
+                <!-- <th  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider col-span-2">Operations</th> -->
             </tr>
         </thead>
         @foreach ($data as $record)
@@ -48,7 +50,8 @@
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->contact }}</td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->email }}</td>
                     <td style="overflow-wrap:anywhere;" class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        {{ $record->discription }}</td>
+                        {{ $record->discription }}
+                    </td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->category }}</td>
                     <td>
                         <a href={{ 'edit/' . $record['id'] }} class="ml-10">
@@ -58,7 +61,7 @@
                     <td>
                         <a href="" class="ml-10">
                             <button class="bg-red-500  hover:bg-red-700 text-white font-bold px-2 rounded"
-                                onclick="deleteSupplier({{ $record->id }})">Delete</button>
+                                onclick="deletePurchaser({{ $record->id }})">Delete</button>
                         </a>
                     </td>
                 </tr>
@@ -68,22 +71,22 @@
     </table>
 
     <script>
-        function deleteSupplier(id) {
+        function deletePurchaser(id) {
             var token = document.getElementById('csrf-token').value;
 
-            if (confirm("Do you Really Want to Delete This Supplier?")) {
+            if (confirm("Do you Really Want to Delete This Purchaser?")) {
                 $.ajax({
                     type: 'get',
-                    url: '/delete/' + id,
+                    url: 'delete/' + id,
                     data: {
                         _token: token
                     },
                     success: function(response) {
                         alert('success here');
-                        $('#demo_' + id).remove();
-                        // var col = document.getElementById("demo-" + id);
-                        //    col.remove();
-                        //    console.log(response);
+                        // $('#demo_'+ id).remove();
+                        var col = document.getElementById("demo-" + id);
+                        col.remove();
+                        console.log(response);
 
 
                     },
@@ -97,4 +100,6 @@
         }
 
     </script>
+
+
 @endsection

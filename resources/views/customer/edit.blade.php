@@ -11,7 +11,7 @@
             Data Not Updated Successfully...!!!
         </span>
     </h3>
-    <form action="/update" method="POST" name="myForm" id="addForm" onsubmit="return UpdateForm()">
+    <form action="" method="POST" name="myForm" id="addForm" onsubmit="return UpdateForm()">
         @csrf
         <input type="hidden" name="id" value="{{ $supplier->id }}">
         <div class="flex">
@@ -153,7 +153,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: '/update',
+                url: '/customer/update',
                 data: {
                     name: name,
                     address: address,

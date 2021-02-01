@@ -18,4 +18,19 @@ class Inventory extends Model
     {
         return $this->morphTo();
     }
+
+    public function customer()
+    {
+        return $this->belongsTo(supplier::class, 'customer_id', 'id');
+    }
+
+    // public function purchaser()
+    // {
+    //     return $this->customer->where('category', 'purchaser');
+    // }
+
+    // public function supplier()
+    // {
+    //     return $this->customer->where('category', 'supplier');
+    // }
 }
