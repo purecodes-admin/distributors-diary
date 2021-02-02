@@ -16,7 +16,7 @@ class ItemController extends Controller
     public function index()
     {
         {
-            return view('item.items', ['data' => Item::all()]);
+            return view('item.items', ['data' => Item::where('distributor_id',auth()->user()->id)->get()]);
         }
     }
 
@@ -39,6 +39,7 @@ class ItemController extends Controller
     public function store(Request $request)
     {
         $item= new Item;
+        $item->distributor_id=$request->user()->id;
     	$item->name=$request->name;
         $item->save();
     }

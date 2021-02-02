@@ -5,11 +5,11 @@
     <input type="hidden" id="csrf-token" value="{{ csrf_token() }}" />
     <div class="mb-3 flex justify-end">
         <input type="hidden" id="csrf-token" value="{{ csrf_token() }}" />
-        <a href="add">
+        {{-- <a href="add">
 
             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-4">Add Record</button>
 
-        </a>
+        </a> --}}
 
     </div>
     <h1 class="text-4xl text-green-500 font-bold m-4">Purchasers List</h1>

@@ -1,7 +1,6 @@
 @extends('layout/master2')
 @section('title', 'Records List')
 @section('content')
-    @extends('layout/master')
 
     @if (Route::has('login'))
         <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">

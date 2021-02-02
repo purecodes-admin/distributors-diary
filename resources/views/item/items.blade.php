@@ -43,7 +43,7 @@
                             <button class="bg-green-500  hover:bg-green-700 text-white font-bold px-2 rounded">Edit</button>
                         </a>
                         <!-- </td>
-                                                                                <td> -->
+                                                                                                                                                            <td> -->
                         <a href="" class="ml-4">
                             <button class="bg-red-500  hover:bg-red-700 text-white font-bold px-2 rounded"
                                 onclick="deleteitem({{ $item->id }})">Delete</button>
@@ -57,8 +57,8 @@
 
     <script>
         function deleteitem(id) {
-            window.setTimeout("document.getElementById('success').style.display='none';", 3000);
-            window.setTimeout("document.getElementById('danger').style.display='none';", 3000);
+            window.setTimeout("document.getElementById('success').style.display='none';", 4000);
+            window.setTimeout("document.getElementById('danger').style.display='none';", 4000);
             var token = document.getElementById('csrf-token').value;
 
             if (confirm("Do you Really Want to Delete This Item?")) {
@@ -69,7 +69,10 @@
                         // $('#demo_'+ id).remove();
                         document.getElementById("success").style.display = ""
                         var col = document.getElementById("demo-" + id);
-                        col.remove();
+                        col.fadeToggle();
+                        // $("success.very-slow").fadeToggle(7000);
+                        // col.fadeOut("slow");
+                        // $("p").fadeOut();
                     },
                     error: function(res) {
                         document.getElementById("danger").style.display = ""

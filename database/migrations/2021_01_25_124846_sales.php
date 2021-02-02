@@ -15,14 +15,16 @@ class Sales extends Migration
     {
         Schema::create('inventories',function(Blueprint $table){
             $table->id();
+            $table->unsignedBigInteger('distributor_id');
             $table->unsignedBigInteger('item_id');
             $table->unsignedBigInteger('customer_id');
             $table->integer('quantity');
             $table->integer('price');
             $table->timestamps();
 
-            $table->foreign('item_id')->references('id')->on('items');
-            $table->foreign('customer_id')->references('id')->on('suppliers');
+            $table->foreign('distributor_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('item_id')->references('id')->on('items')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('customer_id')->references('id')->on('suppliers')->onDelete('cascade')->onUpdate('cascade');
 
             // $table->foreign('user_id')->references('id')->on('users');
         });

@@ -14,26 +14,13 @@
     <form action="store" method="POST" name="myForm" id="addForm" onsubmit=" return AddStock()">
         @csrf
         <div class="flex flex-col w-1/2">
-            <label for="item_id" class="leading-10 pl-2">Item ID:</label>
-            <select name="item_id" id="item_id"
-                class=" ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600">
-                <option value="">Select Item_id</option>
-                @foreach ($items as $item)
-                    <option value="{{ $item->id }}">{{ $item->name }}</option>
-                @endforeach
-            </select>
-            <span class="ml-4 error font-bold" id="itemmsg" style="color:Red;display:none">Item Id must be
-                Selected!</span>
-
-        </div>
-
-        <div class="flex flex-col w-1/2">
             <label for="price" class="leading-10 pl-2">Customer Type:</label>
 
             <select onchange="change(this.value)" name="category" id="category" style=" text-decoration:none;"
                 class="ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600">
                 <option value="">Select Category</option>
-                <option value="supplier" {{ request()->get('category') == 'supplier' ? 'selected' : '' }}>Supplier</option>
+                <option value="supplier" {{ request()->get('category') == 'supplier' ? 'selected' : '' }}>Supplier
+                </option>
                 <option value="purchaser" {{ request()->get('category') == 'purchaser' ? 'selected' : '' }}>Purchaser
                 </option>
             </select>
@@ -45,11 +32,11 @@
 
 
         <div class="flex flex-col w-1/2">
-            <label for="customer_id" class="leading-10 pl-2">Supplier/Purchaser ID:</label>
+            <label for="customer_id" class="leading-10 pl-2">Customer Name:</label>
             <select name="customer_id" id="sub_category"
                 class=" ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600">
 
-                <option value="">Select ID</option>
+                <option value="">Select Name</option>
                 @foreach ($customers as $customer)
                     <option value="{{ $customer->id }}">{{ $customer->name }}</option>
 
@@ -60,6 +47,20 @@
             <span class="ml-4 error font-bold" id="customermsg" style="color:Red;display:none">Customer ID must be
                 filled
                 out!</span>
+
+        </div>
+
+        <div class="flex flex-col w-1/2">
+            <label for="item_id" class="leading-10 pl-2">Item Name:</label>
+            <select name="item_id" id="item_id"
+                class=" ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600">
+                <option value="">Select Item Name</option>
+                @foreach ($items as $item)
+                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                @endforeach
+            </select>
+            <span class="ml-4 error font-bold" id="itemmsg" style="color:Red;display:none">Item Id must be
+                Selected!</span>
 
         </div>
 
@@ -162,6 +163,7 @@
                 success: function(response) {
                     document.getElementById("success").style.display = ""
                     $("#addForm").trigger("reset");
+                    $("#category").val($("#category option:first").val());
                 },
                 error: function(res) {
                     document.getElementById("danger").style.display = ""

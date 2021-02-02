@@ -19,8 +19,8 @@ class InventoryController extends Controller
 
         //return view('inventory', ['data' => Inventory::all()]);
 
-        $inventories = Inventory::with('item')->with('customer')
-            ->get();
+        $inventories = Inventory::with('item')->with('customer')->where('distributor_id', auth()->user()->id)
+        ->get();
         return view('stock.inventory', ['data' => $inventories]);
     }
 
@@ -41,8 +41,8 @@ class InventoryController extends Controller
             $customers->where('category', 'do-not-exist');
         }
 
-        $customers = $customers->get();
-        $items = DB::table('items')->get();
+        $customers = $customers->where('distributor_id', auth()->user()->id)->get();
+        $items = DB::table('items')->where('distributor_id', auth()->user()->id)->get();
         return view('stock.create', compact('customers','items'));
     }
 
@@ -55,6 +55,7 @@ class InventoryController extends Controller
     public function store(Request $request)
     {
         $inventory= new Inventory;
+        $inventory->distributor_id=$request->user()->id;
     	$inventory->item_id=$request->item_id;
         $inventory->customer_id=$request->customer_id;
     	$inventory->quantity=$request->quantity;
@@ -82,12 +83,18 @@ class InventoryController extends Controller
     public function edit($id)
     {
         $inventory=Inventory::find($id);
-        // return view('editstock',['inventory'=>$inventory]);
-
-        $items = DB::table('items')->get();
+        $items = DB::table('items')->where('distributor_id', auth()->user()->id)->get();
         $suppliers = DB::table('suppliers')->get();
+        $customers = supplier::query();
+        if(request()->get('category')) {
+            $customers->where('category', request()->get('category'));
+        } else {
+            $customers->where('category', 'do-not-exist');
+        }
+
+        $customers = $customers->where('distributor_id', auth()->user()->id)->get();
       
-        return view('stock.edit',compact('inventory','items','suppliers'));
+        return view('stock.edit',compact('inventory','items','customers'));
     }
 
     /**

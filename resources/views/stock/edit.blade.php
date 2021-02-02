@@ -15,30 +15,17 @@
         @csrf
         <input type="hidden" name="id" value="{{ $inventory->id }}">
 
-
         <div class="flex flex-col w-1/2">
-            <label for="item_id" class="leading-10 pl-2">Item ID:</label>
-            <select name="item_id" id="item_id"
-                class=" ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600">
-                <option value="">Select Item_id</option>
-                @foreach ($items as $item)
-                    <option value="{{ $item->id }}" @if ($inventory->item->id == $item->id)
-                        selected='selected'
-                @endif>{{ $item->name }}</option>
-                @endforeach
-            </select>
-            <span class="ml-4 error font-bold" id="itemmsg" style="color:Red;display:none">Item Id must be
-                Selected!</span>
-
-        </div>
-
-        <div class="flex flex-col w-1/2">
-            <label for="discription" class="leading-10 pl-2">Catogery:</label>
-            <select name="category" id="category"
+            <label for="discription" class="leading-10 pl-2">Customer Type:</label>
+            <select onchange="change(this.value)" name="category" id="category"
                 class=" ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600">
                 <option value="">Select Category</option>
-                <option value="supplier" @if ($inventory->customer->category == 'supplier') selected='selected' @endif>Supplier</option>
-                <option value="purchaser" @if ($inventory->customer->category == 'purchaser') selected='selected' @endif>Purchaser</option>
+                <option value="supplier" @if ($inventory->customer->category == 'supplier') selected='selected' @endif
+                    {{ request()->get('category') == 'supplier' ? 'selected' : '' }}>Supplier
+                </option>
+                <option value="purchaser" @if ($inventory->customer->category == 'purchaser') selected='selected' @endif
+                    {{ request()->get('category') == 'purchaser' ? 'selected' : '' }}>Purchaser
+                </option>
             </select>
             <span class="ml-4 error font-bold" id="categorymsg" style="color:Red;display:none">Category must be
                 filled
@@ -48,15 +35,13 @@
 
 
         <div class="flex flex-col w-1/2">
-            <label for="customer_id" class="leading-10 pl-2">Supplier/Purchaser ID:</label>
+            <label for="customer_id" class="leading-10 pl-2">Customer Name:</label>
             <select name="customer_id" id="customer_id"
                 class=" ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600">
 
-                <option value="">Select ID</option>
-                @foreach ($suppliers as $supplier)
-                    <option value="{{ $supplier->id }}" @if ($inventory->customer->id == $supplier->id)
-                        selected='selected'
-                @endif>{{ $supplier->name }}</option>
+                <option value="">Select Name</option>
+                @foreach ($customers as $customer)
+                    <option value="{{ $customer->id }}" @if ($inventory->customer->name == $inventory->name) selected='selected' @endif>{{ $customer->name }}</option>
                 @endforeach
 
             </select>
@@ -64,6 +49,20 @@
                 filled
                 out!</span>
 
+
+        </div>
+
+        <div class="flex flex-col w-1/2">
+            <label for="item_id" class="leading-10 pl-2">Item Name:</label>
+            <select name="item_id" id="item_id"
+                class=" ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600">
+                <option value="">Select Item Name</option>
+                @foreach ($items as $item)
+                    <option value="{{ $item->id }}" @if ($inventory->item->id == $item->id) selected='selected' @endif>{{ $item->name }}</option>
+                @endforeach
+            </select>
+            <span class="ml-4 error font-bold" id="itemmsg" style="color:Red;display:none">Item Id must be
+                Selected!</span>
 
         </div>
 
@@ -106,6 +105,10 @@
     </form>
 
     <script>
+        function change(cat) {
+            window.location = window.location.pathname + "?category=" + cat;
+        }
+
         function UpdateStock() {
             window.setTimeout("document.getElementById('success').style.display='none';", 3000);
             window.setTimeout("document.getElementById('danger').style.display='none';", 3000);

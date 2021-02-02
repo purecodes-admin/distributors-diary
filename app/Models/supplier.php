@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class supplier extends Model
 {
     use HasFactory;
-    public function inventories()
-    {
-        return $this->morphMany(Inventory::class, 'inventrable');
-    }
+    // public function inventories()
+    // {
+    //     return $this->morphMany(Inventory::class, 'inventrable');
+    // }
 }

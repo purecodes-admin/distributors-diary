@@ -8,18 +8,25 @@ use App\Http\Controllers\supplierController;
 
 class supplierController extends Controller
 {
+
+
+    public function index()
+	{
+		return view('customer.customers', ['data' => supplier::where('distributor_id',auth()->user()->id)->get()]);
+    }
     public function suppliers()
 	{
-		return view('customer.supplier', ['data' => supplier::where('category','supplier')->get()]);
+		return view('customer.supplier', ['data' => supplier::where('category','supplier')->where('distributor_id',auth()->user()->id)->get()]);
     }
     public function purchasers()
 	{
-		return view('customer.purchaser', ['data' => supplier::where('category','purchaser')->get()]);
+		return view('customer.purchaser', ['data' => supplier::where('category','purchaser')->where('distributor_id',auth()->user()->id)->get()]);
     }
     
     public function add(Request $req)
     {
         $supplier= new supplier;
+    	$supplier->distributor_id=$req->user()->id;
     	$supplier->name=$req->name;
         $supplier->address=$req->address;
         $supplier->email=$req->email;
@@ -27,20 +34,6 @@ class supplierController extends Controller
         $supplier->discription=$req->discription;
         $supplier->category=$req->category;
         $supplier->save();
-        // return redirect('supplier');
-
-    }
-
-    public function index2()
-	{
-        //  Code for Getting Data From two Tables..
-        
-        $suppliers = DB::table('suppliers')->get(); 
-
-        $items = DB::table('items')->get();
-      
-        return view('addinventory',compact('suppliers','items'));
-
 
     }
 
@@ -69,6 +62,5 @@ class supplierController extends Controller
 	{
 		$supplier=supplier::find($id);
         $supplier->delete();
-		return redirect('customer.supplier');
     }
 }

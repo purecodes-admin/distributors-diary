@@ -77,7 +77,7 @@
 
             </div>
 
-            <div class="flex flex-col w-1/2">
+            {{-- <div class="flex flex-col w-1/2">
                 <label for="discription" class="leading-10 pl-2 ml-4">Catogery:</label>
                 <select name="category" id="category"
                     class=" px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600 ml-4">
@@ -88,7 +88,7 @@
                 <span class="ml-8 error font-bold" id="categorymsg" style="color:Red;display:none">Category must be
                     Selected!</span>
 
-            </div>
+            </div> --}}
         </div>
 
         <div class="flex flex-col w-1/2 mt-2">

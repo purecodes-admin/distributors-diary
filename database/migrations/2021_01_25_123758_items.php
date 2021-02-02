@@ -15,8 +15,11 @@ class Items extends Migration
     {
         Schema::create('items',function(Blueprint $table){
             $table->id();
+            $table->unsignedBigInteger('distributor_id');
             $table->string('name');
             $table->timestamps();
+
+            $table->foreign('distributor_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
 
         });
     }

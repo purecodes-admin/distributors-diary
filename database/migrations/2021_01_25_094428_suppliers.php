@@ -15,6 +15,7 @@ class Suppliers extends Migration
     {
         Schema::create('suppliers',function(Blueprint $table){
             $table->id();
+            $table->unsignedBigInteger('distributor_id');
             $table->string('name');
             $table->string('address');
             $table->string('email');
@@ -22,6 +23,8 @@ class Suppliers extends Migration
             $table->mediumText('discription');
             $table->string('category');
             $table->timestamps();
+
+            $table->foreign('distributor_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
 
         });
     }

@@ -14,10 +14,10 @@ class Inventory extends Model
         return $this->belongsTo(Item::class);
     }
 
-    public function inventrable()
-    {
-        return $this->morphTo();
-    }
+    // public function inventrable()
+    // {
+    //     return $this->morphTo();
+    // }
 
     public function customer()
     {

@@ -28,13 +28,13 @@
                     ID</th>
                 <th
                     class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                    Item Name</th>
-                <th
-                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                     Customer Type</th>
                 <th
                     class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                     Customer Name</th>
+                <th
+                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                    Item Name</th>
                 <th
                     class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                     Quantity</th>
@@ -48,9 +48,9 @@
             <tbody>
                 <tr>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-red-700">{{ $record->id }}</td>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->item->name }}</td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->customer->category }}</td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->customer->name }}</td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->item->name }}</td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->quantity }}</td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->price }}</td>
                     <td>

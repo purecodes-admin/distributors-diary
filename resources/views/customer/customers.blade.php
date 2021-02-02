@@ -4,14 +4,21 @@
 
     <input type="hidden" id="csrf-token" value="{{ csrf_token() }}" />
     <div class="mb-3 flex justify-end">
-        {{-- <a href="add">
+        <a href="add">
 
             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-4">Add Record</button>
 
-        </a> --}}
+        </a>
 
     </div>
-    <h1 class="text-4xl text-green-500 font-bold m-4">Suppliers List</h1>
+    <h1 class="text-4xl text-green-500 font-bold m-4 inline-block">Customers List</h1>
+    <a href="/customer/supplier">
+        <button class="bg-yellow-500 px-4 py-2 rounded text-white hover:bg-green-500 font-bold">Suppliers</button>
+    </a>
+    <a href="/customer/purchaser">
+        <button
+            class="bg-pink-500 px-4 py-2 rounded text-white hover:bg-green-500 font-bold overflow-hidden">Purchasers</button>
+    </a>
 
     <table class="min-w-full leading-normal">
         <thead>
@@ -59,7 +66,7 @@
                     <td>
                         <a href="" class="ml-10">
                             <button class="bg-red-500  hover:bg-red-700 text-white font-bold px-2 rounded"
-                                onclick="deleteSupplier({{ $record->id }})">Delete</button>
+                                onclick="deleteCustomer({{ $record->id }})">Delete</button>
                         </a>
                     </td>
                 </tr>
@@ -69,10 +76,10 @@
     </table>
 
     <script>
-        function deleteSupplier(id) {
+        function deleteCustomer(id) {
             var token = document.getElementById('csrf-token').value;
 
-            if (confirm("Do you Really Want to Delete This Supplier?")) {
+            if (confirm("Do you Really Want to Delete This Customer?")) {
                 $.ajax({
                     type: 'get',
                     url: 'delete/' + id,
