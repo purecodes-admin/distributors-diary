@@ -11,14 +11,30 @@
         </a>
 
     </div>
-    <h1 class="text-4xl text-green-500 font-bold m-4 inline-block">Customers List</h1>
-    <a href="/customer/supplier">
-        <button class="bg-yellow-500 px-4 py-2 rounded text-white hover:bg-green-500 font-bold">Suppliers</button>
-    </a>
-    <a href="/customer/purchaser">
-        <button
-            class="bg-pink-500 px-4 py-2 rounded text-white hover:bg-green-500 font-bold overflow-hidden">Purchasers</button>
-    </a>
+    <div class="inline-block">
+        <h1 class="text-4xl text-green-500 font-bold m-4 inline-block">Customers List</h1>
+
+        <a href="/customer/supplier">
+            <button class="bg-yellow-500 px-4 py-2 rounded text-white hover:bg-green-500 font-bold">Suppliers</button>
+        </a>
+        <a href="/customer/purchaser">
+            <button
+                class="bg-pink-500 px-4 py-2 rounded text-white hover:bg-green-500 font-bold overflow-hidden">Purchasers</button>
+        </a>
+    </div>
+    <div class="flex justify-end">
+        <form action="/customer/search" method="get">
+            <input type="search" placeholder="Search.." name="search"
+                class="rounded hover:border-blue-600 border-green-500">
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
+    <span class="ml-60 font-bold" id="success" style="color:green; display:none;">
+        Customer Record Deleted Successfully...!!!
+    </span>
+    <span class="ml-60 font-bold" id="danger" style="color:red; display:none;">
+        Customer Record Not Deleted...!!!
+    </span>
 
     <table class="min-w-full leading-normal">
         <thead>
@@ -87,7 +103,7 @@
                         _token: token
                     },
                     success: function(response) {
-                        alert('success here');
+                        document.getElementById("success").style.display = ""
                         $('#demo_' + id).remove();
                         // var col = document.getElementById("demo-" + id);
                         //    col.remove();
@@ -96,7 +112,7 @@
 
                     },
                     error: function(res) {
-                        alert('Error here');
+                        document.getElementById("danger").style.display = ""
                     }
                 });
 

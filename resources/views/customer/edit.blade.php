@@ -5,10 +5,10 @@
         <span class="fas fa-user"></span>
         <a>Update Records</a>
         <span class="ml-60 font-bold" id="success" style="color:green; display:none;">
-            Data Updated Successfully...!!!
+            Customer Updated Successfully...!!!
         </span>
         <span id="danger" style="color:red; display:none;">
-            Data Not Updated Successfully...!!!
+            Customer Not Updated Successfully...!!!
         </span>
     </h3>
     <form action="" method="POST" name="myForm" id="addForm" onsubmit="return UpdateForm()">
@@ -76,19 +76,6 @@
                     30!</span>
 
             </div>
-
-            {{-- <div class="flex flex-col w-1/2">
-                <label for="discription" class="leading-10 pl-2 ml-4">Catogery:</label>
-                <select name="category" id="category"
-                    class=" px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600 ml-4">
-                    <option value="">Select Category</option>
-                    <option value="supplier" @if ($supplier->category == 'supplier') selected='selected' @endif> Supplier</option>
-                    <option value="purchaser" @if ($supplier->category == 'purchaser') selected='selected' @endif>Purchaser</option>
-                </select>
-                <span class="ml-8 error font-bold" id="categorymsg" style="color:Red;display:none">Category must be
-                    Selected!</span>
-
-            </div> --}}
         </div>
 
         <div class="flex flex-col w-1/2 mt-2">
@@ -145,11 +132,6 @@
                 document.getElementById("discriptionmsg1").style.display = ""
                 return false;
             }
-            var category = document.forms["myForm"]["category"].value;
-            if (category == "") {
-                document.getElementById("categorymsg").style.display = ""
-                return false;
-            }
 
             $.ajax({
                 type: 'POST',
@@ -160,18 +142,14 @@
                     email: email,
                     contact: contact,
                     discription: discription,
-                    category: category,
                     _token: token,
                     id: id
                 },
                 success: function(response) {
-                    // alert('Data Updated Successfully...!!!');
-                    // $("#addForm").trigger("reset");
                     document.getElementById("success").style.display = ""
                     return false;
                 },
                 error: function(res) {
-                    // alert('Data Not Updated...!!!');
                     document.getElementById("danger").style.display = ""
                     return false;
                 }

@@ -12,6 +12,12 @@
         </a> --}}
 
     </div>
+    <span class="ml-60 font-bold" id="success" style="color:green; display:none;">
+        Purchaser Record Deleted Successfully...!!!
+    </span>
+    <span class="ml-60 font-bold" id="danger" style="color:red; display:none;">
+        Purchaser Record Not Deleted...!!!
+    </span>
     <h1 class="text-4xl text-green-500 font-bold m-4">Purchasers List</h1>
 
     <table class="min-w-full leading-normal">
@@ -82,7 +88,7 @@
                         _token: token
                     },
                     success: function(response) {
-                        alert('success here');
+                        document.getElementById("success").style.display = ""
                         // $('#demo_'+ id).remove();
                         var col = document.getElementById("demo-" + id);
                         col.remove();
@@ -91,7 +97,7 @@
 
                     },
                     error: function(res) {
-                        alert('Error here');
+                        document.getElementById("danger").style.display = ""
                     }
                 });
 

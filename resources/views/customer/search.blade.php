@@ -4,20 +4,36 @@
 
     <input type="hidden" id="csrf-token" value="{{ csrf_token() }}" />
     <div class="mb-3 flex justify-end">
-        {{-- <a href="add">
+        <a href="add">
 
             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-4">Add Record</button>
 
-        </a> --}}
+        </a>
 
     </div>
+    <div class="inline-block">
+        <h1 class="text-4xl text-green-700 font-bold m-4 inline-block">Searched Customers</h1>
+
+        <a href="/customer/supplier">
+            <button class="bg-yellow-500 px-4 py-2 rounded text-white hover:bg-green-500 font-bold">Suppliers</button>
+        </a>
+        <a href="/customer/purchaser">
+            <button
+                class="bg-pink-500 px-4 py-2 rounded text-white hover:bg-green-500 font-bold overflow-hidden">Purchasers</button>
+        </a>
+    </div>
+    <div class="flex justify-end">
+        <form action="/search" method="get">
+            <input type="text" placeholder="Search.." name="search" class="rounded hover:border-blue-600 border-green-500">
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
     <span class="ml-60 font-bold" id="success" style="color:green; display:none;">
-        Supplier Record Deleted Successfully...!!!
+        Customer Record Deleted Successfully...!!!
     </span>
     <span class="ml-60 font-bold" id="danger" style="color:red; display:none;">
-        Supplier Record Not Deleted...!!!
+        Customer Record Not Deleted...!!!
     </span>
-    <h1 class="text-4xl text-green-500 font-bold m-4">Suppliers List</h1>
 
     <table class="min-w-full leading-normal">
         <thead>
@@ -45,27 +61,27 @@
                     Category</th>
             </tr>
         </thead>
-        @foreach ($data as $record)
+        @foreach ($customers as $customer)
             <tbody>
                 <tr id="demo">
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->id }}</td>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->name }}</td>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->address }}</td>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->contact }}</td>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->email }}</td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $customer->id }}</td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $customer->name }}</td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $customer->address }}</td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $customer->contact }}</td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $customer->email }}</td>
                     <td style="overflow-wrap:anywhere;" class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        {{ $record->discription }}
+                        {{ $customer->discription }}
                     </td>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->category }}</td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $customer->category }}</td>
                     <td>
-                        <a href={{ 'edit/' . $record['id'] }} class="ml-10">
+                        <a href={{ 'edit/' . $customer->id }} class="ml-10">
                             <button class="bg-green-500  hover:bg-green-700 text-white font-bold px-2 rounded">Edit</button>
                         </a>
                     </td>
                     <td>
                         <a href="" class="ml-10">
                             <button class="bg-red-500  hover:bg-red-700 text-white font-bold px-2 rounded"
-                                onclick="deleteSupplier({{ $record->id }})">Delete</button>
+                                onclick="deleteCustomer({{ $customer->id }})">Delete</button>
                         </a>
                     </td>
                 </tr>
@@ -75,10 +91,10 @@
     </table>
 
     <script>
-        function deleteSupplier(id) {
+        function deleteCustomer(id) {
             var token = document.getElementById('csrf-token').value;
 
-            if (confirm("Do you Really Want to Delete This Supplier?")) {
+            if (confirm("Do you Really Want to Delete This Customer?")) {
                 $.ajax({
                     type: 'get',
                     url: 'delete/' + id,

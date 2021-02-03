@@ -81,19 +81,17 @@ class InventoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
+    {        
         $inventory=Inventory::find($id);
         $items = DB::table('items')->where('distributor_id', auth()->user()->id)->get();
         $suppliers = DB::table('suppliers')->get();
-        $customers = supplier::query();
-        if(request()->get('category')) {
-            $customers->where('category', request()->get('category'));
-        } else {
-            $customers->where('category', 'do-not-exist');
-        }
+        $c = supplier::query();
 
-        $customers = $customers->where('distributor_id', auth()->user()->id)->get();
-      
+        if(request()->get('category')) {
+            $c->where('category', request()->get('category'));
+        }
+        $c->where('distributor_id', auth()->user()->id);
+        $customers = $c->get();
         return view('stock.edit',compact('inventory','items','customers'));
     }
 

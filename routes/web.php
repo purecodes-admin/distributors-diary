@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\supplierController;
 use App\Http\Controllers\InventoryController;
+use Illuminate\Database\MySqlConnection;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,20 +24,30 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+})->name('dashboard');
 
 require __DIR__.'/auth.php';
 
-Route::group(['prefix' => 'customer'], function() 
-{
-    Route::get("customers",[supplierController::class,'index'])->middleware(['auth']);
-    Route::get("supplier",[supplierController::class,'suppliers'])->middleware(['auth']);
-    Route::get("purchaser",[supplierController::class,'purchasers'])->middleware(['auth']);
-    Route::view("add","customer/add")->middleware(['auth']);
-    Route::post("add",[supplierController::class,'add'])->middleware(['auth']);
-    Route::get("edit/{id}",[supplierController::class,'edit'])->middleware(['auth']);
-    Route::post("update",[supplierController::class,'update'])->middleware(['auth']); 
-    Route::get("delete/{id}",[supplierController::class,'delete'])->middleware(['auth']);
+Route::get('ali', function () {
+        if ( Gate::allows('update-customer')) {
+        return view('ali');
+    }
+    else{
+        return'You are Not Eligible';
+    }  
+});
+
+Route::group(['prefix' => 'customer', 'middleware' => 'auth'], function() 
+{ 
+    Route::get("customers",[supplierController::class,'index']);
+    Route::get("supplier",[supplierController::class,'suppliers']);
+    Route::get("purchaser",[supplierController::class,'purchasers']);
+    Route::view("add","customer/add");
+    Route::post("add",[supplierController::class,'add']);
+    Route::get("edit/{id}",[supplierController::class,'edit']);
+    Route::post("update",[supplierController::class,'update']); 
+    Route::get("delete/{id}",[supplierController::class,'delete']);
+    Route::get("/search",[supplierController::class,'search']);
     
 });
 
@@ -48,23 +59,23 @@ Route::group(['prefix' => 'customer'], function()
 
 Route::group(['prefix' => 'stock'], function() 
 {
-    Route::get('/create', [InventoryController::class,'create'])->middleware(['auth']);
-    Route::get('edit/{id}', [InventoryController::class,'edit'])->middleware(['auth']);
-    Route::post("store",[InventoryController::class,'store'])->middleware(['auth']);
-    Route::get("inventory",[InventoryController::class,'index'])->middleware(['auth']);
-    Route::post("update",[InventoryController::class,'update'])->middleware(['auth']);
-    Route::get("delete/{id}",[InventoryController::class,'destroy'])->middleware(['auth']);
+    Route::get('/create', [InventoryController::class,'create']);
+    Route::get('edit/{id}', [InventoryController::class,'edit']);
+    Route::post("store",[InventoryController::class,'store']);
+    Route::get("inventory",[InventoryController::class,'index']);
+    Route::post("update",[InventoryController::class,'update']);
+    Route::get("delete/{id}",[InventoryController::class,'destroy']);
 });
 
 
 Route::group(['prefix' => 'item'], function() 
 {
-        Route::get("items",[ItemController::class,'index'])->middleware(['auth']);
-        Route::view("add","item/store")->middleware(['auth']);
-        Route::post("add",[ItemController::class,'store'])->middleware(['auth']);
-        Route::get("edit/{id}",[ItemController::class,'edit'])->middleware(['auth']);
-        Route::post("update",[ItemController::class,'update'])->middleware(['auth']);
-        Route::get("delete/{id}",[ItemController::class,'destroy'])->middleware(['auth']);
+        Route::get("items",[ItemController::class,'index']);
+        Route::view("add","item/store");
+        Route::post("add",[ItemController::class,'store']);
+        Route::get("edit/{id}",[ItemController::class,'edit']);
+        Route::post("update",[ItemController::class,'update']);
+        Route::get("delete/{id}",[ItemController::class,'destroy']);
 });
 
 

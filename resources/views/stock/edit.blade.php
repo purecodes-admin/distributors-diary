@@ -15,24 +15,6 @@
         @csrf
         <input type="hidden" name="id" value="{{ $inventory->id }}">
 
-        <div class="flex flex-col w-1/2">
-            <label for="discription" class="leading-10 pl-2">Customer Type:</label>
-            <select onchange="change(this.value)" name="category" id="category"
-                class=" ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600">
-                <option value="">Select Category</option>
-                <option value="supplier" @if ($inventory->customer->category == 'supplier') selected='selected' @endif
-                    {{ request()->get('category') == 'supplier' ? 'selected' : '' }}>Supplier
-                </option>
-                <option value="purchaser" @if ($inventory->customer->category == 'purchaser') selected='selected' @endif
-                    {{ request()->get('category') == 'purchaser' ? 'selected' : '' }}>Purchaser
-                </option>
-            </select>
-            <span class="ml-4 error font-bold" id="categorymsg" style="color:Red;display:none">Category must be
-                filled
-                out!</span>
-
-        </div>
-
 
         <div class="flex flex-col w-1/2">
             <label for="customer_id" class="leading-10 pl-2">Customer Name:</label>
@@ -41,7 +23,7 @@
 
                 <option value="">Select Name</option>
                 @foreach ($customers as $customer)
-                    <option value="{{ $customer->id }}" @if ($inventory->customer->name == $inventory->name) selected='selected' @endif>{{ $customer->name }}</option>
+                    <option value="{{ $customer->id }}" @if ($inventory->customer->id == $customer->id) selected='selected' @endif>{{ $customer->name }}</option>
                 @endforeach
 
             </select>
@@ -105,10 +87,6 @@
     </form>
 
     <script>
-        function change(cat) {
-            window.location = window.location.pathname + "?category=" + cat;
-        }
-
         function UpdateStock() {
             window.setTimeout("document.getElementById('success').style.display='none';", 3000);
             window.setTimeout("document.getElementById('danger').style.display='none';", 3000);
@@ -119,12 +97,6 @@
             var item_id = document.forms["myForm"]["item_id"].value;
             if (item_id == "") {
                 document.getElementById("itemmsg").style.display = ""
-                return false;
-            }
-
-            var category = document.forms["myForm"]["category"].value;
-            if (category == "") {
-                document.getElementById("categorymsg").style.display = ""
                 return false;
             }
             var customer_id = document.forms["myForm"]["customer_id"].value;
@@ -158,7 +130,6 @@
                 url: '/stock/update',
                 data: {
                     item_id: item_id,
-                    category: category,
                     customer_id: customer_id,
                     quantity: quantity,
                     price: price,
