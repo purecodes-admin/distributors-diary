@@ -5,6 +5,7 @@ use App\Models\supplier;
 use App\Models\Inventory;
 use Illuminate\Http\Request;
 use Illuminate\support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\InventoryController;
 
 class InventoryController extends Controller
@@ -80,9 +81,8 @@ class InventoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Inventory $inventory)
     {        
-        $inventory=Inventory::find($id);
         $items = DB::table('items')->where('distributor_id', auth()->user()->id)->get();
         $suppliers = DB::table('suppliers')->get();
         $c = supplier::query();
@@ -90,9 +90,15 @@ class InventoryController extends Controller
         if(request()->get('category')) {
             $c->where('category', request()->get('category'));
         }
-        $c->where('distributor_id', auth()->user()->id);
+        $c->where('distributor_id', auth()->user()->id)->where('category',auth()->user()->id);
         $customers = $c->get();
+        if(Gate::allows('update-customer',$inventory)){
         return view('stock.edit',compact('inventory','items','customers'));
+        }
+        else{
+            return'You are not Owner of This Record....!!!';
+        }
+        
     }
 
     /**
@@ -118,9 +124,13 @@ class InventoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Inventory $inventory)
     {
-        $inventory=Inventory::find($id);
+        if(Gate::allows('update-customer',$inventory)){
         $inventory->delete();
+        }
+        else{
+            return'You Are Not The Owner of This Inventory....!!!';
+        }
     }
 }

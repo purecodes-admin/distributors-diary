@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\ItemController;
 
 class ItemController extends Controller
@@ -61,10 +62,15 @@ class ItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Item $item)
     {
-        $item=Item::find($id);
+        
+        if ( Gate::allows('update-customer', $item)) {
         return view('item.edit',['item'=>$item]);
+    }
+    else{
+        return'You are Not Eligible';
+    }
     }
 
     /**
@@ -87,10 +93,13 @@ class ItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Item $item)
     {
-
-        $item=Item::find($id);
+        if ( Gate::allows('update-customer', $item)) {
         $item->delete();
+    }
+    else{
+        return'You are Not Eligible';
+    }
     }
 }

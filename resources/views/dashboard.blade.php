@@ -9,7 +9,7 @@
     </marquee>
     <marquee behavior="alternate" direction="left"
         class="bg-blue-500 text-3xl font-bold text-blue-50 border-collapse rounded-2xl hover:text-red-500 hover:bg-purple-500">
-        {{-- {{ Auth::user()->name }} --}}
+        {{ Auth::user()->name }}
     </marquee>
 
 

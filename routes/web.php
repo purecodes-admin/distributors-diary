@@ -44,9 +44,9 @@ Route::group(['prefix' => 'customer', 'middleware' => 'auth'], function()
     Route::get("purchaser",[supplierController::class,'purchasers']);
     Route::view("add","customer/add");
     Route::post("add",[supplierController::class,'add']);
-    Route::get("edit/{id}",[supplierController::class,'edit']);
+    Route::get("edit/{supplier}",[supplierController::class,'edit']);
     Route::post("update",[supplierController::class,'update']); 
-    Route::get("delete/{id}",[supplierController::class,'delete']);
+    Route::get("delete/{supplier}",[supplierController::class,'delete']);
     Route::get("/search",[supplierController::class,'search']);
     
 });
@@ -57,25 +57,25 @@ Route::group(['prefix' => 'customer', 'middleware' => 'auth'], function()
 
 // Route::view("order","order");
 
-Route::group(['prefix' => 'stock'], function() 
+Route::group(['prefix' => 'stock', 'middleware' => 'auth'], function() 
 {
     Route::get('/create', [InventoryController::class,'create']);
-    Route::get('edit/{id}', [InventoryController::class,'edit']);
+    Route::get('edit/{inventory}', [InventoryController::class,'edit']);
     Route::post("store",[InventoryController::class,'store']);
     Route::get("inventory",[InventoryController::class,'index']);
     Route::post("update",[InventoryController::class,'update']);
-    Route::get("delete/{id}",[InventoryController::class,'destroy']);
+    Route::get("delete/{inventory}",[InventoryController::class,'destroy']);
 });
 
 
-Route::group(['prefix' => 'item'], function() 
+Route::group(['prefix' => 'item', 'middleware' => 'auth'], function() 
 {
         Route::get("items",[ItemController::class,'index']);
         Route::view("add","item/store");
         Route::post("add",[ItemController::class,'store']);
-        Route::get("edit/{id}",[ItemController::class,'edit']);
+        Route::get("edit/{item}",[ItemController::class,'edit']);
         Route::post("update",[ItemController::class,'update']);
-        Route::get("delete/{id}",[ItemController::class,'destroy']);
+        Route::get("delete/{item}",[ItemController::class,'destroy']);
 });
 
 

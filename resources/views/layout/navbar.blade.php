@@ -14,7 +14,7 @@
             <div class="flex items-center justify-between">
                 <div>@include('layout.logo')</div>
                 <a href="/dashboard" class="mt-3 md:mx-3 text-green-500 hover:text-white font-bold text-xl">Welcome
-                    {{-- {{ Auth::user()->name }}</a> --}}
+                    {{ Auth::user()->name }}</a>
                     <div class="md:hidden align-middle">
                         <i class="material-icons align-middle cursor-pointer" @click.prevent="toogle">menu</i>
                     </div>

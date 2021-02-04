@@ -39,12 +39,17 @@ class supplierController extends Controller
 
     }
 
-    public function edit($id)
-	{
 
-		$supplier=supplier::find($id);
-		return view('customer.edit',['supplier'=>$supplier]);
+    public function edit(supplier $supplier)
+	{
+        if ( Gate::allows('update-customer', $supplier)) {
+        return view('customer.edit',['supplier'=>$supplier]);
+        }
+        else{
+            return'You are Unauthorized for this Record....!!!';
+        }
     }
+    
     public function update(Request $req)
     {
 		$supplier=supplier::find($req->id);
@@ -56,10 +61,15 @@ class supplierController extends Controller
         $supplier->save();
     }
 
-    public function delete($id)
+    public function delete(supplier $supplier)
 	{
-		$supplier=supplier::find($id);
+		if(Gate::allows('update-customer',$supplier)){
         $supplier->delete();
+    }
+    else
+    {
+        return'You are Unauthorized for this Record....!!!';
+    }
     }
     public function search(Request $req)
 	{
