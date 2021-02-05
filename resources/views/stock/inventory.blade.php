@@ -5,7 +5,7 @@
 
     <div class="mb-3 flex justify-end">
         <input type="hidden" id="csrf-token" value="{{ csrf_token() }}" />
-        <a href="create">
+        <a href="/stock/create">
 
             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-4">Add Record</button>
 
@@ -54,7 +54,7 @@
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->quantity }}</td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->price }}</td>
                     <td>
-                        <a href={{ 'edit/' . $record->id }} class="ml-3">
+                        <a href={{ '/stock/edit/' . $record->id }} class="ml-3">
                             <button class="bg-green-500  hover:bg-green-700 text-white font-bold px-2 rounded">Edit</button>
                         </a>
                     </td>
@@ -80,7 +80,7 @@
             if (confirm("Do you Really Want to Delete This Stock Record?")) {
                 $.ajax({
                     type: 'get',
-                    url: 'delete/' + id,
+                    url: '/stock/delete/' + id,
                     success: function(response) {
                         document.getElementById("success").style.display = ""
                         $('#demo_' + id).remove();

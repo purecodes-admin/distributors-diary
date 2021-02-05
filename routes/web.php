@@ -3,9 +3,10 @@
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
+use Illuminate\Database\MySqlConnection;
+use App\Http\Controllers\stockController;
 use App\Http\Controllers\supplierController;
 use App\Http\Controllers\InventoryController;
-use Illuminate\Database\MySqlConnection;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,7 +40,7 @@ Route::get('ali', function () {
 
 Route::group(['prefix' => 'customer', 'middleware' => 'auth'], function() 
 { 
-    Route::get("customers",[supplierController::class,'index']);
+    Route::get("index",[supplierController::class,'index']);
     Route::get("supplier",[supplierController::class,'suppliers']);
     Route::get("purchaser",[supplierController::class,'purchasers']);
     Route::view("add","customer/add");
@@ -59,10 +60,10 @@ Route::group(['prefix' => 'customer', 'middleware' => 'auth'], function()
 
 Route::group(['prefix' => 'stock', 'middleware' => 'auth'], function() 
 {
+    Route::get("/",[InventoryController::class,'index']);
     Route::get('/create', [InventoryController::class,'create']);
     Route::get('edit/{inventory}', [InventoryController::class,'edit']);
     Route::post("store",[InventoryController::class,'store']);
-    Route::get("inventory",[InventoryController::class,'index']);
     Route::post("update",[InventoryController::class,'update']);
     Route::get("delete/{inventory}",[InventoryController::class,'destroy']);
 });
@@ -70,12 +71,19 @@ Route::group(['prefix' => 'stock', 'middleware' => 'auth'], function()
 
 Route::group(['prefix' => 'item', 'middleware' => 'auth'], function() 
 {
-        Route::get("items",[ItemController::class,'index']);
+        Route::get("/",[ItemController::class,'index']);
         Route::view("add","item/store");
         Route::post("add",[ItemController::class,'store']);
         Route::get("edit/{item}",[ItemController::class,'edit']);
         Route::post("update",[ItemController::class,'update']);
         Route::get("delete/{item}",[ItemController::class,'destroy']);
+});
+
+Route::group(['prefix' => 'stocks'], function() 
+{
+        Route::get("index",[stockController::class,'index']);
+        Route::view("store","stocks/stock");
+        Route::post("add",[stockController::class,'store']);
 });
 
 

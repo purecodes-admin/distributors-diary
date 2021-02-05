@@ -9,7 +9,6 @@
     </marquee>
     <marquee behavior="alternate" direction="left"
         class="bg-blue-500 text-3xl font-bold text-blue-50 border-collapse rounded-2xl hover:text-red-500 hover:bg-purple-500">
-        {{ Auth::user()->name }}
     </marquee>
     <div class="mb-3 flex justify-end">
         <input type="hidden" id="csrf-token" value="{{ csrf_token() }}" />
@@ -34,46 +33,36 @@
                 <th
                     class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-red-700 uppercase tracking-wider">
                     ID</th>
-                <th
-                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                    Customer Type</th>
-                <th
-                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                    Customer Name</th>
+
                 <th
                     class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                     Item Name</th>
                 <th
                     class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                    Quantity</th>
-                <th
-                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                    Price</th>
+                    Remaining in Stock </th>
+
             </tr>
         </thead>
-
-        <tbody>
-            <tr>
-                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-red-700"></td>
-                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm"></td>
-                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm"></td>
-                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm"></td>
-                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm"></td>
-                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm"></td>
-                <td>
-                    <a href="" class="ml-3">
-                        <button class="bg-green-500  hover:bg-green-700 text-white font-bold px-2 rounded">Edit</button>
-                    </a>
-                </td>
-                <td>
-                    <a href="" class="ml-3">
-                        <button class="bg-red-500  hover:bg-red-700 text-white font-bold px-2 rounded"
-                            onclick="">Delete</button>
-                    </a>
-                </td>
-            </tr>
-        </tbody>
-
+        @foreach ($data as $stock)
+            <tbody>
+                <tr>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-red-700">{{ $stock->id }}</td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $stock->item_id }}</td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $stock->in_stock }}</td>
+                    <td>
+                        <a href="" class="ml-3">
+                            <button class="bg-green-500  hover:bg-green-700 text-white font-bold px-2 rounded">Edit</button>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="" class="ml-3">
+                            <button class="bg-red-500  hover:bg-red-700 text-white font-bold px-2 rounded"
+                                onclick="">Delete</button>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        @endforeach
     </table>
 
 

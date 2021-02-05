@@ -4,7 +4,7 @@
 
     <input type="hidden" id="csrf-token" value="{{ csrf_token() }}" />
     <div class="mb-3 flex justify-end">
-        <a href="add">
+        <a href="/customer/add">
 
             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-4">Add Record</button>
 
@@ -75,7 +75,7 @@
                     </td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->category }}</td>
                     <td>
-                        <a href={{ 'edit/' . $record['id'] }} class="ml-10">
+                        <a href={{ '/customer/edit/' . $record['id'] }} class="ml-10">
                             <button class="bg-green-500  hover:bg-green-700 text-white font-bold px-2 rounded">Edit</button>
                         </a>
                     </td>
@@ -98,7 +98,7 @@
             if (confirm("Do you Really Want to Delete This Customer?")) {
                 $.ajax({
                     type: 'get',
-                    url: 'delete/' + id,
+                    url: '/customer/delete/' + id,
                     data: {
                         _token: token
                     },

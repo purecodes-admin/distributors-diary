@@ -90,7 +90,7 @@ class InventoryController extends Controller
         if(request()->get('category')) {
             $c->where('category', request()->get('category'));
         }
-        $c->where('distributor_id', auth()->user()->id)->where('category',auth()->user()->id);
+        $c->where('distributor_id', auth()->user()->id);
         $customers = $c->get();
         if(Gate::allows('update-customer',$inventory)){
         return view('stock.edit',compact('inventory','items','customers'));

@@ -5,7 +5,7 @@
 
     <div class="mb-3 flex justify-end">
         <input type="hidden" id="csrf-token" value="{{ csrf_token() }}" />
-        <a href="add">
+        <a href="/item/add">
 
             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-4">Add New Item</button>
         </a>
@@ -39,11 +39,11 @@
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $item->id }}</td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $item->name }}</td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <a href={{ 'edit/' . $item['id'] }} class="ml-4">
+                        <a href={{ '/item/edit/' . $item['id'] }} class="ml-4">
                             <button class="bg-green-500  hover:bg-green-700 text-white font-bold px-2 rounded">Edit</button>
                         </a>
                         <!-- </td>
-                                                                                                                                                            <td> -->
+                                                                                                                                                                                        <td> -->
                         <a href="" class="ml-4">
                             <button class="bg-red-500  hover:bg-red-700 text-white font-bold px-2 rounded"
                                 onclick="deleteitem({{ $item->id }})">Delete</button>
@@ -64,7 +64,7 @@
             if (confirm("Do you Really Want to Delete This Item?")) {
                 $.ajax({
                     type: 'get',
-                    url: 'delete/' + id,
+                    url: '/item/delete/' + id,
                     success: function(response) {
                         // $('#demo_'+ id).remove();
                         document.getElementById("success").style.display = ""
