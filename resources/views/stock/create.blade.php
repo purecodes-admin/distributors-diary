@@ -14,7 +14,7 @@
     <form action="store" method="POST" name="myForm" id="addForm" onsubmit=" return AddStock()">
         @csrf
         <div class="flex flex-col w-1/2">
-            <label for="price" class="leading-10 pl-2">Customer Type:</label>
+            <label for="type" class="leading-10 pl-2">Customer Type:</label>
 
             <select onchange="change(this.value)" name="category" id="category" style=" text-decoration:none;"
                 class="ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600">

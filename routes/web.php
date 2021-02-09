@@ -40,7 +40,7 @@ Route::get('ali', function () {
 
 Route::group(['prefix' => 'customer', 'middleware' => 'auth'], function() 
 { 
-    Route::get("index",[supplierController::class,'index']);
+    Route::get("/",[supplierController::class,'index']);
     Route::get("supplier",[supplierController::class,'suppliers']);
     Route::get("purchaser",[supplierController::class,'purchasers']);
     Route::view("add","customer/add");
@@ -66,6 +66,8 @@ Route::group(['prefix' => 'stock', 'middleware' => 'auth'], function()
     Route::post("store",[InventoryController::class,'store']);
     Route::post("update",[InventoryController::class,'update']);
     Route::get("delete/{inventory}",[InventoryController::class,'destroy']);
+    // Route::view("home","stock/home");
+    Route::get('home', [InventoryController::class,'RemainingStock']);
 });
 
 
@@ -77,13 +79,6 @@ Route::group(['prefix' => 'item', 'middleware' => 'auth'], function()
         Route::get("edit/{item}",[ItemController::class,'edit']);
         Route::post("update",[ItemController::class,'update']);
         Route::get("delete/{item}",[ItemController::class,'destroy']);
-});
-
-Route::group(['prefix' => 'stocks'], function() 
-{
-        Route::get("index",[stockController::class,'index']);
-        Route::view("store","stocks/stock");
-        Route::post("add",[stockController::class,'store']);
 });
 
 

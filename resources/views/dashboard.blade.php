@@ -26,7 +26,7 @@
     <span class="ml-60 font-bold" id="danger" style="color:red; display:none;">
         Stock Record Not Deleted...!!!
     </span>
-    <h1 class="text-4xl text-blue-500 font-bold m-4">Inventory</h1>
+    <h1 class="text-4xl text-blue-500 font-bold m-4">Items In Stock</h1>
 
     <table class="min-w-full leading-normal">
         <thead>
@@ -36,19 +36,10 @@
                     ID</th>
                 <th
                     class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                    Customer Type</th>
-                <th
-                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                    Customer Name</th>
-                <th
-                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                     Item Name</th>
                 <th
                     class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                    Quantity</th>
-                <th
-                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                    Price</th>
+                    Remaining Quantity</th>
             </tr>
         </thead>
 
@@ -57,10 +48,7 @@
                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-red-700"></td>
                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm"></td>
                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm"></td>
-                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm"></td>
-                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm"></td>
-                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm"></td>
-                <td>
+                {{-- <td>
                     <a href="" class="ml-3">
                         <button class="bg-green-500  hover:bg-green-700 text-white font-bold px-2 rounded">Edit</button>
                     </a>
@@ -70,7 +58,7 @@
                         <button class="bg-red-500  hover:bg-red-700 text-white font-bold px-2 rounded"
                             onclick="">Delete</button>
                     </a>
-                </td>
+                </td> --}}
             </tr>
         </tbody>
 
