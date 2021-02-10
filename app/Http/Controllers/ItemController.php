@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Item;
+use App\Models\Inventory;
 use Illuminate\Http\Request;
 use Illuminate\support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
@@ -17,7 +18,7 @@ class ItemController extends Controller
     public function index()
     {
         {
-            return view('item.items', ['data' => Item::where('distributor_id',auth()->user()->id)->get()]);
+            return view('item.items', ['data' => Item::where('distributor_id',auth()->user()->id)->get()])->paginate(5);
         }
     }
 
@@ -42,6 +43,7 @@ class ItemController extends Controller
         $item= new Item;
         $item->distributor_id=$request->user()->id;
     	$item->name=$request->name;
+        $item->stock=0;
         $item->save();
     }
 
@@ -102,4 +104,23 @@ class ItemController extends Controller
         return'You are Not Eligible';
     }
     }
+
+    public function RemainingStock()
+    {
+        return view('item.home', ['data' => Item::where('distributor_id',auth()->user()->id)->get()]);
+    }
+
+    public function timeline(Item $item)
+    {  
+        $inventories = Inventory::with('item')->with('customer')->with('user')->where('distributor_id', auth()->user()->id)
+        ->where('item_id',$item->id)
+        ->get();
+        if(!$inventories->isEmpty()){
+        return view('item.timeline', ['data' => $inventories]);
+        }
+        else{
+            return view('item.timeline', ['data' => $inventories]);
+        }
+        }
+
 }

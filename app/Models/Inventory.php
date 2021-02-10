@@ -13,6 +13,10 @@ class Inventory extends Model
     {
         return $this->belongsTo(Item::class);
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'distributor_id', 'id');
+    }
 
     // public function inventrable()
     // {

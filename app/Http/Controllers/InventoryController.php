@@ -63,6 +63,19 @@ class InventoryController extends Controller
     	$inventory->quantity=$request->quantity;
         $inventory->price=$request->price;
         $inventory->save();
+
+        if($inventory->customer->category === 'supplier'){
+            DB::table('items')->where('id',$inventory->item_id)
+            ->where('distributor_id',$request->user()->id)
+            ->increment('stock',$inventory->quantity)
+            ;
+        } 
+        else 
+        {
+            DB::table('items')->where('id',$inventory->item_id)
+            ->where('distributor_id',$request->user()->id)
+            ->decrement('stock',$inventory->quantity);
+        }
     }
 
     /**
@@ -133,32 +146,5 @@ class InventoryController extends Controller
         else{
             return'You Are Not The Owner of This Inventory....!!!';
         }
-    }
-
-    public function RemainingStock(){
-        // $items=Item::find($item);
-        $inventories = Inventory::with('item')->where('distributor_id', auth()->user()->id)
-        ->get();
-
-        $inv = [];
-
-        foreach ($inventories as $inventory) {
-            $inv[$inventory->item_id] = $inventory;
-            if($inventory->customer->category === 'supplier') {
-                $prevStock = isset($inv[$inventory->item_id]['stock']) ?: 0;
-
-                $inv[$inventory->item_id]['stock'] = $prevStock + $inventory->quantity;
-
-            } else {
-                $inv[$inventory->item_id]['stock'] = $prevStock - $inventory->quantity;;
-            }
-
-        }
-
-        dd($inv);
-
-        
-
-        return view('stock.home', ['data' => $inventories]);
     }
 }

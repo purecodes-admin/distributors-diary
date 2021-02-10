@@ -3,7 +3,7 @@
 @section('content')
     <h3 class="p-5 font-semibold text-lg underline text-blue-500 hover:text-blue-700">
         <span class="fas fa-user"></span>
-        <a>Add Stock</a>
+        <a>Add Inventory</a>
         <span class="ml-60 font-bold" id="success" style="color:green; display:none;">
             Stock Add to Inventory Successfully...!!!
         </span>

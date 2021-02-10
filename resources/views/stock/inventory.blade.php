@@ -7,7 +7,7 @@
         <input type="hidden" id="csrf-token" value="{{ csrf_token() }}" />
         <a href="/stock/create">
 
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-4">Add Record</button>
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-4">Add Inventory</button>
 
         </a>
 

@@ -66,8 +66,6 @@ Route::group(['prefix' => 'stock', 'middleware' => 'auth'], function()
     Route::post("store",[InventoryController::class,'store']);
     Route::post("update",[InventoryController::class,'update']);
     Route::get("delete/{inventory}",[InventoryController::class,'destroy']);
-    // Route::view("home","stock/home");
-    Route::get('home', [InventoryController::class,'RemainingStock']);
 });
 
 
@@ -79,6 +77,8 @@ Route::group(['prefix' => 'item', 'middleware' => 'auth'], function()
         Route::get("edit/{item}",[ItemController::class,'edit']);
         Route::post("update",[ItemController::class,'update']);
         Route::get("delete/{item}",[ItemController::class,'destroy']);
+        Route::get('home', [ItemController::class,'RemainingStock']);
+        Route::get('timeline/{item}', [ItemController::class,'timeline']);
 });
 
 

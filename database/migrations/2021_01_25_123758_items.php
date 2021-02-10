@@ -17,6 +17,7 @@ class Items extends Migration
             $table->id();
             $table->unsignedBigInteger('distributor_id');
             $table->string('name');
+            $table->integer('stock');
             $table->timestamps();
 
             $table->foreign('distributor_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
