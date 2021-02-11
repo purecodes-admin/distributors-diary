@@ -38,12 +38,12 @@ Route::get('ali', function () {
     }  
 });
 
-Route::group(['prefix' => 'customer', 'middleware' => 'auth'], function() 
+Route::group(['prefix' => 'customers', 'middleware' => 'auth'], function() 
 { 
     Route::get("/",[supplierController::class,'index']);
-    Route::get("supplier",[supplierController::class,'suppliers']);
-    Route::get("purchaser",[supplierController::class,'purchasers']);
-    Route::view("add","customer/add");
+    Route::get("suppliers",[supplierController::class,'suppliers']);
+    Route::get("purchasers",[supplierController::class,'purchasers']);
+    Route::view("add","customers/add");
     Route::post("add",[supplierController::class,'add']);
     Route::get("edit/{supplier}",[supplierController::class,'edit']);
     Route::post("update",[supplierController::class,'update']); 
@@ -58,7 +58,7 @@ Route::group(['prefix' => 'customer', 'middleware' => 'auth'], function()
 
 // Route::view("order","order");
 
-Route::group(['prefix' => 'stock', 'middleware' => 'auth'], function() 
+Route::group(['prefix' => 'inventories', 'middleware' => 'auth'], function() 
 {
     Route::get("/",[InventoryController::class,'index']);
     Route::get('/create', [InventoryController::class,'create']);
@@ -69,10 +69,10 @@ Route::group(['prefix' => 'stock', 'middleware' => 'auth'], function()
 });
 
 
-Route::group(['prefix' => 'item', 'middleware' => 'auth'], function() 
+Route::group(['prefix' => 'items', 'middleware' => 'auth'], function() 
 {
         Route::get("/",[ItemController::class,'index']);
-        Route::view("add","item/store");
+        Route::view("add","items/store");
         Route::post("add",[ItemController::class,'store']);
         Route::get("edit/{item}",[ItemController::class,'edit']);
         Route::post("update",[ItemController::class,'update']);

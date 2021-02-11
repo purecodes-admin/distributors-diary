@@ -14,15 +14,15 @@ class supplierController extends Controller
 
     public function index()
 	{
-		return view('customer.customers', ['data' => supplier::where('distributor_id',auth()->user()->id)->get()]);
+		return view('customers.customers', ['data' => supplier::where('distributor_id',auth()->user()->id)->paginate(3)]);
     }
     public function suppliers()
 	{
-		return view('customer.supplier', ['data' => supplier::where('category','supplier')->where('distributor_id',auth()->user()->id)->get()]);
+		return view('customers.supplier', ['data' => supplier::where('category','supplier')->where('distributor_id',auth()->user()->id)->paginate(3)]);
     }
     public function purchasers()
 	{
-		return view('customer.purchaser', ['data' => supplier::where('category','purchaser')->where('distributor_id',auth()->user()->id)->get()]);
+		return view('customers.purchaser', ['data' => supplier::where('category','purchaser')->where('distributor_id',auth()->user()->id)->paginate(3)]);
     }
     
     public function add(Request $req)
@@ -43,7 +43,7 @@ class supplierController extends Controller
     public function edit(supplier $supplier)
 	{
         if ( Gate::allows('update-customer', $supplier)) {
-        return view('customer.edit',['supplier'=>$supplier]);
+        return view('customers.edit',['supplier'=>$supplier]);
         }
         else{
             return'You are Unauthorized for this Record....!!!';
@@ -76,6 +76,6 @@ class supplierController extends Controller
         $search= $req->get('search');
         $customers=DB::table('suppliers')->where('name','LIKE','%'.$search.'%')->where('distributor_id',auth()->user()->id)
         ->get();
-        return view('customer.search',['customers'=>$customers]);
+        return view('customers.search',['customers'=>$customers]);
     }
 }

@@ -5,33 +5,33 @@
         <input type="hidden" id="csrf-token" value="{{ csrf_token() }}" />
 
     </div>
-    <h1 class="text-4xl text-blue-500 font-bold m-4">Stock Timeline</h1>
+    <h1 class="text-4xl text-gray-700 font-bold m-4">Stock Timeline</h1>
     <table class="min-w-full leading-normal">
         <thead>
             <tr>
                 <th
-                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-green-700 uppercase tracking-wider">
+                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                     ID</th>
                 <th
-                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-green-700 uppercase tracking-wider">
+                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                     Distributor Name</th>
                 <th
-                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-green-700 uppercase tracking-wider">
+                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                     Item Name</th>
                 <th
-                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-green-700 uppercase tracking-wider">
+                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                     Customer Name</th>
                 <th
-                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-green-700 uppercase tracking-wider">
+                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                     Customer Type</th>
                 <th
-                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-green-700 uppercase tracking-wider">
+                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                     Quantity</th>
                 <th
-                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-green-700 uppercase tracking-wider">
+                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                     Price</th>
                 <th
-                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-green-700 uppercase tracking-wider">
+                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                     Time</th>
             </tr>
         </thead>
@@ -65,4 +65,7 @@
         }
 
     </script>
+    <span>
+        {{ $data->links() }}
+    </span>
 @endsection

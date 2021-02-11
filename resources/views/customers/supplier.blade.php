@@ -3,21 +3,13 @@
 @section('content')
 
     <input type="hidden" id="csrf-token" value="{{ csrf_token() }}" />
-    <div class="mb-3 flex justify-end">
-        {{-- <a href="add">
-
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-4">Add Record</button>
-
-        </a> --}}
-
-    </div>
     <span class="ml-60 font-bold" id="success" style="color:green; display:none;">
         Supplier Record Deleted Successfully...!!!
     </span>
     <span class="ml-60 font-bold" id="danger" style="color:red; display:none;">
         Supplier Record Not Deleted...!!!
     </span>
-    <h1 class="text-4xl text-green-500 font-bold m-4">Suppliers List</h1>
+    <h1 class="text-4xl text-gray-700 font-bold m-4">Suppliers List</h1>
 
     <table class="min-w-full leading-normal">
         <thead>
@@ -57,15 +49,16 @@
                         {{ $record->discription }}
                     </td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->category }}</td>
-                    <td>
+                    <td style="overflow-wrap:anywhere;" class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         <a href={{ 'edit/' . $record['id'] }} class="ml-10">
-                            <button class="bg-green-500  hover:bg-green-700 text-white font-bold px-2 rounded">Edit</button>
+                            <button class="bg-green-700  hover:bg-green-900 text-white font-bold px-3 py-2 rounded"><i
+                                    class="fas fa-edit"></i></button>
                         </a>
                     </td>
-                    <td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         <a href="" class="ml-10">
-                            <button class="bg-red-500  hover:bg-red-700 text-white font-bold px-2 rounded"
-                                onclick="deleteSupplier({{ $record->id }})">Delete</button>
+                            <button class="bg-red-500  hover:bg-red-700 text-white font-bold px-3 py-2 rounded"
+                                onclick="deleteSupplier({{ $record->id }})"><i class="fas fa-trash-alt"></i></button>
                         </a>
                     </td>
                 </tr>
@@ -104,4 +97,7 @@
         }
 
     </script>
+    <span>
+        {{ $data->links() }}
+    </span>
 @endsection

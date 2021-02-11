@@ -22,8 +22,8 @@ class InventoryController extends Controller
         //return view('inventory', ['data' => Inventory::all()]);
 
         $inventories = Inventory::with('item')->with('customer')->where('distributor_id', auth()->user()->id)
-        ->get();
-        return view('stock.inventory', ['data' => $inventories]);
+        ->paginate(5);
+        return view('inventories.inventory', ['data' => $inventories]);
     }
 
     /**
@@ -45,7 +45,7 @@ class InventoryController extends Controller
 
         $customers = $customers->where('distributor_id', auth()->user()->id)->get();
         $items = DB::table('items')->where('distributor_id', auth()->user()->id)->get();
-        return view('stock.create', compact('customers','items'));
+        return view('inventories.create', compact('customers','items'));
     }
 
     /**
@@ -107,7 +107,7 @@ class InventoryController extends Controller
         $c->where('distributor_id', auth()->user()->id);
         $customers = $c->get();
         if(Gate::allows('update-customer',$inventory)){
-        return view('stock.edit',compact('inventory','items','customers'));
+        return view('inventories.edit',compact('inventory','items','customers'));
         }
         else{
             return'You are not Owner of This Record....!!!';

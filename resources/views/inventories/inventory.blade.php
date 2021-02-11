@@ -2,24 +2,20 @@
 @section('title', 'Records List')
 @section('content')
 
-
-    <div class="mb-3 flex justify-end">
-        <input type="hidden" id="csrf-token" value="{{ csrf_token() }}" />
-        <a href="/stock/create">
-
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-4">Add Inventory</button>
-
-        </a>
-
-    </div>
+    <input type="hidden" id="csrf-token" value="{{ csrf_token() }}" />
     <span class="ml-60 font-bold" id="success" style="color:green; display:none;">
         Stock Record Deleted Successfully...!!!
     </span>
     <span class="ml-60 font-bold" id="danger" style="color:red; display:none;">
         Stock Record Not Deleted...!!!
     </span>
-    <h1 class="text-4xl text-blue-500 font-bold m-4">Inventory</h1>
-
+    <h1 class="text-4xl text-gray-700 font-bold m-4 pt-4">Inventory</h1>
+    <div class="mb-3 flex justify-end">
+        <a href="/inventories/create">
+            <button class="bg-green-700 hover:bg-green-900 text-white font-bold px-1  rounded"><i
+                    class="fas fa-plus"></i></button>
+        </a>
+    </div>
     <table class="min-w-full leading-normal">
         <thead>
             <tr>
@@ -41,6 +37,9 @@
                 <th
                     class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                     Price</th>
+                <th
+                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                    Date & Time</th>
             </tr>
         </thead>
         @foreach ($data as $record)
@@ -53,15 +52,16 @@
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->item->name }}</td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->quantity }}</td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->price }}</td>
-                    <td>
-                        <a href={{ '/stock/edit/' . $record->id }} class="ml-3">
-                            <button class="bg-green-500  hover:bg-green-700 text-white font-bold px-2 rounded">Edit</button>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->created_at }}</td>
+
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                        <a href={{ '/inventories/edit/' . $record->id }} class="ml-3">
+                            <button class="bg-green-700  hover:bg-green-900 text-white font-bold px-1 rounded"><i
+                                    class="fas fa-edit"></i></button>
                         </a>
-                    </td>
-                    <td>
                         <a href="" class="ml-3">
-                            <button class="bg-red-500  hover:bg-red-700 text-white font-bold px-2 rounded"
-                                onclick="deleteStock({{ $record->id }})">Delete</button>
+                            <button class="bg-red-500  hover:bg-red-700 text-white font-bold px-1 rounded"
+                                onclick="deleteStock({{ $record->id }})"><i class="fas fa-trash-alt"></i></button>
                         </a>
                     </td>
                 </tr>
@@ -80,7 +80,7 @@
             if (confirm("Do you Really Want to Delete This Stock Record?")) {
                 $.ajax({
                     type: 'get',
-                    url: '/stock/delete/' + id,
+                    url: '/inventories/delete/' + id,
                     success: function(response) {
                         document.getElementById("success").style.display = ""
                         $('#demo_' + id).remove();
@@ -97,4 +97,7 @@
         }
 
     </script>
+    <span>
+        {{ $data->links() }}
+    </span>
 @endsection

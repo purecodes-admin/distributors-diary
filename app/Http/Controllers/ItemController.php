@@ -18,7 +18,9 @@ class ItemController extends Controller
     public function index()
     {
         {
-            return view('item.items', ['data' => Item::where('distributor_id',auth()->user()->id)->get()])->paginate(5);
+            return view('items.items', ['data' => Item::where('distributor_id',auth()->user()->id)->paginate(5)]);
+            // $data=Item::paginate(5);
+            // return view('item.items',['data'=>$data]);
         }
     }
 
@@ -68,7 +70,7 @@ class ItemController extends Controller
     {
         
         if ( Gate::allows('update-customer', $item)) {
-        return view('item.edit',['item'=>$item]);
+        return view('items.edit',['item'=>$item]);
     }
     else{
         return'You are Not Eligible';
@@ -107,19 +109,20 @@ class ItemController extends Controller
 
     public function RemainingStock()
     {
-        return view('item.home', ['data' => Item::where('distributor_id',auth()->user()->id)->get()]);
+        return view('items.home', ['data' => Item::where('distributor_id',auth()->user()->id)
+        ->paginate(5)]);
     }
 
     public function timeline(Item $item)
     {  
         $inventories = Inventory::with('item')->with('customer')->with('user')->where('distributor_id', auth()->user()->id)
         ->where('item_id',$item->id)
-        ->get();
+        ->paginate(5);
         if(!$inventories->isEmpty()){
-        return view('item.timeline', ['data' => $inventories]);
+        return view('items.timeline', ['data' => $inventories]);
         }
         else{
-            return view('item.timeline', ['data' => $inventories]);
+            return view('items.timeline', ['data' => $inventories]);
         }
         }
 
