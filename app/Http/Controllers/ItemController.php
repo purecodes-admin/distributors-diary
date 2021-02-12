@@ -17,11 +17,16 @@ class ItemController extends Controller
      */
     public function index()
     {
-        {
-            return view('items.items', ['data' => Item::where('distributor_id',auth()->user()->id)->paginate(5)]);
-            // $data=Item::paginate(5);
-            // return view('item.items',['data'=>$data]);
-        }
+
+        $items = Item::where('distributor_id',auth()->user()->id)
+            ->when(request('search') != '', function($q) {
+                $q->where('name', 'like', '%' . request('search') . '%');
+            })
+            ->paginate(5);
+
+        return view('items.items', ['data' => $items ]);
+        // $data=Item::paginate(5);
+        // return view('item.items',['data'=>$data]);
     }
 
     /**
@@ -45,6 +50,7 @@ class ItemController extends Controller
         $item= new Item;
         $item->distributor_id=$request->user()->id;
     	$item->name=$request->name;
+    	$item->price=$request->price;
         $item->stock=0;
         $item->save();
     }
@@ -88,6 +94,7 @@ class ItemController extends Controller
     {
         $item=Item::find($request->id);
         $item->name=$request->name;
+        $item->price=$request->price;
         $item->save();
     }
 

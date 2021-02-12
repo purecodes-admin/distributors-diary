@@ -20,6 +20,7 @@ class Sales extends Migration
             $table->unsignedBigInteger('customer_id');
             $table->integer('quantity');
             $table->integer('price');
+            $table->string('payment')->nullable();
             $table->timestamps();
 
             $table->foreign('distributor_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');

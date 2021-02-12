@@ -23,6 +23,19 @@
 
         </div>
 
+        <div class="flex flex-col w-1/2">
+            <label for="price" class="leading-10 pl-2">Price:</label>
+            <input type="text" value="{{ old('price') }}" name="price"
+                class=" ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+                placeholder="Enter Price">
+
+            <span class="ml-4 error font-bold" id="pricemsg" style="color:Red;display:none">Price must be filled
+                out!</span> <span class="ml-4 error font-bold" id="pricemsg1" style="color:Red;display:none">Price
+                must be filled
+                out in digits only!</span>
+
+        </div>
+
         <div class="flex flex-col w-1/2 mt-2">
             <button class="bg-green-700 hover:bg-green-900 font-bold text-white ml-2 py-2 rounded"
                 type="submit">Add</button><br>
@@ -42,12 +55,23 @@
                 document.getElementById("namemsg").style.display = ""
                 return false;
             }
+            var price = document.forms["myForm"]["price"].value;
+            if (price == "") {
+                document.getElementById("pricemsg").style.display = ""
+                return false;
+            }
+            var price = document.forms["myForm"]["price"].value;
+            if (isNaN(price)) {
+                document.getElementById("pricemsg1").style.display = ""
+                return false;
+            }
 
             $.ajax({
                 type: 'POST',
                 url: 'add',
                 data: {
                     name: name,
+                    price: price,
                     _token: token
                 },
                 success: function(response) {

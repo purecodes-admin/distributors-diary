@@ -14,7 +14,12 @@ class supplierController extends Controller
 
     public function index()
 	{
-		return view('customers.customers', ['data' => supplier::where('distributor_id',auth()->user()->id)->paginate(3)]);
+        $customers=supplier::where('distributor_id',auth()->user()->id)
+        ->when(request('search') !='', function($query){
+            $query->where('name','like','%'.request('search').'%');
+        })
+        ->paginate(3);
+		return view('customers.customers', ['data' => $customers ]);
     }
     public function suppliers()
 	{
@@ -70,12 +75,5 @@ class supplierController extends Controller
     {
         return'You are Unauthorized for this Record....!!!';
     }
-    }
-    public function search(Request $req)
-	{
-        $search= $req->get('search');
-        $customers=DB::table('suppliers')->where('name','LIKE','%'.$search.'%')->where('distributor_id',auth()->user()->id)
-        ->get();
-        return view('customers.search',['customers'=>$customers]);
     }
 }

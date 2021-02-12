@@ -4,12 +4,12 @@
 
     <input type="hidden" id="csrf-token" value="{{ csrf_token() }}" />
 
-    <h1 class="text-4xl text-gray-700 font-bold m-4 pt-4 text-center">Customers List</h1>
+    <h1 class="text-4xl text-gray-700 font-bold m-4 pt-4">Customers List</h1>
 
     <div class="flex justify-between mt-8">
         <div class="flex justify-start">
             <a href="/customers/suppliers">
-                <button class="bg-green-700 px-1 py-1 rounded text-white font-bold mr-2">Suppliers</button>
+                <button class="ml-6 bg-green-700 px-1 py-1 rounded text-white font-bold mr-2">Suppliers</button>
             </a>
             <a href="/customers/purchasers">
                 <button class="bg-green-700 px-1 py-1 rounded text-white font-bold overflow-hidden">Purchasers</button>
@@ -19,13 +19,14 @@
 
             <a href="/customers/add">
 
-                <button class="mt-2 mr-2 bg-green-700 hover:bg-green-900 text-white font-bold  px-1 rounded"><i
+                <button class="mt-2 mr-2 bg-green-700 hover:bg-green-900 text-white font-bold  px-1 rounded">New <i
                         class="fas fa-plus"></i></button>
             </a>
 
-            <form action="/customers/search" method="get">
-                <input type="search" placeholder="Search.." name="search" class="rounded border-none">
-                <button type="submit"><i class="fa fa-search"></i></button>
+            <form action="customers">
+                <input type="search" placeholder="Search.." name="search" value="{{ request('search') }}"
+                    class="rounded border-none">
+                {{-- <button type="submit"><i class="fa fa-search"></i></button> --}}
             </form>
         </div>
     </div>
@@ -37,7 +38,7 @@
         Customer Record Not Deleted...!!!
     </span>
 
-    <table class="max-w-full">
+    <table class="min-w-full">
         <thead>
             <tr>
                 <th
@@ -63,7 +64,7 @@
                     Category</th>
             </tr>
         </thead>
-        @foreach ($data as $record)
+        @forelse ($data as $record)
             <tbody>
                 <tr id="demo">
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->id }}</td>
@@ -91,7 +92,11 @@
                 </tr>
             </tbody>
 
-        @endforeach
+        @empty
+            <tr>
+                <td colspan="7" class="text-center py-4">No records found.</td>
+            </tr>
+        @endforelse
     </table>
 
     <script>
@@ -108,11 +113,6 @@
                     success: function(response) {
                         document.getElementById("success").style.display = ""
                         $('#demo_' + id).remove();
-                        // var col = document.getElementById("demo-" + id);
-                        //    col.remove();
-                        //    console.log(response);
-
-
                     },
                     error: function(res) {
                         document.getElementById("danger").style.display = ""

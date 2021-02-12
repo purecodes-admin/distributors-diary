@@ -15,9 +15,13 @@
     <div class="flex justify-end">
         <a href="/items/add">
 
-            <button class="bg-green-700 hover:bg-green-900 text-white font-bold px-1 rounded text-right"><i
+            <button class="mt-2 mr-2 bg-green-700 hover:bg-green-900 text-white font-bold  px-1 rounded">New <i
                     class="fas fa-plus"></i></button>
         </a>
+        <form action="items">
+            <input type="search" placeholder="Search.." name="search" class="rounded border-none"
+                value="{{ request('search') }}">
+        </form>
     </div>
     <table class="min-w-full">
         <thead>
@@ -28,28 +32,36 @@
                 <th
                     class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">
                     Name</th>
+                <th
+                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                    Price</th>
             </tr>
         </thead>
-        @foreach ($data as $item)
+        @forelse ($data as $item)
             <tbody>
                 <tr id="demo">
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">{{ $item->id }}</td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">{{ $item->name }}</td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
-                        <a href={{ '/items/edit/' . $item['id'] }} class="ml-4">
-                            <button class="bg-green-700  hover:bg-green-900 text-white font-bold px-2 rounded">Edit</button>
-                        </a>
-                    </td>
+                        {{ number_format($item->price) }}</td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
+                        <a href={{ '/items/edit/' . $item['id'] }} class="ml-4">
+                            <button class="bg-green-700  hover:bg-green-900 text-white font-bold px-1 rounded"><i
+                                    class="fas fa-edit"></i></button>
+                        </a>
                         <a href="" class="ml-4">
-                            <button class="bg-red-500  hover:bg-red-700 text-white font-bold px-2 rounded"
-                                onclick="deleteitem({{ $item->id }})">Delete</button>
+                            <button class="bg-red-500  hover:bg-red-700 text-white font-bold px-1 rounded"
+                                onclick="deleteitem({{ $item->id }})"><i class="fa fa-trash-alt"></i></button>
                         </a>
                     </td>
                 </tr>
             </tbody>
 
-        @endforeach
+        @empty
+            <tr>
+                <td colspan="3" class="text-center py-4">No records found.</td>
+            </tr>
+        @endforelse
     </table>
 
     <script>

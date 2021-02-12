@@ -7,6 +7,7 @@ use App\Models\Inventory;
 use Illuminate\Http\Request;
 use Illuminate\support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\InventoryController;
 
 class InventoryController extends Controller
@@ -18,10 +19,11 @@ class InventoryController extends Controller
      */
     public function index()
     {
-
-        //return view('inventory', ['data' => Inventory::all()]);
-
-        $inventories = Inventory::with('item')->with('customer')->where('distributor_id', auth()->user()->id)
+         $inventories = Inventory::with('item')->with('customer')->where('distributor_id', auth()->user()->id)
+         ->when(request('search') !='' , function($query){
+             $query->where('created_at','like','%'.request('search').'%');
+         }
+         )
         ->paginate(5);
         return view('inventories.inventory', ['data' => $inventories]);
     }
@@ -61,7 +63,7 @@ class InventoryController extends Controller
     	$inventory->item_id=$request->item_id;
         $inventory->customer_id=$request->customer_id;
     	$inventory->quantity=$request->quantity;
-        $inventory->price=$request->price;
+        $inventory->price=$inventory->item->price * $inventory->quantity;
         $inventory->save();
 
         if($inventory->customer->category === 'supplier'){
@@ -145,6 +147,19 @@ class InventoryController extends Controller
         }
         else{
             return'You Are Not The Owner of This Inventory....!!!';
+        }
+    }
+    public function payment(Inventory $inventory)
+    {
+    	if(is_null($inventory->payment)){
+            $inventory->payment='Payed';
+            $inventory->save();
+            Session::flash('payment', 'Payment Added Successfully!'); 
+            return redirect('inventories');
+        }
+        else{
+            Session::flash('message', 'Already Payed!'); 
+            return redirect('inventories');
         }
     }
 }

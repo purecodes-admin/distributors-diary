@@ -38,7 +38,7 @@
         <tbody>
             @forelse ($data as $timeline)
                 <tr>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-green-700">{{ $timeline->id }}
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $timeline->id }}
                     </td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         {{ $timeline->user->name }}</td>
@@ -46,9 +46,11 @@
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $timeline->customer->name }}</td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $timeline->customer->category }}
                     </td>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $timeline->quantity }}</td>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $timeline->price }}</td>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $timeline->created_at }}</td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ number_format($timeline->quantity) }}
+                    </td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ number_format($timeline->price) }}</td>
+                    <td title="{{ $timeline->created_at }}" class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                        {{ $timeline->created_at->diffForHumans() }}</td>
                 </tr>
             @empty
                 <tr>

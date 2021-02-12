@@ -17,6 +17,7 @@ class Items extends Migration
             $table->id();
             $table->unsignedBigInteger('distributor_id');
             $table->string('name');
+            $table->integer('price');
             $table->integer('stock');
             $table->timestamps();
 

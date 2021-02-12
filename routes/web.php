@@ -48,7 +48,6 @@ Route::group(['prefix' => 'customers', 'middleware' => 'auth'], function()
     Route::get("edit/{supplier}",[supplierController::class,'edit']);
     Route::post("update",[supplierController::class,'update']); 
     Route::get("delete/{supplier}",[supplierController::class,'delete']);
-    Route::get("/search",[supplierController::class,'search']);
     
 });
 
@@ -66,6 +65,7 @@ Route::group(['prefix' => 'inventories', 'middleware' => 'auth'], function()
     Route::post("store",[InventoryController::class,'store']);
     Route::post("update",[InventoryController::class,'update']);
     Route::get("delete/{inventory}",[InventoryController::class,'destroy']);
+    Route::get("payment/{inventory}",[InventoryController::class,'payment']);
 });
 
 
