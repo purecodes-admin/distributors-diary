@@ -19,6 +19,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap" rel="stylesheet">
 
 
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+
 
     {{-- <link href="/fonts/Roboto-Bold.ttf" rel="stylesheet">
     <link href="/fonts/Roboto-Regular.ttf" rel="stylesheet">
@@ -44,7 +50,7 @@
     @include('layout.navbar')
 
     <div class="container mx-auto px-20">
-        <!-- @include('layout.logo') -->
+        {{-- @include('layout.logo') --}}
         @yield('content')
     </div>
 

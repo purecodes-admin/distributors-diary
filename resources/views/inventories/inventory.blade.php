@@ -17,15 +17,16 @@
     @if (Session::has('payment'))
         <p class="text-center text-green-700 font-bold">{{ Session::get('payment') }}</p>
     @endif
-
     <div class="mb-3 flex justify-end">
         <a href="/inventories/create">
             <button class=" mt-2 mr-2 bg-green-700 hover:bg-green-900 text-white font-bold  px-1 rounded">New <i
                     class="fas fa-plus"></i></button>
         </a>
-        <form action="inventories">
-            <input type="date" value="{{ request('search') }}" placeholder="Search by Date.." name="search"
+        <form action="/inventories">
+            <input type="text" value="{{ request('search') }}" placeholder="Search by Date.." name="search"
                 class="rounded border-none w-auto">
+            <input id="from" type="hidden" name="from" />
+            <input id="to" type="hidden" name="to" />
             <button type="submit" style="outline: none;"><i class="fa fa-search"></i></button>
         </form>
     </div>
@@ -67,9 +68,11 @@
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->item->name }}</td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ number_format($record->quantity) }}
                     </td>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ number_format($record->item->price) }}
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                        {{ number_format($record->item->price) }}
                     </td>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ number_format($record->price) }}</td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ number_format($record->price) }}
+                    </td>
                     <td title="{{ $record->created_at }}" class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         {{ $record->created_at->diffForHumans() }}</td>
 
@@ -127,4 +130,19 @@
     <span>
         {{ $data->links() }}
     </span>
+
+    <script>
+        $(function() {
+            $('input[name="search"]').daterangepicker({
+                opens: 'left'
+            }, function(start, end, label) {
+                document.getElementById('from').value = start.format('YYYY-MM-DD');
+                document.getElementById('to').value = end.format('YYYY-MM-DD');
+                console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' +
+                    end
+                    .format('YYYY-MM-DD'));
+            });
+        });
+
+    </script>
 @endsection

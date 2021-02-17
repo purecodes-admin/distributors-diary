@@ -17,11 +17,14 @@ class InventoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $from=$request->from;
+        $to=$request->to;
+        
          $inventories = Inventory::with('item')->with('customer')->where('distributor_id', auth()->user()->id)
-         ->when(request('search') !='' , function($query){
-             $query->where('created_at','like','%'.request('search').'%');
+         ->when(request('search') !='' , function($query) use ($from, $to) {
+             $query->whereBetween('created_at',[$from, $to]);
          }
          )
         ->paginate(5);

@@ -3,10 +3,12 @@
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\userController;
 use Illuminate\Database\MySqlConnection;
 use App\Http\Controllers\stockController;
 use App\Http\Controllers\supplierController;
 use App\Http\Controllers\InventoryController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,9 +25,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->name('dashboard');
+
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+
+    return redirect('/home');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
 
 require __DIR__.'/auth.php';
 
@@ -38,47 +51,70 @@ Route::get('ali', function () {
     }  
 });
 
-Route::group(['prefix' => 'customers', 'middleware' => 'auth'], function() 
+
+Route::group(['prefix' => 'user'], function() 
 { 
-    Route::get("/",[supplierController::class,'index']);
-    Route::get("suppliers",[supplierController::class,'suppliers']);
-    Route::get("purchasers",[supplierController::class,'purchasers']);
-    Route::view("add","customers/add");
-    Route::post("add",[supplierController::class,'add']);
-    Route::get("edit/{supplier}",[supplierController::class,'edit']);
-    Route::post("update",[supplierController::class,'update']); 
-    Route::get("delete/{supplier}",[supplierController::class,'delete']);
+    Route::get("/",[userController::class,'index']);
+    Route::view("add","user/add_distributor");
+    Route::post("add",[userController::class,'store']);
+    Route::get("send-email",[userController::class,'store']);
+    Route::view("set-password","user/password");
+    // Route::get("set-password/{id}",[userController::class,'UpdatePassword']);
+    Route::post("set",[userController::class,'SetPassword']);
     
 });
 
+Route::group(['middleware' => ['auth', 'verified']], function() {
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
+
+   
+
+    Route::group(['prefix' => 'customers'], function() 
+    { 
+        Route::get("/",[supplierController::class,'index']);
+        Route::get("suppliers",[supplierController::class,'suppliers']);
+        Route::get("purchasers",[supplierController::class,'purchasers']);
+        Route::view("add","customers/add");
+        Route::post("add",[supplierController::class,'add']);
+        Route::get("edit/{supplier}",[supplierController::class,'edit']);
+        Route::post("update",[supplierController::class,'update']); 
+        Route::get("delete/{supplier}",[supplierController::class,'delete']);
+        
+    });
 
 
 
 
-// Route::view("order","order");
 
-Route::group(['prefix' => 'inventories', 'middleware' => 'auth'], function() 
-{
-    Route::get("/",[InventoryController::class,'index']);
-    Route::get('/create', [InventoryController::class,'create']);
-    Route::get('edit/{inventory}', [InventoryController::class,'edit']);
-    Route::post("store",[InventoryController::class,'store']);
-    Route::post("update",[InventoryController::class,'update']);
-    Route::get("delete/{inventory}",[InventoryController::class,'destroy']);
-    Route::get("payment/{inventory}",[InventoryController::class,'payment']);
-});
+    // Route::view("order","order");
+
+    Route::group(['prefix' => 'inventories'], function() 
+    {
+        Route::get("/",[InventoryController::class,'index']);
+        Route::get('/create', [InventoryController::class,'create']);
+        Route::get('edit/{inventory}', [InventoryController::class,'edit']);
+        Route::post("store",[InventoryController::class,'store']);
+        Route::post("update",[InventoryController::class,'update']);
+        Route::get("delete/{inventory}",[InventoryController::class,'destroy']);
+        Route::get("payment/{inventory}",[InventoryController::class,'payment']);
+    });
 
 
-Route::group(['prefix' => 'items', 'middleware' => 'auth'], function() 
-{
-        Route::get("/",[ItemController::class,'index']);
-        Route::view("add","items/store");
-        Route::post("add",[ItemController::class,'store']);
-        Route::get("edit/{item}",[ItemController::class,'edit']);
-        Route::post("update",[ItemController::class,'update']);
-        Route::get("delete/{item}",[ItemController::class,'destroy']);
-        Route::get('home', [ItemController::class,'RemainingStock']);
-        Route::get('timeline/{item}', [ItemController::class,'timeline']);
+    Route::group(['prefix' => 'items'], function() 
+    {
+            Route::get("/",[ItemController::class,'index']);
+            Route::view("add","items/store");
+            Route::post("add",[ItemController::class,'store']);
+            Route::get("edit/{item}",[ItemController::class,'edit']);
+            Route::post("update",[ItemController::class,'update']);
+            Route::get("delete/{item}",[ItemController::class,'destroy']);
+            Route::get('home', [ItemController::class,'RemainingStock']);
+            Route::get('timeline/{item}', [ItemController::class,'timeline']);
+    });
+
 });
 
 
