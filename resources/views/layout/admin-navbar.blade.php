@@ -39,13 +39,11 @@
                     </div>
             </div>
             <div :class="open ? 'block' : 'hidden'" class="flex flex-col text-left md:block md:text-right mt-3 md:mt-0">
-                <a href="/items/home" class="menu mt-3 md:mx-3 font-bold">Home</a>
-                <a href="/customers" class=" menu mt-3 md:mx-3  font-bold">Customers</a>
-                {{-- <a href="/customer/supplier" class="mt-3 md:mx-3 hover:text-blue-500 font-bold">Suppliers</a>
-                <a href="/customer/purchaser" class="mt-3 md:mx-3 hover:text-blue-500 font-bold">Purchasers</a> --}}
-                <a href="/items" class="menu mt-3 md:mx-3  font-bold">Items</a>
-                <a href="/inventories" class=" menu mt-3 md:mx-3 font-bold">Inventory</a>
-                <div class=" dropdown relativemt-3 md:mx-3 hover:text-red-500 font-bold inline-block">
+                <a href="/users" class="menu mt-3 md:mx-3 font-bold">Home</a>
+                <a href="" class=" menu mt-3 md:mx-3  font-bold"></a>
+                <a href="" class="menu mt-3 md:mx-3  font-bold"></a>
+                <a href="/users/logout" class=" menu mt-3 md:mx-3 font-bold">Logout</a>
+                {{-- <div class=" dropdown relativemt-3 md:mx-3 hover:text-red-500 font-bold inline-block">
 
                     <!-- Authentication -->
                     <form method="POST" action="{{ route('logout') }}">
@@ -66,7 +64,7 @@
 
                         </ul>
                     </form>
-                </div>
+                </div> --}}
                 {{-- Logout --}}
 
             </div>

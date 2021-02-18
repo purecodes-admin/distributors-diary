@@ -51,18 +51,8 @@ Route::get('ali', function () {
     }  
 });
 
-
-Route::group(['prefix' => 'user'], function() 
-{ 
-    Route::get("/",[userController::class,'index']);
-    Route::view("add","user/add_distributor");
-    Route::post("add",[userController::class,'store']);
-    Route::get("send-email",[userController::class,'store']);
-    Route::view("set-password","user/password");
-    // Route::get("set-password/{id}",[userController::class,'UpdatePassword']);
-    Route::post("set",[userController::class,'SetPassword']);
-    
-});
+Route::view("admin-login","users/admin-login");
+Route::post("login",[userController::class,'authenticate']);
 
 Route::group(['middleware' => ['auth', 'verified']], function() {
 
@@ -70,7 +60,18 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-   
+Route::group(['prefix' => 'users'], function() 
+{ 
+    Route::get("/",[userController::class,'index']);
+    Route::view("add","users/add_distributor");
+    Route::post("add",[userController::class,'store']);
+    Route::get("send-email",[userController::class,'store']);
+    Route::view("set-password","users/password");
+    Route::get("logout",[userController::class,'destroy']);
+    // Route::get("set-password/{id}",[userController::class,'UpdatePassword']);
+    Route::post("set",[userController::class,'SetPassword']);
+    
+});  
 
     Route::group(['prefix' => 'customers'], function() 
     { 

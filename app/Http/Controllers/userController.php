@@ -6,10 +6,11 @@ use App\Models\User;
 use App\Mail\TestMail;
 use Illuminate\Http\Request;
 use Illuminate\support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use App\Http\Controllers\userController;
 use Illuminate\Auth\Events\Registered;
+use App\Http\Controllers\userController;
 
 class userController extends Controller
 {
@@ -17,7 +18,7 @@ class userController extends Controller
     {
 
         $users = User::all();
-        return view('user.admin_dashboard', ['data' => $users]);
+        return view('users.admin_dashboard', ['data' => $users]);
     }
 
     public function store(Request $request)
@@ -32,6 +33,7 @@ class userController extends Controller
             $user->name=$request->name;
             $user->email=$request->email;
             $user->password=Hash::make($request->password);
+            $user->set_as= 0;
             $user->save();
 
             // event(new Registered($user));
@@ -45,6 +47,42 @@ class userController extends Controller
             ];
             Mail::to($user->email)->send(new TestMail($details));
         }
+
+        // Admin Login Code
+
+        public function authenticate(Request $request)
+        {
+            $credentials = $request->only('email', 'password');   
+
+            // $credentials['set_as'] = 1; 2nd method to pass data
+
+            if (Auth::attempt(['email' => $credentials['email'], 'password' => $credentials['password'], 'set_as' => 1])) {
+                $request->session()->regenerate();
+    
+                return redirect()->intended('users');
+            }
+    
+            return back()->withErrors([
+                'email' => 'The provided credentials do not match our records.',
+            ]);
+        }
+
+
+
+        public function destroy(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('admin-login');
+    }
+
+
+
+
 
         // public function UpdatePassword($id){
         //     $user=User::find($id);

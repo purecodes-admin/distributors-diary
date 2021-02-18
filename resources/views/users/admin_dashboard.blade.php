@@ -1,4 +1,4 @@
-@extends('layout/master')
+@extends('layout/admin-master')
 @section('title', 'Records List')
 @section('content')
 
@@ -8,7 +8,7 @@
 
     <div class="flex justify-end">
 
-        <a href="/user/add">
+        <a href="/users/add">
 
             <button class="mt-2 mr-2 bg-green-700 hover:bg-green-900 text-white font-bold  px-1 rounded">New <i
                     class="fas fa-plus"></i></button>

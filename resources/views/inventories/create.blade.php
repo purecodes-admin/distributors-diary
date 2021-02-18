@@ -96,11 +96,6 @@
             window.setTimeout("document.getElementById('danger').style.display='none';", 3000);
             for (let el of document.querySelectorAll('.error')) el.style.display = 'none';
             var token = document.forms["myForm"]["_token"].value;
-            var item_id = document.forms["myForm"]["item_id"].value;
-            if (item_id == "") {
-                document.getElementById("itemmsg").style.display = ""
-                return false;
-            }
 
             var category = document.forms["myForm"]["category"].value;
             if (category == "") {
@@ -110,6 +105,11 @@
             var customer_id = document.forms["myForm"]["customer_id"].value;
             if (customer_id == "") {
                 document.getElementById("customermsg").style.display = ""
+                return false;
+            }
+            var item_id = document.forms["myForm"]["item_id"].value;
+            if (item_id == "") {
+                document.getElementById("itemmsg").style.display = ""
                 return false;
             }
             var quantity = document.forms["myForm"]["quantity"].value;

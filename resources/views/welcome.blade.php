@@ -17,7 +17,7 @@
     @endif
 
     <div class="flex justify-center">
-        <h1 class="text-xl text-yellow-500">
+        <h1 class="text-xl text-gray-700">
             Welcome To Direct Shot
             (A Distributing Company).....!!!
         </h1>

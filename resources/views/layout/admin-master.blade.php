@@ -24,20 +24,7 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
-
-
-    {{-- <link href="/fonts/Roboto-Bold.ttf" rel="stylesheet">
-    <link href="/fonts/Roboto-Regular.ttf" rel="stylesheet">
-    <link href="/fonts/Roboto-Thin.ttf" rel="stylesheet"> --}}
-
     <style>
-        /* @font-face {
-            font-family: Roboto;
-            src: url('/fonts/Roboto-Thin.ttf');
-            src: url('/fonts/Roboto-Bold.ttf');
-            src: url('/fonts/Roboto-Regular.ttf');
-        } */
-
         body {
             font-family: 'Roboto', sans-serif;
         }
@@ -47,7 +34,7 @@
 
 <body class="bg-gray-100 dark:bg-gray-900">
 
-    @include('layout.logo')
+    @include('layout.admin-navbar')
 
     <div class="container mx-auto px-20">
         {{-- @include('layout.logo') --}}
