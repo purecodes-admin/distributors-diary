@@ -23,10 +23,12 @@ class ItemController extends Controller
                 $q->where('name', 'like', '%' . request('search') . '%');
             })
             ->paginate(5);
-
-        return view('items.items', ['data' => $items ]);
-        // $data=Item::paginate(5);
-        // return view('item.items',['data'=>$data]);
+            if(Gate::allows('distributor-only')){
+                    return view('items.items', ['data' => $items ]);
+            }
+            else{
+                return"405! Method Not Allowed!";
+            }
     }
 
     /**
@@ -36,7 +38,12 @@ class ItemController extends Controller
      */
     public function create()
     {
-        //
+        if(Gate::allows('distributor-only')){
+            return view('items.store');
+        }
+        else{
+            return"405! Method Not Allowed";
+        }
     }
 
     /**
@@ -116,8 +123,13 @@ class ItemController extends Controller
 
     public function RemainingStock()
     {
+        if(Gate::allows('distributor-only')){
         return view('items.home', ['data' => Item::where('distributor_id',auth()->user()->id)
         ->paginate(5)]);
+        }
+        else{
+            return"405! Method Not Allowed!";
+        }
     }
 
     public function timeline(Item $item)
@@ -126,11 +138,22 @@ class ItemController extends Controller
         ->where('item_id',$item->id)
         ->paginate(5);
         if(!$inventories->isEmpty()){
-        return view('items.timeline', ['data' => $inventories]);
+            if(Gate::allows('distributor-only')){
+              return view('items.timeline', ['data' => $inventories]);
+            }
+            else{
+                return"405! Method Not Allowed";
+            }
         }
         else{
-            return view('items.timeline', ['data' => $inventories]);
+            if(Gate::allows('distributor-only')){
+             return view('items.timeline', ['data' => $inventories]);
+            }
+            else{
+                return"405! Method Not Allowed";
+            
         }
         }
 
+}
 }

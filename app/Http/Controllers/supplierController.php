@@ -11,6 +11,7 @@ use App\Http\Controllers\supplierController;
 class supplierController extends Controller
 {
 
+// View Customers code
 
     public function index()
 	{
@@ -19,17 +20,54 @@ class supplierController extends Controller
             $query->where('name','like','%'.request('search').'%');
         })
         ->paginate(3);
+        if(Gate::allows('distributor-only')){
 		return view('customers.customers', ['data' => $customers ]);
+        }
+        else{
+            return"405! Method Not Allowed!"; 
+        }
     }
+
+    // View suppliers code
+
+
     public function suppliers()
 	{
+         if(Gate::allows('distributor-only')){
 		return view('customers.supplier', ['data' => supplier::where('category','supplier')->where('distributor_id',auth()->user()->id)->paginate(3)]);
+         }
+         else{
+            return"405! Method Not Allowed!"; 
+        }
     }
+
+
+    // View purchasers code
+
     public function purchasers()
 	{
+        if(Gate::allows('distributor-only')){
 		return view('customers.purchaser', ['data' => supplier::where('category','purchaser')->where('distributor_id',auth()->user()->id)->paginate(3)]);
+        }
+        else{
+            return"405! Method Not Allowed!"; 
+        }
+    }
+
+    // Add Customer Form Code
+
+    public function create(){
+
+        if(Gate::allows('distributor-only')){
+            return view('customers.add');
+        }
+        else{
+            return"405! Method Not Allowed!";
+        }
     }
     
+    // Add Customer Code
+
     public function add(Request $req)
     {
         $supplier= new supplier;
@@ -44,6 +82,7 @@ class supplierController extends Controller
 
     }
 
+// Edit Customer Code
 
     public function edit(supplier $supplier)
 	{
@@ -55,6 +94,8 @@ class supplierController extends Controller
         }
     }
     
+    // Update Customer Code
+
     public function update(Request $req)
     {
 		$supplier=supplier::find($req->id);
@@ -65,6 +106,8 @@ class supplierController extends Controller
         $supplier->discription=$req->discription;
         $supplier->save();
     }
+
+    // Delete Customer Code
 
     public function delete(supplier $supplier)
 	{

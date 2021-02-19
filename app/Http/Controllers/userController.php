@@ -7,6 +7,7 @@ use App\Mail\TestMail;
 use Illuminate\Http\Request;
 use Illuminate\support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Auth\Events\Registered;
@@ -18,8 +19,26 @@ class userController extends Controller
     {
 
         $users = User::all();
+        if ( Gate::allows('admin-only')) {
         return view('users.admin_dashboard', ['data' => $users]);
+        }
+        else{
+            return'405! Method Not Allowed!';
+        }
     }
+
+    // Getting Form For Add Distributor
+
+    public function create(){
+        if(Gate::allows('admin-only')){
+        return view("users.add_distributor");
+        }
+        else{
+            return"405! Method Not Allowed!";
+        }
+    }
+
+    // Add Distributor Code
 
     public function store(Request $request)
         {
@@ -50,7 +69,7 @@ class userController extends Controller
 
         // Admin Login Code
 
-        public function authenticate(Request $request)
+        public function AdminLogin(Request $request)
         {
             $credentials = $request->only('email', 'password');   
 
@@ -68,6 +87,7 @@ class userController extends Controller
         }
 
 
+        //  Logout Code
 
         public function destroy(Request $request)
     {
@@ -80,14 +100,18 @@ class userController extends Controller
         return redirect('admin-login');
     }
 
+    //  Change Password Get Form Code
 
+    public function UpdatePassword(){
+        if(Gate::allows('distributor-only')){
+        return view('users.password');
+        }
+        else{
+            return"405! Method Not Allowed!";
+        }
+    }
 
-
-
-        // public function UpdatePassword($id){
-        //     $user=User::find($id);
-		// return view('user.password',['data'=>$user]);
-        // }
+        //  Change Password Code
 
         public function SetPassword(Request $request){
             $user=auth()->user();
@@ -98,8 +122,7 @@ class userController extends Controller
 
             }
             else{
-                return redirect()->back()->with('error','Old Pasword Does not Match');
+               return response()->json(['message' => 'Passwords are not matched'], 428);
             }
         }
-
 }

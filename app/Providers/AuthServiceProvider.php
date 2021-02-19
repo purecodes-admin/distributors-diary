@@ -26,14 +26,13 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
         Gate::define('update-customer', function (User $user, $item) {
             return $user->id === $item->distributor_id;
+        });
 
-            // if ($user->id== $item->distributor_id) {
-            //     return true;
-            // }
-            // else{
-            //      return false;
-            // }
-
+        Gate::define('admin-only',function(User $user) {
+            return $user->set_as == 1;
+        });
+        Gate::define('distributor-only',function(User $user) {
+            return $user->set_as == 0;
         });
     }
 }

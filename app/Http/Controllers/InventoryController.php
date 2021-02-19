@@ -28,7 +28,12 @@ class InventoryController extends Controller
          }
          )
         ->paginate(5);
+        if(Gate::allows('distributor-only')){
         return view('inventories.inventory', ['data' => $inventories]);
+        }
+        else{
+            return"405! Method Not Allowed!";
+        }
     }
 
     /**
@@ -50,7 +55,12 @@ class InventoryController extends Controller
 
         $customers = $customers->where('distributor_id', auth()->user()->id)->get();
         $items = DB::table('items')->where('distributor_id', auth()->user()->id)->get();
+        if(Gate::allows('distributor-only')){
         return view('inventories.create', compact('customers','items'));
+        }
+        else{
+            return"405! Method Not Allowed!";
+        }
     }
 
     /**
@@ -164,5 +174,16 @@ class InventoryController extends Controller
             Session::flash('message', 'Already Payed!'); 
             return redirect('inventories');
         }
+    }
+
+    // payment pending Code
+
+    public function dues()
+    {
+        $inventories = Inventory::with('item')->with('customer')
+        ->where('distributor_id', auth()->user()->id)
+        ->paginate(5);
+        return view('items.home', ['data' => $inventories]);
+        
     }
 }

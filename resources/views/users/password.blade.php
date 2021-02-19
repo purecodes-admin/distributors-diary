@@ -1,4 +1,4 @@
-@extends('layout/admin-master')
+@extends('layout/master')
 @section('address', 'Add Distributor')
 @section('content')
 
@@ -8,11 +8,11 @@
         <span class="ml-60 font-bold" id="success" style="color:green; display:none;">
             Your Password is Updated Successfully...!!!
         </span>
-        <span id="danger" style="color:red; display:none;">
+        <span class="ml-60 font-bold" id="danger" style="color:red; display:none;">
             Your Password is Not Updated...!!!
         </span>
     </h3>
-    <p>{{ $errors }}</p>
+    <div id="errors"></div>
     <form method="post" name="myForm" id="addForm">
         @csrf
         <input type="hidden" name="id" value="">
@@ -113,7 +113,14 @@
                 },
                 error: function(res) {
                     console.log(res);
+                    let errors = res.responseJSON.message;
+                    console.log(errors);
 
+                    let html = '<div style="color: red;">';
+                    html += '<p>' + errors + '</p>';
+                    html += '</div>';
+
+                    document.getElementById('errors').innerHTML = html;
                     document.getElementById("danger").style.display = ""
                 }
             });

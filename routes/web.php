@@ -52,7 +52,7 @@ Route::get('ali', function () {
 });
 
 Route::view("admin-login","users/admin-login");
-Route::post("login",[userController::class,'authenticate']);
+Route::post("admin-login",[userController::class,'AdminLogin']);
 
 Route::group(['middleware' => ['auth', 'verified']], function() {
 
@@ -63,12 +63,11 @@ Route::get('/dashboard', function () {
 Route::group(['prefix' => 'users'], function() 
 { 
     Route::get("/",[userController::class,'index']);
-    Route::view("add","users/add_distributor");
+    Route::get("add",[userController::class,'create']);
     Route::post("add",[userController::class,'store']);
     Route::get("send-email",[userController::class,'store']);
-    Route::view("set-password","users/password");
+    Route::get("set-password",[userController::class,'UpdatePassword']);
     Route::get("logout",[userController::class,'destroy']);
-    // Route::get("set-password/{id}",[userController::class,'UpdatePassword']);
     Route::post("set",[userController::class,'SetPassword']);
     
 });  
@@ -78,7 +77,7 @@ Route::group(['prefix' => 'users'], function()
         Route::get("/",[supplierController::class,'index']);
         Route::get("suppliers",[supplierController::class,'suppliers']);
         Route::get("purchasers",[supplierController::class,'purchasers']);
-        Route::view("add","customers/add");
+        Route::get("add",[supplierController::class,'create']);
         Route::post("add",[supplierController::class,'add']);
         Route::get("edit/{supplier}",[supplierController::class,'edit']);
         Route::post("update",[supplierController::class,'update']); 
@@ -101,13 +100,14 @@ Route::group(['prefix' => 'users'], function()
         Route::post("update",[InventoryController::class,'update']);
         Route::get("delete/{inventory}",[InventoryController::class,'destroy']);
         Route::get("payment/{inventory}",[InventoryController::class,'payment']);
+        Route::get("items/home",[InventoryController::class,'dues']);
     });
 
 
     Route::group(['prefix' => 'items'], function() 
     {
             Route::get("/",[ItemController::class,'index']);
-            Route::view("add","items/store");
+            Route::get("add",[ItemController::class,'create']);
             Route::post("add",[ItemController::class,'store']);
             Route::get("edit/{item}",[ItemController::class,'edit']);
             Route::post("update",[ItemController::class,'update']);
