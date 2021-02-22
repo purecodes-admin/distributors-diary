@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Item;
+use App\Models\supplier;
 use App\Models\Inventory;
 use Illuminate\Http\Request;
 use Illuminate\support\Facades\DB;
@@ -123,20 +124,33 @@ class ItemController extends Controller
 
     public function RemainingStock()
     {
+        // payment pending code and remaining stock code view on same page
+        // you can pass more than 1 variable in array like in this function e.g dues and data
+        
         if(Gate::allows('distributor-only')){
-        return view('items.home', ['data' => Item::where('distributor_id',auth()->user()->id)
-        ->paginate(5)]);
+
+            $payment = supplier::where('distributor_id', auth()->user()->id)
+                ->orderBy('dues','desc')
+                ->paginate(5);
+
+        return view('items.home', [
+            'data' => Item::where('distributor_id',auth()->user()->id)->paginate(5),
+            'dues' => $payment
+            ]);
         }
         else{
             return"405! Method Not Allowed!";
         }
     }
 
+    // Timeline of an item code
+
     public function timeline(Item $item)
     {  
         $inventories = Inventory::with('item')->with('customer')->with('user')->where('distributor_id', auth()->user()->id)
         ->where('item_id',$item->id)
         ->paginate(5);
+
         if(!$inventories->isEmpty()){
             if(Gate::allows('distributor-only')){
               return view('items.timeline', ['data' => $inventories]);
@@ -156,4 +170,36 @@ class ItemController extends Controller
         }
 
 }
+
+
+// Method To call a Function in a Function to display 2 or more querries E.g in RemainingStock function
+// protected function dues()
+// {  
+//     return Inventory::with('item')->with('customer')
+//     ->where('distributor_id', auth()->user()->id)
+//     ->whereNull('payment')
+//     ->orderBy('price','desc')
+//     ->paginate(5);
+// }
+
+
 }
+
+
+
+
+
+
+
+// if($inventory->customer->category === 'supplier'){
+//     DB::table('suppliers')->where('id',$inventory->customer_id)
+//     ->where('distributor_id',$request->user()->id)
+//     ->add('price',$inventory->price)
+//     ;
+// } 
+// else 
+// {
+//     DB::table('items')->where('id',$inventory->item_id)
+//     ->where('distributor_id',$request->user()->id)
+//     ->decrement('stock',$inventory->quantity);
+// }

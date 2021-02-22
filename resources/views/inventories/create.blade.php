@@ -11,6 +11,8 @@
             Stock Addition Failed...!!!
         </span>
     </h3>
+
+    <div id="errors"></div>
     <form action="store" method="POST" name="myForm" id="addForm" onsubmit=" return AddStock()">
         @csrf
         <div class="flex flex-col w-1/2">
@@ -139,6 +141,14 @@
                     $("#category").val($("#category option:first").val());
                 },
                 error: function(res) {
+                    console.log(res);
+                    let errors = res.responseJSON.message;
+
+                    let html = '<div style="color: red; font-weight:bold; margin-left:20px;">';
+                    html += '<p>' + errors + '</p>';
+                    html += '</div>';
+
+                    document.getElementById('errors').innerHTML = html;
                     document.getElementById("danger").style.display = ""
                 }
             });

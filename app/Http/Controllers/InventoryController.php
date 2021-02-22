@@ -71,6 +71,21 @@ class InventoryController extends Controller
      */
     public function store(Request $request)
     {
+
+        // validate stock
+            // Get item from user
+            $userItem = $request->item_id;
+            // get item quantity from user
+            $userQty = $request->quantity;
+            $usertype=$request->category;
+            // Check if item's stock in the db is greater than the user qty            
+            // If stock is less than user's qty, throw an error
+            $item = Item::where('id', $userItem)
+            ->first();
+            if($item->stock > $userQty){
+
+            // otherwise add new inventory 
+
         $inventory= new Inventory;
         $inventory->distributor_id=$request->user()->id;
     	$inventory->item_id=$request->item_id;
@@ -78,6 +93,16 @@ class InventoryController extends Controller
     	$inventory->quantity=$request->quantity;
         $inventory->price=$inventory->item->price * $inventory->quantity;
         $inventory->save();
+            }
+        else{
+            return response()->json(['message' => 'Out of Stock..!!!'], 507);
+        }
+
+        DB::table('suppliers')->where('id',$inventory->customer_id)
+        ->where('distributor_id',$request->user()->id)
+        ->increment('dues',$inventory->price)
+        ;
+
 
         if($inventory->customer->category === 'supplier'){
             DB::table('items')->where('id',$inventory->item_id)
@@ -91,6 +116,7 @@ class InventoryController extends Controller
             ->where('distributor_id',$request->user()->id)
             ->decrement('stock',$inventory->quantity);
         }
+
     }
 
     /**
@@ -162,11 +188,15 @@ class InventoryController extends Controller
             return'You Are Not The Owner of This Inventory....!!!';
         }
     }
-    public function payment(Inventory $inventory)
+    public function payment(Inventory $inventory ,Request $request)
     {
     	if(is_null($inventory->payment)){
-            $inventory->payment='Payed';
+            $inventory->payment=$inventory->price;
             $inventory->save();
+            DB::table('suppliers')->where('id',$inventory->customer_id)
+            ->where('distributor_id',$request->user()->id)
+            ->decrement('dues',$inventory->payment)
+            ;
             Session::flash('payment', 'Payment Added Successfully!'); 
             return redirect('inventories');
         }
@@ -174,16 +204,5 @@ class InventoryController extends Controller
             Session::flash('message', 'Already Payed!'); 
             return redirect('inventories');
         }
-    }
-
-    // payment pending Code
-
-    public function dues()
-    {
-        $inventories = Inventory::with('item')->with('customer')
-        ->where('distributor_id', auth()->user()->id)
-        ->paginate(5);
-        return view('items.home', ['data' => $inventories]);
-        
     }
 }

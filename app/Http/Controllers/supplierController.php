@@ -78,6 +78,7 @@ class supplierController extends Controller
     	$supplier->contact=$req->contact;
         $supplier->discription=$req->discription;
         $supplier->category=$req->category;
+        $supplier->dues=0;
         $supplier->save();
 
     }

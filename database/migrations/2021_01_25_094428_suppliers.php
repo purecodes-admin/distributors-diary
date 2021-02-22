@@ -22,6 +22,7 @@ class Suppliers extends Migration
             $table->string('contact',11);
             $table->mediumText('discription');
             $table->string('category');
+            $table->integer('dues');
             $table->timestamps();
 
             $table->foreign('distributor_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
