@@ -100,6 +100,7 @@ Route::group(['prefix' => 'users'], function()
         Route::post("update",[InventoryController::class,'update']);
         Route::get("delete/{inventory}",[InventoryController::class,'destroy']);
         Route::get("payment/{inventory}",[InventoryController::class,'payment']);
+        Route::get('prices', [InventoryController::class,'GetPrices']);
     });
 
 
@@ -113,6 +114,7 @@ Route::group(['prefix' => 'users'], function()
             Route::get("delete/{item}",[ItemController::class,'destroy']);
             Route::get('home', [ItemController::class,'RemainingStock']);
             Route::get('timeline/{item}', [ItemController::class,'timeline']);
+            // Route::get('prices', [ItemController::class,'GetPrices']);
             // Route::get('dues', [ItemController::class,'dues']);
     });
 

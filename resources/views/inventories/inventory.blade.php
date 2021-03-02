@@ -69,7 +69,7 @@
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ number_format($record->quantity) }}
                     </td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        {{ number_format($record->item->price) }}
+                        {{ number_format($record->unit_price) }}
                     </td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ number_format($record->price) }}
                     </td>

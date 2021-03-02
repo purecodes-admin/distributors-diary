@@ -82,7 +82,15 @@ class InventoryController extends Controller
             // If stock is less than user's qty, throw an error
             $item = Item::where('id', $userItem)
             ->first();
-            if($item->stock > $userQty){
+
+
+            if($usertype=== 'purchaser') {
+                if($item->stock < $userQty) {
+                    return response()->json(['message' => 'Out of Stock..!!!'], 428);
+                }
+            }
+
+
 
             // otherwise add new inventory 
 
@@ -91,17 +99,19 @@ class InventoryController extends Controller
     	$inventory->item_id=$request->item_id;
         $inventory->customer_id=$request->customer_id;
     	$inventory->quantity=$request->quantity;
-        $inventory->price=$inventory->item->price * $inventory->quantity;
+        $inventory->unit_price = $request->price;
+    	$inventory->price=$request->price * $inventory->quantity;
         $inventory->save();
-            }
-        else{
-            return response()->json(['message' => 'Out of Stock..!!!'], 507);
-        }
+            
 
         DB::table('suppliers')->where('id',$inventory->customer_id)
         ->where('distributor_id',$request->user()->id)
         ->increment('dues',$inventory->price)
         ;
+
+        DB::table('items')->where('id',$inventory->item_id)
+        ->where('distributor_id',$request->user()->id)
+        ->increment('total_money',$inventory->price);
 
 
         if($inventory->customer->category === 'supplier'){
@@ -204,5 +214,15 @@ class InventoryController extends Controller
             Session::flash('message', 'Already Payed!'); 
             return redirect('inventories');
         }
+    }
+
+    public function GetPrices(Request $request){
+
+        $item = Item::select('wholesale_price','retailsale_price')
+        ->where('distributor_id',auth()->user()->id)
+        ->where('id', $request->id)
+        ->first();
+        return $item;
+    
     }
 }

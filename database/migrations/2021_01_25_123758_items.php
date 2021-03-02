@@ -17,8 +17,10 @@ class Items extends Migration
             $table->id();
             $table->unsignedBigInteger('distributor_id');
             $table->string('name');
-            $table->integer('price');
+            $table->integer('wholesale_price');
+            $table->integer('retailsale_price');
             $table->integer('stock');
+            $table->integer('total_money');
             $table->timestamps();
 
             $table->foreign('distributor_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');

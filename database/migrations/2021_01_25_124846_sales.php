@@ -19,6 +19,7 @@ class Sales extends Migration
             $table->unsignedBigInteger('item_id');
             $table->unsignedBigInteger('customer_id');
             $table->integer('quantity');
+            $table->integer('unit_price');
             $table->integer('price');
             $table->string('payment')->nullable();
             $table->timestamps();

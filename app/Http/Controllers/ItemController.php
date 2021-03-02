@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Carbon\Carbon;
 use App\Models\Item;
 use App\Models\supplier;
 use App\Models\Inventory;
@@ -58,8 +59,10 @@ class ItemController extends Controller
         $item= new Item;
         $item->distributor_id=$request->user()->id;
     	$item->name=$request->name;
-    	$item->price=$request->price;
+    	$item->wholesale_price=$request->wholesale_price;
+    	$item->retailsale_price=$request->retailsale_price;
         $item->stock=0;
+        $item->total_money=0;
         $item->save();
     }
 
@@ -102,7 +105,8 @@ class ItemController extends Controller
     {
         $item=Item::find($request->id);
         $item->name=$request->name;
-        $item->price=$request->price;
+        $item->wholesale_price=$request->wholesale_price;
+        $item->retailsale_price=$request->retailsale_price;
         $item->save();
     }
 
@@ -124,18 +128,41 @@ class ItemController extends Controller
 
     public function RemainingStock()
     {
-        // payment pending code and remaining stock code view on same page
+        // isme ab raw nahi lagega ab loope lagy ga wo same items ki price add karega aur category purchaser deni ha usme
+        // $date = \Carbon\Carbon::today()->subDays(7);
+
+        // return Inventory::selectRaw('sum(price) as price, item_id, max(customer_id) as customer_id, max(customer.category) as cat')->with('customer')->with('item')->where('distributor_id',auth()->user()->id)
+        //     ->where('created_at','>=',$date)
+        //     ->whereRaw('customer.category = purchaser')
+        //     ->orderBy('price','desc')->limit(5)
+        //     ->groupBy('item_id')
+        //     ->get();
+
+        // payment pending code and remaining stock code view on same page two view together
         // you can pass more than 1 variable in array like in this function e.g dues and data
         
         if(Gate::allows('distributor-only')){
 
+            $date = \Carbon\Carbon::today()->subDays(7);
+
             $payment = supplier::where('distributor_id', auth()->user()->id)
+            ->where('dues', '!=' , 0)
                 ->orderBy('dues','desc')
-                ->paginate(5);
+                ->get();
 
         return view('items.home', [
-            'data' => Item::where('distributor_id',auth()->user()->id)->paginate(5),
+            'data' => Item::where('distributor_id',auth()->user()->id)
+            ->orderBy('stock','asc')
+            ->get(),
+
+            
+            'inventory' => Inventory::selectRaw('sum(price) as price, item_id')->with('item')->where('distributor_id',auth()->user()->id)
+            ->where('created_at','>=',$date)
+            ->orderBy('price','desc')->limit(5)
+            ->groupBy('item_id')
+            ->get(),
             'dues' => $payment
+
             ]);
         }
         else{
@@ -168,38 +195,5 @@ class ItemController extends Controller
             
         }
         }
-
+    }
 }
-
-
-// Method To call a Function in a Function to display 2 or more querries E.g in RemainingStock function
-// protected function dues()
-// {  
-//     return Inventory::with('item')->with('customer')
-//     ->where('distributor_id', auth()->user()->id)
-//     ->whereNull('payment')
-//     ->orderBy('price','desc')
-//     ->paginate(5);
-// }
-
-
-}
-
-
-
-
-
-
-
-// if($inventory->customer->category === 'supplier'){
-//     DB::table('suppliers')->where('id',$inventory->customer_id)
-//     ->where('distributor_id',$request->user()->id)
-//     ->add('price',$inventory->price)
-//     ;
-// } 
-// else 
-// {
-//     DB::table('items')->where('id',$inventory->item_id)
-//     ->where('distributor_id',$request->user()->id)
-//     ->decrement('stock',$inventory->quantity);
-// }

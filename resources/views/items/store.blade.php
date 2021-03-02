@@ -11,7 +11,7 @@
             Item Submittion Failed...!!!
         </span>
     </h3>
-    <form action="add" method="POST" name="myForm" onsubmit="return validateForm()" id="addForm">
+    <form action="add" method="POST" name="myForm" id="addForm">
         @csrf
         <div class="flex flex-col w-1/2">
             <label for="name" class="leading-10 pl-2">Name:</label>
@@ -24,21 +24,34 @@
         </div>
 
         <div class="flex flex-col w-1/2">
-            <label for="price" class="leading-10 pl-2">Price:</label>
-            <input type="text" value="{{ old('price') }}" name="price"
+            <label for="wholesale_price" class="leading-10 pl-2">Whole Sale Price:</label>
+            <input type="text" value="{{ old('wholesale_price') }}" name="wholesale_price"
                 class=" ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
-                placeholder="Enter Price">
+                placeholder="Enter Whole Sale Price">
 
-            <span class="ml-4 error font-bold" id="pricemsg" style="color:Red;display:none">Price must be filled
-                out!</span> <span class="ml-4 error font-bold" id="pricemsg1" style="color:Red;display:none">Price
+            <span class="ml-4 error font-bold" id="pricemsg" style="color:Red;display:none">Whole Sale Price must be filled
+                out!</span> <span class="ml-4 error font-bold" id="pricemsg1" style="color:Red;display:none">Whole Sale
+                Price
+                must be filled
+                out in digits only!</span>
+
+        </div>
+        <div class="flex flex-col w-1/2">
+            <label for="retailsale_price" class="leading-10 pl-2">Retail Sale Price:</label>
+            <input type="text" value="{{ old('retailsale_price') }}" name="retailsale_price"
+                class=" ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+                placeholder="Enter Retail Price">
+
+            <span class="ml-4 error font-bold" id="r_pricemsg" style="color:Red;display:none">Retail Price must be filled
+                out!</span> <span class="ml-4 error font-bold" id="r_pricemsg1" style="color:Red;display:none">Retail Price
                 must be filled
                 out in digits only!</span>
 
         </div>
 
         <div class="flex flex-col w-1/2 mt-2">
-            <button class="bg-green-700 hover:bg-green-900 font-bold text-white ml-2 py-2 rounded"
-                type="submit">Add</button><br>
+            <button class="bg-green-700 hover:bg-green-900 font-bold text-white ml-2 py-2 rounded" type="button"
+                onclick="return validateForm()">Add</button><br>
         </div>
     </form>
 
@@ -55,14 +68,24 @@
                 document.getElementById("namemsg").style.display = ""
                 return false;
             }
-            var price = document.forms["myForm"]["price"].value;
-            if (price == "") {
+            var wholesale_price = document.forms["myForm"]["wholesale_price"].value;
+            if (wholesale_price == "") {
                 document.getElementById("pricemsg").style.display = ""
                 return false;
             }
-            var price = document.forms["myForm"]["price"].value;
-            if (isNaN(price)) {
+            var wholesale_price = document.forms["myForm"]["wholesale_price"].value;
+            if (isNaN(wholesale_price)) {
                 document.getElementById("pricemsg1").style.display = ""
+                return false;
+            }
+            var retailsale_price = document.forms["myForm"]["retailsale_price"].value;
+            if (retailsale_price == "") {
+                document.getElementById("r_pricemsg").style.display = ""
+                return false;
+            }
+            var retailsale_price = document.forms["myForm"]["retailsale_price"].value;
+            if (isNaN(retailsale_price)) {
+                document.getElementById("r_pricemsg1").style.display = ""
                 return false;
             }
 
@@ -71,7 +94,8 @@
                 url: 'add',
                 data: {
                     name: name,
-                    price: price,
+                    wholesale_price: wholesale_price,
+                    retailsale_price: retailsale_price,
                     _token: token
                 },
                 success: function(response) {
