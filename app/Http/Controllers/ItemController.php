@@ -128,15 +128,39 @@ class ItemController extends Controller
 
     public function RemainingStock()
     {
-        // isme ab raw nahi lagega ab loope lagy ga wo same items ki price add karega aur category purchaser deni ha usme
-        // $date = \Carbon\Carbon::today()->subDays(7);
+        $date = \Carbon\Carbon::today()->subDays(7);
 
-        // return Inventory::selectRaw('sum(price) as price, item_id, max(customer_id) as customer_id, max(customer.category) as cat')->with('customer')->with('item')->where('distributor_id',auth()->user()->id)
-        //     ->where('created_at','>=',$date)
-        //     ->whereRaw('customer.category = purchaser')
-        //     ->orderBy('price','desc')->limit(5)
-        //     ->groupBy('item_id')
-        //     ->get();
+        $items = [] ;
+
+         $inventories = Inventory::with('item')->with('customer')->where('distributor_id',auth()->user()->id)
+        ->get();
+
+
+        foreach($inventories as $inventory) { 
+            if($inventory->customer->category !== 'purchaser') {
+                continue;
+            }
+
+            if(array_key_exists($inventory->item->id, $items)) {
+                $items[$inventory->item->id]['price'] += $inventory->price;
+                continue;    
+            }
+
+            $items[$inventory->item->id] = ['name' => $inventory->item->name, 'price' => $inventory->price];
+
+        }
+        // return $items;
+        // Declare an empty array variable
+        // loop over inventories
+        // ignore if customer category isn't purchaser  
+        // Check if item already added to array variable
+            // if it's already added, add price to previous entry in the array
+            // if it's not already added, add new entry in the array variable
+        // Pass array variable to view
+
+        // name of the item, sum of the prices within chosen duration
+
+
 
         // payment pending code and remaining stock code view on same page two view together
         // you can pass more than 1 variable in array like in this function e.g dues and data
@@ -156,12 +180,8 @@ class ItemController extends Controller
             ->get(),
 
             
-            'inventory' => Inventory::selectRaw('sum(price) as price, item_id')->with('item')->where('distributor_id',auth()->user()->id)
-            ->where('created_at','>=',$date)
-            ->orderBy('price','desc')->limit(5)
-            ->groupBy('item_id')
-            ->get(),
-            'dues' => $payment
+            'inventory' => $items,
+            'dues' => $payment,
 
             ]);
         }
