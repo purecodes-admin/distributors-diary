@@ -46,6 +46,7 @@ class userController extends Controller
                 'name' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255|unique:users',
                 'password' => 'required|string|min:8',
+                'image'=>'required|file|max:255',
             ]);
             
             $user= new User;
@@ -53,6 +54,20 @@ class userController extends Controller
             $user->email=$request->email;
             $user->password=Hash::make($request->password);
             $user->set_as= 0;
+
+            // $user->image= $request->image;
+            if($request->hasfile('image')){
+                    $file = $request->file('image');
+                    $extension = $file->getClientOriginalExtension(); 
+                    // getting image extention
+                    $filename = time().'.'. $extension;
+                    $file->move('images/', $filename);
+                    $user->image = $filename;
+                }
+                else{
+                        // return $request;
+                        $user->image='';
+                    }
             $user->save();
 
             // event(new Registered($user));
@@ -124,5 +139,36 @@ class userController extends Controller
             else{
                return response()->json(['message' => 'Passwords are not matched'], 428);
             }
+        }
+
+
+        // upload image code
+
+        public function UpdateImage(){
+
+            return view('users.upload-image');
+        }
+
+        public function UploadImage(Request $request)
+        {
+            
+            $request->validate([
+                'image'=>'required|file|max:255',
+            ]);
+            $user=User::where('id',Auth::user()->id)->first();
+            if($request->hasfile('image')){
+                $file = $request->file('image');
+                $extension = $file->getClientOriginalExtension(); 
+                // getting image extention
+                $filename = time().'.'. $extension;
+                $file->move('images/', $filename);
+                $user->image = $filename;
+            }
+            else{
+                    // return $request;
+                    $user->image='';
+                }
+        $user->save();
+        return redirect('items/home');
         }
 }

@@ -15,61 +15,57 @@
     {{-- <span id="email" style="color:red; display:none;"> --}}
     {{-- The email has already been taken.!!! --}}
     {{-- </span> --}}
-    <form action="" method="POST" name="myForm" id="addForm">
+    <form action="add" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="flex flex-col w-1/2">
             <label for="name" class="leading-10 pl-2">Name:</label>
             <input type="text" name="name" value="{{ old('name') }}"
                 class=" ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600 "
-                placeholder="Name">
-            <span class="ml-4 error font-bold" id="namemsg" style="color:Red;display:none">Name must be filled
-                out!</span>
-
+                placeholder="Name" required>
         </div>
+
+
         <div class="flex flex-col w-1/2">
             <label for="email" class="leading-10 pl-2">Email:</label>
             <input type="email" value="{{ old('email') }}" name="email"
                 class=" ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
-                placeholder="Email">
-            <span class="ml-4 error font-bold" id="emailmsg" style="color:Red;display:none">Email must be filled!
-                out!</span>
-            <span class="ml-4 error font-bold" id="emailmsg2" style="color:Red;display:none">
-
-            </span>
+                placeholder="Email" required>
         </div>
+
+
         <div class="flex flex-col w-1/2">
             <label for="password" class="leading-10 pl-2 ml-4">Password:</label>
             <input type="password" value="{{ old('password') }}" name="password"
                 class=" ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
-                placeholder="Password">
-            <span class="ml-4 error font-bold" id="passwordmsg" style="color:Red;display:none">Password must be filled
-                out!</span>
-            <span class="ml-4 error font-bold" id="passwordmsg1" style="color:Red;display:none">The password must be at
-                least 8 characters.</span>
-
+                placeholder="Password" required>
         </div>
 
         <div class="flex flex-col w-1/2">
             <label for="c_password" class="leading-10 pl-2 ml-4">Confirm Password:</label>
             <input type="password" value="{{ old('c_password') }}" name="c_password"
                 class=" ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
-                placeholder="Confirm Password">
-            <span class="ml-4 error font-bold" id="c_passwordmsg" style="color:Red;display:none">Password must be filled
-                out!</span>
-            <span class="ml-4 error font-bold" id="c_passwordmsg1" style="color:Red;display:none">The password confirmation
-                does not match!</span>
+                placeholder="Confirm Password" required>
+
+        </div>
+
+
+        <div class="flex flex-col w-1/2">
+            <label for="image" class="leading-10 pl-2 ml-4">Image:</label>
+            <input type="file" name="image"
+                class=" ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+                required>
 
         </div>
 
 
 
         <div class="flex flex-col w-1/2 mt-2">
-            <button class="bg-green-700 hover:bg-green-900 font-bold text-white ml-2 py-2 rounded" type="button"
-                onclick="validateForm()">Add</button><br>
+            <button class="bg-green-700 hover:bg-green-900 font-bold text-white ml-2 py-2 rounded"
+                type="submit">Add</button><br>
         </div>
     </form>
 
-    <script>
+    {{-- <script>
         function validateForm() {
 
             window.setTimeout("document.getElementById('success').style.display='none';", 3000);
@@ -107,6 +103,11 @@
                 document.getElementById("c_passwordmsg1").style.display = ""
                 return false;
             }
+            var image = document.forms["myForm"]["image"].value;
+            if (image == "") {
+                document.getElementById("imagemsg").style.display = ""
+                return false;
+            }
 
             document.getElementById('errors').innerHTML = 'loading...';
 
@@ -117,6 +118,7 @@
                     name: name,
                     email: email,
                     password: password,
+                    image: image,
                     _token: token
                 },
                 success: function(response) {
@@ -145,5 +147,5 @@
 
         }
 
-    </script>
+    </script> --}}
 @endsection

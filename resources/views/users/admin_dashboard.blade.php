@@ -41,6 +41,9 @@
                     Email</th>
                 <th
                     class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                    Image</th>
+                <th
+                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                     Date & Time</th>
             </tr>
         </thead>
@@ -50,6 +53,9 @@
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->id }}</td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->name }}</td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->email }}</td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                        <img src="{{ asset('images/' . $record->image) }}" alt="image" height="100px" width="100px">
+                    </td>
                     <td title="{{ $record->created_at }}" style="overflow-wrap:anywhere;"
                         class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         {{ $record->created_at->diffForHumans() }}
