@@ -43,28 +43,50 @@
                 <a href="" class=" menu mt-3 md:mx-3  font-bold"></a>
                 <a href="" class="menu mt-3 md:mx-3  font-bold"></a>
                 <a href="/users/logout" class=" menu mt-3 md:mx-3 font-bold">Logout</a>
-                {{-- <div class=" dropdown relativemt-3 md:mx-3 hover:text-red-500 font-bold inline-block">
+                <div class=" dropdown relativemt-3 md:mx-3 hover:text-red-500 font-bold inline-block">
 
-                    <!-- Authentication -->
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
 
-                        <a href="route('logout')" onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-                            {{ __('Logout') }}
+                    <img src="{{ asset('images/' . Auth::user()->image) }}" alt="" height="30px" width="30px"
+                        class="rounded-3xl inline-block">
+                    <a class="inline-block">
+                        <svg class="fill-current h-4 w-4 inline-block" xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 20 20">
+                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                        </svg>
+                    </a>
 
-                            <svg class="fill-current h-4 w-4 inline-block" xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 20 20">
-                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                            </svg>
-                        </a>
-                        <ul class="dropdown-menu absolute hidden text-white pt-1">
-                            <li class=""><a class="menu mt-3 text-sm" href="/users/set-password">Change
-                                    Password</a></li>
 
-                        </ul>
+
+                    <ul class="dropdown-menu absolute hidden text-gray-200 bg-blue-700"><br>
+
+                        <li class=""><a class="block px-4 py-2 text-sm hover:bg-gray-400 font-extrabold"
+                                href="/users/set-password">Change
+                                Password</a></li>
+                        <li class="">
+                            <a class="block px-4 py-2 text-sm  hover:bg-gray-400 font-extrabold" href="/users/image">
+                                Upload
+                                Profile
+                            </a>
+                        </li>
+                        <li class=""><a class="block px-4 py-2 text-sm hover:bg-gray-400 font-extrabold"
+                                href="/users/set-password">Edit
+                                Profile</a></li>
+
+                        <!-- Authentication -->
+                        <li>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+
+                                <a class="block px-4 py-2 text-sm font-extrabold  hover:bg-gray-400"
+                                    href="route('logout')" onclick="event.preventDefault();
+                                                            this.closest('form').submit();">
+                                    {{ __('Logout') }}
+                                </a>
+                        </li>
+
+                    </ul>
                     </form>
-                </div> --}}
+                </div>
                 {{-- Logout --}}
 
             </div>

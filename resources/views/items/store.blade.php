@@ -1,7 +1,7 @@
 @extends('layout/master')
 @section('address', 'Add Items')
 @section('content')
-    <h3 class="p-5 font-semibold text-lg underline text-green-700     hover:text-green-900">
+    <h3 class="p-5 font-semibold text-lg underline text-blue-700     hover:text-blue-900">
         <span class="fas fa-user"></span>
         <a>Add Items</a>
         <span class="ml-60 font-bold" id="success" style="color:green; display:none;">
@@ -50,7 +50,7 @@
         </div>
 
         <div class="flex flex-col w-1/2 mt-2">
-            <button class="bg-green-700 hover:bg-green-900 font-bold text-white ml-2 py-2 rounded" type="button"
+            <button class="bg-blue-700 hover:bg-blue-900 font-bold text-white ml-2 py-2 rounded" type="button"
                 onclick="return validateForm()">Add</button><br>
         </div>
     </form>

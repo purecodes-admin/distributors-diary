@@ -27,7 +27,7 @@ class InventoryController extends Controller
              $query->whereBetween('created_at',[$from, $to]);
          }
          )
-        ->paginate(5);
+        ->paginate(3);
         if(Gate::allows('distributor-only')){
         return view('inventories.inventory', ['data' => $inventories]);
         }

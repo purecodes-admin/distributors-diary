@@ -1,7 +1,7 @@
 @extends('layout/admin-master')
 @section('address', 'Add Distributor')
 @section('content')
-    <h3 class="p-5 font-semibold text-lg underline text-green-700     hover:text-green-900">
+    <h3 class="p-5 font-semibold text-lg underline text-blue-700     hover:text-blue-900">
         <span class="fas fa-user"></span>
         <a>Add Distributor</a>
         <span class="ml-60 font-bold" id="success" style="color:green; display:none;">
@@ -17,50 +17,65 @@
     {{-- </span> --}}
     <form action="add" method="POST" enctype="multipart/form-data">
         @csrf
-        <div class="flex flex-col w-1/2">
-            <label for="name" class="leading-10 pl-2">Name:</label>
-            <input type="text" name="name" value="{{ old('name') }}"
-                class=" ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600 "
-                placeholder="Name" required>
+        <div class="flex">
+            <div class="flex flex-col w-1/2">
+                <label for="name" class="leading-10 pl-2 ml-2">Name:</label>
+                <input type="text" name="name" value="{{ old('name') }}"
+                    class=" ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600 "
+                    placeholder="Name" required>
+            </div>
+
+
+            <div class="flex flex-col w-1/2">
+                <label for="email" class="leading-10 pl-2 ml-4">Email:</label>
+                <input type="email" value="{{ old('email') }}" name="email"
+                    class=" ml-4 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+                    placeholder="Email" required>
+            </div>
         </div>
 
 
-        <div class="flex flex-col w-1/2">
-            <label for="email" class="leading-10 pl-2">Email:</label>
-            <input type="email" value="{{ old('email') }}" name="email"
-                class=" ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
-                placeholder="Email" required>
+        <div class="flex">
+            <div class="flex flex-col w-1/2">
+                <label for="password" class="leading-10 pl-2 ml-2">Password:</label>
+                <input type="password" value="{{ old('password') }}" name="password"
+                    class=" ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+                    placeholder="Password" required>
+            </div>
+
+            <div class="flex flex-col w-1/2">
+                <label for="c_password" class="leading-10 pl-2 ml-4">Confirm Password:</label>
+                <input type="password" value="{{ old('c_password') }}" name="c_password"
+                    class=" ml-4 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+                    placeholder="Confirm Password" required>
+
+            </div>
         </div>
 
 
-        <div class="flex flex-col w-1/2">
-            <label for="password" class="leading-10 pl-2 ml-4">Password:</label>
-            <input type="password" value="{{ old('password') }}" name="password"
-                class=" ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
-                placeholder="Password" required>
+        <div class="flex">
+            <div class="flex flex-col w-1/2">
+                <label for="contact" class="leading-10 pl-2 ml-2">Contact No:</label>
+                <input type="text" value="{{ old('contact') }}" name="contact"
+                    class="ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+                    placeholder="Contact" required>
+
+            </div>
+
+
+
+            <div class="flex flex-col w-1/2">
+                <label for="image" class="leading-10 pl-2 ml-4">Image:</label>
+                <input type="file" name="image"
+                    class=" ml-4 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+                    required>
+
+            </div>
         </div>
-
-        <div class="flex flex-col w-1/2">
-            <label for="c_password" class="leading-10 pl-2 ml-4">Confirm Password:</label>
-            <input type="password" value="{{ old('c_password') }}" name="c_password"
-                class=" ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
-                placeholder="Confirm Password" required>
-
-        </div>
-
-
-        <div class="flex flex-col w-1/2">
-            <label for="image" class="leading-10 pl-2 ml-4">Image:</label>
-            <input type="file" name="image"
-                class=" ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
-                required>
-
-        </div>
-
 
 
         <div class="flex flex-col w-1/2 mt-2">
-            <button class="bg-green-700 hover:bg-green-900 font-bold text-white ml-2 py-2 rounded"
+            <button class="bg-blue-700 hover:bg-blue-900 font-bold text-white ml-2 py-2 rounded"
                 type="submit">Add</button><br>
         </div>
     </form>

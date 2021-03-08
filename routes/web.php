@@ -71,6 +71,8 @@ Route::group(['prefix' => 'users'], function()
     Route::post("set",[userController::class,'SetPassword']);
     Route::get("image",[userController::class,'UpdateImage']);
     Route::post("upload",[userController::class,'UploadImage']);
+    Route::get("edit",[userController::class,'edit']);
+    Route::post("UpdateProfile",[userController::class,'UpdateProfile']);
     
 });  
 

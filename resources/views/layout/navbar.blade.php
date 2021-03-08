@@ -5,13 +5,14 @@
     }
 
     .menu {
-        font-size: 18px;
+        font-size: 14px;
+        letter-spacing: 1px;
+        font-weight: bolder;
     }
 
     .active,
     .menu:hover {
         text-decoration: underline;
-        color: white;
     }
 
     .app a.active {
@@ -29,22 +30,24 @@
 
 <div id="app">
     <header>
-        <div class="text-white bg-blue-900 px-10 md:flex md:items-center md:justify-between md:px-40">
+        <div class="text-white bg-blue-700 px-10 md:flex md:items-center md:justify-between md:px-40">
             <div id="myDiv" class="flex items-center justify-between">
                 <div>@include('layout.logo')</div>
-                <a href="/dashboard" class="mt-3 md:mx-3 text-green-700 hover:text-white font-bold text-xl">Welcome
-                    {{ Auth::user()->name }}</a>
+                <a href="/dashboard" class="mt-3 md:mx-3 text-gray-200 hover:text-white font-light text-xl">
+                </a>
                 <div class="md:hidden align-middle">
                     <i class="material-icons align-middle cursor-pointer" @click.prevent="toogle">menu</i>
                 </div>
             </div>
             <div :class="open ? 'block' : 'hidden'" class="flex flex-col text-left md:block md:text-right md:mt-0">
-                <a href="/items/home" class="menu mt-3 md:mx-3 font-bold">Home</a>
-                <a href="/customers" class=" menu mt-3 md:mx-3  font-bold">Customers</a>
+                <a href="/items/home" class="menu mt-3 md:mx-3  text-gray-200">Home
+
+                </a>
+                <a href="/customers" class=" menu mt-3 md:mx-3   text-gray-200">Customers</a>
                 {{-- <a href="/customer/supplier" class="mt-3 md:mx-3 hover:text-blue-500 font-bold">Suppliers</a>
                 <a href="/customer/purchaser" class="mt-3 md:mx-3 hover:text-blue-500 font-bold">Purchasers</a> --}}
-                <a href="/items" class="menu mt-3 md:mx-3  font-bold">Items</a>
-                <a href="/inventories" class=" menu mt-3 md:mx-3 font-bold">Inventory</a>
+                <a href="/items" class="menu mt-3 md:mx-3   text-gray-200">Items</a>
+                <a href="/inventories" class=" menu mt-3 md:mx-3  text-gray-200">Inventory</a>
                 <div class=" dropdown relativemt-3 md:mx-3 hover:text-red-500 font-bold inline-block">
 
 
@@ -59,23 +62,31 @@
 
 
 
-                    <ul class="dropdown-menu absolute hidden text-white pt-1"><br>
-                        <li class=""><a class="menu mt-3 text-xs text-blue-900" href="/users/set-password">Change
+                    <ul class="dropdown-menu absolute hidden text-gray-200 bg-blue-700 rounded-b-xl"><br>
+
+                        <li class=""><a class="block px-4 py-2 text-sm hover:bg-gray-400 font-extrabold"
+                                href="/users/set-password"> <span class="fas fa-exchange-alt"></span> Change
                                 Password</a></li>
                         <li class="">
-                            <a class="menu mt-3 text-xs text-blue-900" href="/users/image"> Upload
-                                Image
+                            <a class="block px-4 py-2 text-sm  hover:bg-gray-400 font-extrabold" href="/users/image">
+                                <span class="	fas fa-cloud-upload-alt"></span>
+                                Upload
+                                Profile
                             </a>
                         </li>
+                        <li class=""><a class="block px-4 py-2 text-sm hover:bg-gray-400 font-extrabold"
+                                href="/users/edit"><span class="fas fa-user-edit mr-1"></span>Edit
+                                Profile</a></li>
 
                         <!-- Authentication -->
                         <li>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
 
-                                <a class="text-blue-900" href="route('logout')" onclick="event.preventDefault();
+                                <a class="block px-4 py-2 text-sm font-extrabold  hover:bg-gray-400"
+                                    href="route('logout')" onclick="event.preventDefault();
                                                             this.closest('form').submit();">
-                                    {{ __('Logout') }}
+                                    <span class="fas fa-sign-out-alt mr-1"></span>{{ __('Logout') }}
                                 </a>
                         </li>
 

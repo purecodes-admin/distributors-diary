@@ -46,6 +46,7 @@ class userController extends Controller
                 'name' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255|unique:users',
                 'password' => 'required|string|min:8',
+                'contact' => 'required|string|max:11',
                 'image'=>'required|file|max:255',
             ]);
             
@@ -54,6 +55,7 @@ class userController extends Controller
             $user->email=$request->email;
             $user->password=Hash::make($request->password);
             $user->set_as= 0;
+            $user->contact=$request->contact;
 
             // $user->image= $request->image;
             if($request->hasfile('image')){
@@ -171,4 +173,25 @@ class userController extends Controller
         $user->save();
         return redirect('items/home');
         }
+
+        public function edit(User $user)
+        {
+            return view('users.edit',['user'=>$user]);
+        }
+
+
+        public function UpdateProfile(Request $request)
+        {
+            
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255',
+                'contact' => 'required|string|max:11',
+            ]);
+            $user=User::where('id',Auth::user()->id)->first();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->contact = $request->contact;
+            $user->save();
+}
 }
