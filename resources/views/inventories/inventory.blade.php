@@ -38,7 +38,7 @@
                         class="px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                         ID</th>
                     <th
-                        class="px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                        class="  hidden md:table-cell px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                         Customer Type</th>
                     <th
                         class="px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
@@ -51,28 +51,35 @@
                     <th
                         class="px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                         Unit Price</th>
-                    <th class="px-5 py-3 border-b-2 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                    <th
+                        class=" hidden md:table-cell px-5 py-3 border-b-2 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                         Price</th>
                     <th
-                        class="px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                        class=" hidden md:table-cell px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                         Date & Time</th>
+                    <th
+                        class="px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                    </th>
                 </tr>
             </thead>
             @forelse ($data as $record)
                 <tbody>
                     <tr>
                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm ">{{ $record->id }}</td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->customer->category }}</td>
+                        <td class=" hidden md:table-cell px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                            {{ $record->customer->category }}</td>
                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->customer->name }}</td>
                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->item->name }}</td>
                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ number_format($record->quantity) }}
                         </td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                        <td class=" px-5 py-5 border-b border-gray-200 bg-white text-sm">
                             {{ number_format($record->unit_price) }}
                         </td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ number_format($record->price) }}
+                        <td class="hidden md:table-cell px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                            {{ number_format($record->price) }}
                         </td>
-                        <td title="{{ $record->created_at }}" class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                        <td title="{{ $record->created_at }}"
+                            class=" hidden md:table-cell px-5 py-5 border-b border-gray-200 bg-white text-sm">
                             {{ $record->created_at->diffForHumans() }}</td>
 
                         <td class=" w-40 px-5 py-5 border-b border-gray-200 bg-white text-sm">

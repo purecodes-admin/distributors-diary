@@ -5,7 +5,9 @@
     }
 
     .menu {
-        font-size: 18px;
+        font-size: 14px;
+        letter-spacing: 1px;
+        font-weight: bolder;
     }
 
     .active,
@@ -29,35 +31,35 @@
 
 <div id="app">
     <header>
-        <div class="text-white bg-gray-900 py-5 px-10 md:flex md:items-center md:justify-between md:px-40">
+        <div class="text-white bg-blue-700 px-10 md:flex md:items-center md:justify-between md:px-40">
             <div id="myDiv" class="flex items-center justify-between">
                 <div>@include('layout.logo')</div>
-                <a href="/dashboard" class="mt-3 md:mx-3 text-green-700 hover:text-white font-bold text-xl">Welcome
-                    {{ Auth::user()->name }}</a>
+                {{-- <a href="/dashboard" class="mt-3 md:mx-3 text-green-700 hover:text-white font-bold text-xl">Welcome
+                    {{ Auth::user()->name }}</a> --}}
                 <div class="md:hidden align-middle">
                     <i class="material-icons align-middle cursor-pointer" @click.prevent="toogle">menu</i>
                 </div>
             </div>
             <div :class="open ? 'block' : 'hidden'" class="flex flex-col text-left md:block md:text-right mt-3 md:mt-0">
-                <a href="/users" class="menu mt-3 md:mx-3 font-bold">Home</a>
+                <a href="/users" class="menu mt-3 md:mx-3   text-gray-200">Home</a>
                 <a href="" class=" menu mt-3 md:mx-3  font-bold"></a>
                 <a href="" class="menu mt-3 md:mx-3  font-bold"></a>
-                <a href="/users/logout" class=" menu mt-3 md:mx-3 font-bold">Logout</a>
+                <a href="/users/logout" class="menu mt-3 md:mx-3   text-gray-200">Logout</a>
                 <div class=" dropdown relativemt-3 md:mx-3 hover:text-red-500 font-bold inline-block">
 
 
                     <img src="{{ asset('images/' . Auth::user()->image) }}" alt="" height="30px" width="30px"
                         class="rounded-3xl inline-block">
-                    <a class="inline-block">
+                    {{-- <a class="inline-block">
                         <svg class="fill-current h-4 w-4 inline-block" xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 20 20">
                             <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                         </svg>
-                    </a>
+                    </a> --}}
 
 
 
-                    <ul class="dropdown-menu absolute hidden text-gray-200 bg-blue-700"><br>
+                    {{-- <ul class="dropdown-menu absolute hidden text-gray-200 bg-blue-700"><br>
 
                         <li class=""><a class="block px-4 py-2 text-sm hover:bg-gray-400 font-extrabold"
                                 href="/users/set-password">Change
@@ -84,8 +86,9 @@
                                 </a>
                         </li>
 
-                    </ul>
-                    </form>
+
+                        </form>
+                    </ul> --}}
                 </div>
                 {{-- Logout --}}
 

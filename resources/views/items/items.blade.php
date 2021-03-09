@@ -40,6 +40,9 @@
                     <th
                         class="px-5 py-3 border-b-2  text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">
                         Retail Price</th>
+                    <th
+                        class="px-5 py-3 border-b-2  text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                    </th>
                 </tr>
             </thead>
             @forelse ($data as $item)

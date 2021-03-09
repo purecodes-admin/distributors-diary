@@ -13,11 +13,11 @@
         Stock Record Not Deleted...!!!
     </span>
 
-    <div class="flex justify-between">
+    <div class="md:flex justify-between">
         {{-- code for pending dues --}}
 
         {{-- <h1 class="text-4xl text-gray-700 font-bold m-4">Payment Pending</h1> --}}
-        <div class="overflow-y-scroll  mt-4 px-1 bg-white rounded-xl mr-4 h-96">
+        <div class="overflow-y-scroll  mt-4 px-1 bg-white rounded-xl md:mr-8 h-96">
             <h1 class="text-2xl text-gray-700 font-bold m-4">Dues</h1>
             <table class="w-auto leading-normal">
                 <thead>
@@ -56,7 +56,7 @@
 
         {{-- code for Item in stock --}}
 
-        <div class="overflow-y-scroll  mt-4 px-1 bg-white rounded-xl ml-4 h-96">
+        <div class="overflow-y-scroll  mt-4 px-1 bg-white rounded-xl h-96">
             <h1 class="text-2xl text-gray-700 font-bold m-4">Items Stock</h1>
             <table class=" w-auto leading-normal">
                 <thead>
@@ -70,6 +70,9 @@
                         <th
                             class="px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                             Remaining Quantity</th>
+                        <th
+                            class="px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                        </th>
                     </tr>
                 </thead>
                 @foreach ($data as $stock)
@@ -95,7 +98,7 @@
 
     {{-- code for top items --}}
 
-    <div class=" mt-4 px-2 pt-2 bg-white rounded-xl w-1/4">
+    <div class=" mt-4 px-2 pt-2 bg-white rounded-xl md:w-1/4 mb-5">
         <h1 class="text-2xl text-gray-700 font-bold m-4 ">Top Items</h1>
         <table class="w-auto leading-normal">
             <thead>

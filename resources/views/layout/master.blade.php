@@ -49,7 +49,7 @@
 
     @include('layout.navbar')
 
-    <div class="container mx-auto px-10">
+    <div class="container mx-auto w-auto">
         {{-- @include('layout.logo') --}}
         @yield('content')
     </div>

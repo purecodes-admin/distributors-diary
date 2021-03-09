@@ -108,7 +108,7 @@
         }
 
     </script>
-    {{-- <span>
+    <span>
         {{ $data->links() }}
-    </span> --}}
+    </span>
 @endsection

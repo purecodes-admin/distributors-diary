@@ -15,6 +15,10 @@
         @csrf
         <input type="hidden" name="id" value="{{ $user->id }}">
         <div class="flex flex-col w-1/2">
+            <img src="{{ asset('images/' . Auth::user()->image) }}" alt="Profile Picture" height="130px" width="130px"
+                class=" rounded-xl">
+        </div>
+        <div class="flex flex-col w-1/2">
             <label for="name" class="leading-10 pl-2">Name:</label>
             <input type="text" name="name" value="{{ old('name', Auth::user()->name) }}"
                 class=" ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600 "

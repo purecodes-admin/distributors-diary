@@ -31,6 +31,9 @@
                 <input type="email" value="{{ old('email') }}" name="email"
                     class=" ml-4 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
                     placeholder="Email" required>
+                @error('email')
+                    <span class="text-red-600 ml-4 font-bold text-sm">** {{ $message }}</span>
+                @enderror
             </div>
         </div>
 
@@ -41,14 +44,19 @@
                 <input type="password" value="{{ old('password') }}" name="password"
                     class=" ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
                     placeholder="Password" required>
+                @error('password')
+                    <span class="text-red-600 ml-4 font-bold text-sm">** {{ $message }}</span>
+                @enderror
             </div>
 
             <div class="flex flex-col w-1/2">
-                <label for="c_password" class="leading-10 pl-2 ml-4">Confirm Password:</label>
-                <input type="password" value="{{ old('c_password') }}" name="c_password"
+                <label for="password_confirmation" class="leading-10 pl-2 ml-4">Confirm Password:</label>
+                <input type="password" value="{{ old('password_confirmation') }}" name="password_confirmation"
                     class=" ml-4 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
                     placeholder="Confirm Password" required>
-
+                @error('password')
+                    <span class="text-red-600 ml-4 font-bold text-sm">** {{ $message }}</span>
+                @enderror
             </div>
         </div>
 
@@ -59,6 +67,9 @@
                 <input type="text" value="{{ old('contact') }}" name="contact"
                     class="ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
                     placeholder="Contact" required>
+                @error('contact')
+                    <span class="text-red-600 ml-4 font-bold text-sm">** {{ $message }}</span>
+                @enderror
 
             </div>
 
@@ -109,13 +120,13 @@
             //     document.getElementById("passwordmsg1").style.display = ""
             //     return false;
             // }
-            var c_password = document.forms["myForm"]["c_password"].value;
-            if (c_password == "") {
-                document.getElementById("c_passwordmsg").style.display = ""
+            var password_confirmation = document.forms["myForm"]["password_confirmation"].value;
+            if (password_confirmation == "") {
+                document.getElementById("password_confirmationmsg").style.display = ""
                 return false;
             }
-            if (password != c_password) {
-                document.getElementById("c_passwordmsg1").style.display = ""
+            if (password != password_confirmation) {
+                document.getElementById("password_confirmationmsg1").style.display = ""
                 return false;
             }
             var image = document.forms["myForm"]["image"].value;

@@ -18,7 +18,7 @@ class userController extends Controller
     public function index()
     {
 
-        $users = User::all();
+        $users = User::paginate(3);
         if ( Gate::allows('admin-only')) {
         return view('users.admin_dashboard', ['data' => $users]);
         }
@@ -45,7 +45,7 @@ class userController extends Controller
             $request->validate([
                 'name' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255|unique:users',
-                'password' => 'required|string|min:8',
+                'password' => 'required|string|min:8|confirmed',
                 'contact' => 'required|string|max:11',
                 'image'=>'required|file|max:255',
             ]);
@@ -71,6 +71,7 @@ class userController extends Controller
                         $user->image='';
                     }
             $user->save();
+            return redirect('users')->with('Distributor Added Successfully');
 
             // event(new Registered($user));
 

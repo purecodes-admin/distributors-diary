@@ -8,13 +8,15 @@
             <span class="fa fa-users"></span> Customers List
         </h1>
 
-        <div class="flex justify-between mt-8">
+        <div class="md:flex justify-between mt-8">
             <div class="flex justify-start">
                 <a href="/customers/suppliers">
-                    <button class="ml-6 bg-blue-700 px-1 py-1 rounded text-white font-bold mr-2">Suppliers</button>
+                    <button
+                        class="hidden md:block ml-6 bg-blue-700 px-2 py-1 rounded text-white font-bold mr-2">Suppliers</button>
                 </a>
                 <a href="/customers/purchasers">
-                    <button class="bg-blue-700 px-1 py-1 rounded text-white font-bold overflow-hidden">Purchasers</button>
+                    <button
+                        class="hidden md:block bg-blue-700 px-2 py-1 rounded text-white font-bold overflow-hidden">Purchasers</button>
                 </a>
             </div>
             <div class="flex justify-end">
@@ -49,20 +51,23 @@
                         class="px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                         Name</th>
                     <th
-                        class="px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                        class=" hidden md:table-cell px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                         Address</th>
                     <th
                         class="px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                         Contact</th>
                     <th
-                        class="px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                        class=" hidden md:table-cell px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                         Email</th>
                     <th
-                        class="px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                        class="hidden md:table-cell px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                         Discription</th>
                     <th
                         class="px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                         Category</th>
+                    <th class="px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                        colspan="2">
+                    </th>
                 </tr>
             </thead>
             @forelse ($data as $record)
@@ -70,10 +75,13 @@
                     <tr id="demo">
                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->id }}</td>
                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->name }}</td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->address }}</td>
+                        <td class=" hidden md:table-cell px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                            {{ $record->address }}</td>
                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->contact }}</td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->email }}</td>
-                        <td style="overflow-wrap:anywhere;" class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                        <td class=" hidden md:table-cell px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                            {{ $record->email }}</td>
+                        <td style="overflow-wrap:anywhere;"
+                            class=" hidden md:table-cell  px-5 py-5 border-b border-gray-200 bg-white text-sm">
                             {{ $record->discription }}
                         </td>
                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->category }}</td>
