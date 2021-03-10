@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Mail\TestMail;
+use App\Models\Billing;
 use Illuminate\Http\Request;
 use Illuminate\support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -18,8 +19,12 @@ class userController extends Controller
     public function index()
     {
 
-        $users = User::paginate(3);
+        $users = User::when(request('search') != '', function($q) {
+            $q->where('name', 'like', '%' . request('search') . '%')
+            ->orwhere('email', 'like', '%' . request('search') . '%');
+        })->paginate(3);
         if ( Gate::allows('admin-only')) {
+            
         return view('users.admin_dashboard', ['data' => $users]);
         }
         else{
@@ -56,6 +61,7 @@ class userController extends Controller
             $user->password=Hash::make($request->password);
             $user->set_as= 0;
             $user->contact=$request->contact;
+            $user->payment=$request->payment;
 
             // $user->image= $request->image;
             if($request->hasfile('image')){
@@ -175,9 +181,9 @@ class userController extends Controller
         return redirect('items/home');
         }
 
-        public function edit(User $user)
+        public function edit()
         {
-            return view('users.edit',['user'=>$user]);
+            return view('users.edit');
         }
 
 
@@ -194,5 +200,42 @@ class userController extends Controller
             $user->email = $request->email;
             $user->contact = $request->contact;
             $user->save();
-}
+        }
+
+        public function edit_distributor(User $user)
+        {
+            if ( Gate::allows('admin-only', $user)) {
+            return view('users.edit-distributor',['user'=>$user]);
+            }
+            else{
+                return'You are Not Eligible'; 
+            }
+        }
+
+        public function UpdateDistributor(Request $request)
+        {
+            
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255',
+                'contact' => 'required|string|max:11',
+            ]);
+            $user=User::find($request->id);
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->contact = $request->contact;
+            $user->save();
+        }
+
+    public function delete(User $user)
+            {
+                if ( Gate::allows('admin-only', $user)) {
+                $user->delete();
+            }
+            else{
+                return'You are Not Eligible';
+                }
+            }
+
+
 }

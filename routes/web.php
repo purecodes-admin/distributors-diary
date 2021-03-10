@@ -6,6 +6,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\userController;
 use Illuminate\Database\MySqlConnection;
 use App\Http\Controllers\stockController;
+use App\Http\Controllers\BillingController;
 use App\Http\Controllers\supplierController;
 use App\Http\Controllers\InventoryController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -73,8 +74,17 @@ Route::group(['prefix' => 'users'], function()
     Route::post("upload",[userController::class,'UploadImage']);
     Route::get("edit",[userController::class,'edit']);
     Route::post("UpdateProfile",[userController::class,'UpdateProfile']);
-    
-});  
+    Route::get("edit-distributor/{user}",[userController::class,'edit_distributor']);
+    Route::post("Update-Distributor",[userController::class,'UpdateDistributor']);
+    Route::get("delete/{user}",[userController::class,'delete']); 
+    Route::get("billings/{user}",[BillingController::class,'show']);
+    Route::post("Submit-fee",[BillingController::class,'store']);
+    Route::get("billings",[BillingController::class,'index']);
+    Route::get("Userbilling",[BillingController::class,'UserBilling']);
+}); 
+
+
+
 
     Route::group(['prefix' => 'customers'], function() 
     { 

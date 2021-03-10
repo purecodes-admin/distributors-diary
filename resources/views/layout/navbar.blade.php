@@ -65,6 +65,7 @@
                 <a href="/customer/purchaser" class="mt-3 md:mx-3 hover:text-blue-500 font-bold">Purchasers</a> --}}
                     <a href="/items" class="menu mt-3 md:mx-3   text-gray-200">Items</a>
                     <a href="/inventories" class=" menu mt-3 md:mx-3  text-gray-200">Inventory</a>
+                    <a href="/users/Userbilling" class=" menu mt-3 md:mx-3  text-gray-200">Billings</a>
                     <div class=" dropdown relativemt-3 md:mx-3 hover:text-red-500 font-bold inline-block">
 
 
@@ -94,7 +95,9 @@
                             </li>
                             <li class=""><a class="block px-4 py-2 text-sm hover:bg-gray-400 font-extrabold"
                                     href="/users/edit"><span class="fas fa-user-edit mr-1"></span>Edit
-                                    Profile</a></li>
+                                    Profile
+                                </a>
+                            </li>
 
                             <!-- Authentication -->
                             <li>

@@ -1,5 +1,5 @@
 @extends('layout/master')
-@section('title', 'Records List')
+@section('title', 'Items')
 @section('content')
 
     <div class="bg-white rounded-xl mt-4 px-1 pt-1">
@@ -25,7 +25,7 @@
                     value="{{ request('search') }}">
             </form>
         </div>
-        <table class="min-w-full">
+        <table class="min-w-full table-fixed">
             <thead>
                 <tr>
                     <th

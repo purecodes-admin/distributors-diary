@@ -73,15 +73,20 @@
 
             </div>
 
-
-
             <div class="flex flex-col w-1/2">
-                <label for="image" class="leading-10 pl-2 ml-4">Image:</label>
-                <input type="file" name="image"
-                    class=" ml-4 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
-                    required>
-
+                <label for="payment" class="leading-10 pl-2 ml-4">Charges:</label>
+                <input type="text" value="{{ old('payment') }}" name="payment"
+                    class="ml-4 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+                    placeholder="Charges">
             </div>
+        </div>
+
+        <div class="flex flex-col w-1/2">
+            <label for="image" class="leading-10 pl-2 ml-2">Image:</label>
+            <input type="file" name="image"
+                class=" ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+                required>
+
         </div>
 
 

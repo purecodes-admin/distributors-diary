@@ -36,7 +36,7 @@
 
     @include('layout.admin-navbar')
 
-    <div class="container mx-auto px-20">
+    <div class="container mx-auto w-auto">
         {{-- @include('layout.logo') --}}
         @yield('content')
     </div>

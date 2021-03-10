@@ -41,72 +41,74 @@
         <span class="ml-60 font-bold" id="danger" style="color:red; display:none;">
             Customer Record Not Deleted...!!!
         </span>
-
-        <table class="min-w-full">
-            <thead>
-                <tr>
-                    <th class="px-5 py-3 border-b-2 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                        ID</th>
-                    <th
-                        class="px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                        Name</th>
-                    <th
-                        class=" hidden md:table-cell px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                        Address</th>
-                    <th
-                        class="px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                        Contact</th>
-                    <th
-                        class=" hidden md:table-cell px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                        Email</th>
-                    <th
-                        class="hidden md:table-cell px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                        Discription</th>
-                    <th
-                        class="px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                        Category</th>
-                    <th class="px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
-                        colspan="2">
-                    </th>
-                </tr>
-            </thead>
-            @forelse ($data as $record)
-                <tbody>
-                    <tr id="demo">
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->id }}</td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->name }}</td>
-                        <td class=" hidden md:table-cell px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                            {{ $record->address }}</td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->contact }}</td>
-                        <td class=" hidden md:table-cell px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                            {{ $record->email }}</td>
-                        <td style="overflow-wrap:anywhere;"
-                            class=" hidden md:table-cell  px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                            {{ $record->discription }}
-                        </td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->category }}</td>
-
-                        <td class="pl-2  py-5 border-b border-gray-200 bg-white text-sm">
-                            <a href={{ '/customers/edit/' . $record['id'] }}>
-                                <button class="bg-green-700  hover:bg-green-900 text-white font-bold px-1 rounded"><i
-                                        class="fas fa-edit"></i></button>
-                            </a>
-                        </td>
-                        <td class="pl-2 pr-10 py-5 border-b border-gray-200 bg-white text-sm">
-                            <a href="">
-                                <button class="  bg-red-500  hover:bg-red-700 text-white font-bold px-1 rounded"
-                                    onclick="deleteCustomer({{ $record->id }})"><i class="fas fa-trash-alt"></i></button>
-                            </a>
-                        </td>
+        <div>
+            <table class="table-fixed w-full ">
+                <thead>
+                    <tr>
+                        <th
+                            class="px-5 py-3 border-b-2 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                            ID</th>
+                        <th
+                            class="px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                            Name</th>
+                        <th
+                            class=" hidden md:table-cell px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                            Address</th>
+                        <th
+                            class="px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                            Contact</th>
+                        <th
+                            class=" hidden md:table-cell px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                            Email</th>
+                        <th
+                            class="hidden md:table-cell px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                            Discription</th>
+                        <th
+                            class="px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                            Category</th>
+                        <th
+                            class="px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                            Actions
+                        </th>
                     </tr>
-                </tbody>
+                </thead>
+                <tbody>
+                    @forelse ($data as $record)
+                        <tr id="demo">
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->id }}</td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->name }}</td>
+                            <td class=" hidden md:table-cell px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                {{ $record->address }}</td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->contact }}</td>
+                            <td style="overflow-wrap:anywhere;"
+                                class=" hidden md:table-cell px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                {{ $record->email }}</td>
+                            <td style="overflow-wrap:anywhere;"
+                                class=" hidden md:table-cell  px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                {{ $record->discription }}
+                            </td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->category }}</td>
 
-            @empty
-                <tr>
-                    <td colspan="7" class="text-center py-4">No records found.</td>
-                </tr>
-            @endforelse
-        </table>
+                            <td class="pl-2 pr-10 py-5 border-b border-gray-200 bg-white text-sm">
+                                <a href={{ '/customers/edit/' . $record['id'] }}>
+                                    <button class="bg-green-700  hover:bg-green-900 text-white font-bold px-1 rounded"><i
+                                            class="fas fa-edit"></i></button>
+                                </a> &nbsp;
+                                <a href="">
+                                    <button class="  bg-red-500  hover:bg-red-700 text-white font-bold px-1 rounded"
+                                        onclick="deleteCustomer({{ $record->id }})"><i class="fas fa-trash-alt"></i></button>
+                                </a>
+                            </td>
+                        </tr>
+
+                    @empty
+                        <tr>
+                            <td colspan="8" class="text-center py-4">No records found.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
 
         <script>
             function deleteCustomer(id) {
