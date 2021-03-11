@@ -15,23 +15,24 @@
 
         {{-- Search Boxes Code --}}
 
-        <div class="flex justify-between">
+        <div class="">
 
-            <form action="/users/billings">
-                <input type="search" placeholder="Search.." name="search1" class="rounded border-none bg-gray-100"
-                    value="{{ request('search') }}">
+            <form action="/users/billings" class="flex justify-between">
+                <div>
+                    <input type="search" placeholder="Search.." name="search" class="rounded border-none bg-gray-100"
+                        value="{{ request('search') }}">
+                </div>
+                <div>
+                    From: <input type="month" value="{{ request('searchFrom') }}" placeholder="Search by Date.."
+                        name="searchFrom" class="rounded border-none w-auto bg-gray-100">
+                    To: <input type="month" value="{{ request('searchTo') }}" placeholder="Search by Date.."
+                        name="searchTo" class="rounded border-none w-auto bg-gray-100">
+                    <button type="submit" style="outline: none;"><i class="fa fa-search"></i></button>
+                </div>
             </form>
-
-
-            <form action="/users/billings">
-                <input type="text" value="{{ request('search') }}" placeholder="Search by Date.." name="search"
-                    class="rounded border-none w-auto bg-gray-100">
-                <input id="from" type="hidden" name="from" />
-                <input id="to" type="hidden" name="to" />
-                <button type="submit" style="outline: none;"><i class="fa fa-search"></i></button>
-            </form>
-
         </div>
+
+
 
         <table class="min-w-full leading-normal table-fixed">
             <thead>
@@ -75,17 +76,6 @@
                         <td class=" px-5 py-5 border-b border-gray-200 bg-white text-sm">
                             {{ $record->date }}
                         </td>
-
-                        <td class=" w-40 px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                            <a href={{ '/inventories/edit/' . $record->id }} class="ml-3">
-                                <button class="bg-green-700  hover:bg-green-900 text-white font-bold px-1 rounded"><i
-                                        class="fas fa-edit"></i></button>
-                            </a>
-                            <a href="" class="ml-3">
-                                <button class="bg-red-500  hover:bg-red-700 text-white font-bold px-1 rounded"
-                                    onclick="deleteStock({{ $record->id }})"><i class="fas fa-trash-alt"></i></button>
-                            </a>
-                        </td>
                     </tr>
                 </tbody>
 
@@ -123,23 +113,8 @@
             }
 
         </script>
-        {{-- <span>
+        <span>
             {{ $data->links() }}
-        </span> --}}
+        </span>
     </div>
-
-    <script>
-        $(function() {
-            $('input[name="search"]').daterangepicker({
-                opens: 'left'
-            }, function(start, end, label) {
-                document.getElementById('from').value = start.format('YYYY-MM-DD');
-                document.getElementById('to').value = end.format('YYYY-MM-DD');
-                console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' +
-                    end
-                    .format('YYYY-MM-DD'));
-            });
-        });
-
-    </script>
 @endsection

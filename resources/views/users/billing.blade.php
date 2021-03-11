@@ -1,10 +1,15 @@
 @extends('layout/master')
 @section('title', 'Billings')
 @section('content')
+    <marquee behavior="alternate" direction="right" class="text-sm">
+        {{ Auth::user()->name }} your dues Are Rs:{{ Auth::user()->payment }}
+    </marquee>
     <div class="bg-white rounded-xl mt-4 px-2">
 
         <input type="hidden" id="csrf-token" value="{{ csrf_token() }}" />
+
         <h1 class="text-4xl text-gray-700 font-bold p-2">Billings</h1>
+
         <span class="ml-60 font-bold text-center" id="success" style="color:green; display:none;">
             Bill Record Deleted Successfully...!!!
         </span>

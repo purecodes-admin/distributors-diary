@@ -7,6 +7,8 @@ use App\Models\Billing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App;
+use PDF;
 
 class BillingController extends Controller
 {
@@ -18,19 +20,23 @@ class BillingController extends Controller
     public function index(Request $request)
     {
 
-        $from=$request->from;
-        $to=$request->to;
+        $from=$request->searchFrom;
+        $to=$request->searchTo;
 
-        $distributorIDs = User::where('name', 'like', '%' . request('search1') . '%')
+        // dd($to);
+
+        $distributorIDs = User::where('name', 'like', '%' . request('search') . '%')
         ->where('set_as', 0)->pluck('id')->toArray();
         
 
         $billings = Billing::with('user')->whereIn('distributor_id', $distributorIDs)
-        ->when(request('search') !='' , function($query) use ($from, $to) {
-            $query->whereBetween('created_at',[$from, $to]);
-        }
-        )
-        ->get();
+        ->when($from, function($query) use ($from) {
+            $query->where('date', '>=', $from);
+        })
+        ->when($to, function($query) use ($to) {
+            $query->where('date', '<=', $to);
+        })
+        ->paginate(5);
         return view('users.admin-billing', ['data' => $billings]);
     }
 
@@ -120,5 +126,17 @@ class BillingController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function BillInvoice()
+    {
+        // $pdf = App:: make('dompdf.wrapper');
+        // $pdf->LoadHtml('<h1>Header Without Style</h1>');
+        // return $pdf->stream();
+        $billings = Billing::with('user')->where('distributor_id',5)
+        ->get();
+
+            $pdf = PDF::loadView('users.bill-invoice',['data' => $billings]);
+            // return $pdf->download('invoice.pdf');
+            return $pdf->stream();
     }
 }

@@ -1,11 +1,15 @@
 @extends('layout/master2')
 @section('address', 'Add Distributor')
 @section('content')
-    <div class="ml-60">
-        <h3 class="p-5 font-semibold text-lg underline text-green-700     hover:text-green-900">
-            <span class="fas fa-user"></span>
-            <a>Admin Login</a>
-        </h3>
+    <div class="ml-60 login">
+        <div class="flex justify-between">
+            <h3 class="p-5 font-semibold text-lg underline text-blue-700     hover:text-blue-900">
+                <span class="fas fa-user"></span>
+                <a>Admin Login</a>
+            </h3>
+            <a href="{{ route('register') }}"
+                class="p-5 font-semibold text-lg underline text-blue-700     hover:text-blue-900">Register</a>
+        </div>
         @if ($errors->any())
             <div class="text-red-700 ml-4">
                 <ul>
@@ -34,7 +38,7 @@
 
 
             <div class="flex flex-col w-1/2 mt-2">
-                <button class="bg-green-700 hover:bg-green-900 font-bold text-white ml-2 py-2 rounded"
+                <button class="bg-blue-700 hover:bg-blue-900 font-bold text-white -mr-2 ml-2 py-2 rounded"
                     type="submit">Login</button><br>
             </div>
         </form>

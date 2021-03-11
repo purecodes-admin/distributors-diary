@@ -81,6 +81,8 @@ Route::group(['prefix' => 'users'], function()
     Route::post("Submit-fee",[BillingController::class,'store']);
     Route::get("billings",[BillingController::class,'index']);
     Route::get("Userbilling",[BillingController::class,'UserBilling']);
+    Route::get("bills",[BillingController::class,'BillInvoice']);
+
 }); 
 
 

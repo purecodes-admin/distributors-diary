@@ -45,7 +45,7 @@
                 <a href="/users" class="menu mt-3 md:mx-3   text-gray-200">Home</a>
                 <a href="/users/billings" class="menu mt-3 md:mx-3   text-gray-200">Billings</a>
                 <a href="" class="menu mt-3 md:mx-3  font-bold"></a>
-                <a href="/users/logout" class="menu mt-3 md:mx-3   text-gray-200">Logout</a>
+                {{-- <a href="/users/logout" class="menu mt-3 md:mx-3   text-gray-200">Logout</a> --}}
                 <div class=" dropdown relativemt-3 md:mx-3 hover:text-red-500 font-bold inline-block">
 
 
@@ -60,23 +60,34 @@
 
 
 
-                    <ul class="dropdown-menu absolute hidden text-gray-200 bg-blue-700"><br>
+                    <ul class="dropdown-menu absolute hidden text-gray-200 bg-blue-700 rounded-xl"><br>
 
-                        <li class=""><a class="block px-4 py-2 text-sm hover:bg-gray-400 font-extrabold"
+                        {{-- <li class="">
+                            <a class="block px-4 py-2 text-sm hover:bg-gray-400 font-extrabold"
                                 href="/users/set-password">Change
-                                Password</a></li>
+                                Password
+                            </a>
+                        </li> --}}
                         <li class="">
                             <a class="block px-4 py-2 text-sm  hover:bg-gray-400 font-extrabold" href="/users/image">
                                 Upload
                                 Profile
                             </a>
                         </li>
-                        <li class=""><a class="block px-4 py-2 text-sm hover:bg-gray-400 font-extrabold"
+                        <li class="">
+                            <a class="block px-4 py-2 text-sm  hover:bg-gray-400 font-extrabold" href="/users/logout">
+                                Logout
+                            </a>
+                        </li>
+                        {{-- <li class="">
+                            <a class="block px-4 py-2 text-sm hover:bg-gray-400 font-extrabold"
                                 href="/users/set-password">Edit
-                                Profile</a></li>
+                                Profile
+                            </a>
+                        </li> --}}
 
                         <!-- Authentication -->
-                        <li>
+                        {{-- <li>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
 
@@ -85,7 +96,7 @@
                                                             this.closest('form').submit();">
                                     {{ __('Logout') }}
                                 </a>
-                        </li>
+                        </li> --}}
 
 
                         </form>

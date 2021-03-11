@@ -40,6 +40,7 @@
 
         body {
             font-family: 'Roboto', sans-serif;
+            background-image: url('images/bg1.jpeg');
         }
 
     </style>
