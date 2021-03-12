@@ -15,6 +15,10 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    'address' => env('APP_ADDRESS', 'Spinzer IT Plaza, Abdara Road Peshawar.'),
+    'phone' => env('APP_PHONE', '03461198778'),
+    'fax' => env('APP_FAX', '1234567890'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment

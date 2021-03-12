@@ -132,8 +132,11 @@ class BillingController extends Controller
         // $pdf = App:: make('dompdf.wrapper');
         // $pdf->LoadHtml('<h1>Header Without Style</h1>');
         // return $pdf->stream();
+
         $billings = Billing::with('user')->where('distributor_id',5)
-        ->get();
+        ->first();
+
+        // return view('users.bill-invoice', ['data' => $billings]);
 
             $pdf = PDF::loadView('users.bill-invoice',['data' => $billings]);
             // return $pdf->download('invoice.pdf');
