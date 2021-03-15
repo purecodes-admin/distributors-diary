@@ -20,6 +20,7 @@ class Invoices extends Migration
         $table->date('month');
         $table->dateTime('due_date');
         $table->date('has_paid');
+        $table->integer('has_send')->nullable();
         $table->string('pdf');
         $table->timestamps();
 

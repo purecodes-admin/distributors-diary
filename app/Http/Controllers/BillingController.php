@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App;
+use PDF;
 use App\Models\User;
 use App\Models\Billing;
+use App\Mail\InvoiceMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use App;
-use PDF;
+use Illuminate\Support\Facades\Mail;
 
 class BillingController extends Controller
 {
@@ -141,5 +143,15 @@ class BillingController extends Controller
             $pdf = PDF::loadView('users.bill-invoice',['data' => $billings]);
             // return $pdf->download('invoice.pdf');
             return $pdf->stream();
+    }
+
+    public function InvoiceEmail()
+    {
+          $details=[
+              'title'=>'Hi My Name is Ahmad Ali',
+              'body'=> 'This is you monthly bill invoice Email.'
+          ];
+          Mail::to("ahmadabt12@gmail.com")->send(new InvoiceMail($details));
+          return"Email Send Successfully!";
     }
 }

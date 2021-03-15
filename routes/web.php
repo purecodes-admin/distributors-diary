@@ -66,7 +66,7 @@ Route::group(['prefix' => 'users'], function()
     Route::get("/",[userController::class,'index']);
     Route::get("add",[userController::class,'create']);
     Route::post("add",[userController::class,'store']);
-    Route::get("send-email",[userController::class,'store']);
+    // Route::get("send-email",[userController::class,'store']);
     Route::get("set-password",[userController::class,'UpdatePassword']);
     Route::get("logout",[userController::class,'destroy']);
     Route::post("set",[userController::class,'SetPassword']);
@@ -82,6 +82,7 @@ Route::group(['prefix' => 'users'], function()
     Route::get("billings",[BillingController::class,'index']);
     Route::get("Userbilling",[BillingController::class,'UserBilling']);
     Route::get("bills",[BillingController::class,'BillInvoice']);
+    Route::get("send-invoice",[BillingController::class,'InvoiceEmail']);
 
 }); 
 

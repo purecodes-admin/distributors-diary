@@ -1,15 +1,16 @@
 <?php
 
 namespace App\Console\Commands;
+use PDF;
 use App\Models\User;
 use App\Models\Billing;
 use App\Models\Invoice;
+use App\Mail\InvoiceMail;
 use Illuminate\Mail\Mailable;
 use Illuminate\Console\Command;
 use App\Console\Commands\SendEmail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Request;
-use PDF;
 
 class SendEmail extends Command
 {
@@ -42,7 +43,7 @@ class SendEmail extends Command
      *
      * @return int
      */
-    public function handle(Request $request)
+    public function handle()
     {
 
         $date=date('y-m-d');
@@ -59,8 +60,12 @@ class SendEmail extends Command
         foreach($distributors as $distributor)
         {
             // generate invoice pdf and save it somewhere in /storage
+
+            $filename = '/invoices/' . time() . '-invoice-' . $distributor->id . '.pdf';
             
-            $pdf = PDF::loadView('users.bill-invoice',['data' => $distributor]);
+            PDF::loadView('users.bill-invoice',['data' => $distributor])->save(storage_path() . $filename);
+
+            // storage/invoices/12232343233-invoice-123.pdf
 
 
             $invoice= new Invoice;
@@ -69,28 +74,18 @@ class SendEmail extends Command
             $invoice->month= $date;
             $invoice->due_date=$date1;
             $invoice->has_paid=$date;
-            // $invoice->pdf = 'asdfoasfmasd';
-            
-            
-            if($request->hasfile('users.bill-invoice')){
-                $file = $request->file('users.bill-invoice');
-                $extension = $file->getClientOriginalExtension(); 
-                // getting image extention
-                $filename = time().'.'. $extension;
-                $file->move('/storage/app/public', $filename);
-                $invoice->pdf=$filename;
-            }
+            $invoice->has_send=1;
+            $invoice->pdf = $filename;
 
             $invoice->save();
-            
-            
+
+            Mail::to($distributor->email)->send(new InvoiceMail($invoice));
+            // return"Email Send Successfully!";
             // save data in invoices table along with pdf link
 
             // dispatch email to distributor along with invoice in attachment
 
-        }
-        
-        
+        }   
     }
 
 
