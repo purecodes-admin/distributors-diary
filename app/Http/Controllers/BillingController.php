@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App;
 use PDF;
 use App\Models\User;
+use App\Models\Invoice;
 use App\Models\Billing;
 use App\Mail\InvoiceMail;
 use Illuminate\Http\Request;

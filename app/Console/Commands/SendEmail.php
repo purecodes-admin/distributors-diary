@@ -47,7 +47,7 @@ class SendEmail extends Command
     {
 
         $date=date('y-m-d');
-        $date1=date('Y-m-d H:i:s');
+        $date1=now()->addDays(10);
 
 
         // $billings = Billing::all();
@@ -59,26 +59,33 @@ class SendEmail extends Command
         // loop through distributors
         foreach($distributors as $distributor)
         {
-            // generate invoice pdf and save it somewhere in /storage
+           
 
-            $filename = '/invoices/' . time() . '-invoice-' . $distributor->id . '.pdf';
+            // fetch data from invoices in a variable
+            $hasInvoiceSent = Invoice::where('distributor_id',$distributor->id)
+            ->where('has_sent', 1)
+            ->first();
+
+            if($hasInvoiceSent) {
+                continue;
+            }
+             // generate invoice pdf and save it somewhere in /storage
+
+             $filename = '/invoices/' . time() . '-invoice-' . $distributor->id . '.pdf';
             
-            PDF::loadView('users.bill-invoice',['data' => $distributor])->save(storage_path() . $filename);
-
-            // storage/invoices/12232343233-invoice-123.pdf
-
+             PDF::loadView('users.bill-invoice',['data' => $distributor])->save(storage_path().'/app/public/' . $filename);
+ 
+             // storage/invoices/12232343233-invoice-123.pdf
 
             $invoice= new Invoice;
             $invoice->distributor_id=$distributor->id;
             $invoice->amount= $distributor->payment;
             $invoice->month= $date;
             $invoice->due_date=$date1;
-            $invoice->has_paid=$date;
-            $invoice->has_send=1;
+            $invoice->has_sent=1;
             $invoice->pdf = $filename;
 
             $invoice->save();
-
             Mail::to($distributor->email)->send(new InvoiceMail($invoice));
             // return"Email Send Successfully!";
             // save data in invoices table along with pdf link

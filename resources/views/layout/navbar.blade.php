@@ -98,6 +98,11 @@
                                     Profile
                                 </a>
                             </li>
+                            <li class=""><a class="block px-4 py-2 text-sm hover:bg-gray-400 font-extrabold"
+                                    href="/users/my-invoices"><span class="fas fa-file-invoice mr-1"></span>
+                                    Invoices
+                                </a>
+                            </li>
 
                             <!-- Authentication -->
                             <li>

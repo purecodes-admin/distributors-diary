@@ -44,7 +44,7 @@
             <div :class="open ? 'block' : 'hidden'" class="flex flex-col text-left md:block md:text-right mt-3 md:mt-0">
                 <a href="/users" class="menu mt-3 md:mx-3   text-gray-200">Home</a>
                 <a href="/users/billings" class="menu mt-3 md:mx-3   text-gray-200">Billings</a>
-                <a href="" class="menu mt-3 md:mx-3  font-bold"></a>
+                <a href="/users/invoices" class="menu mt-3 md:mx-3   text-gray-200">Invoices</a>
                 {{-- <a href="/users/logout" class="menu mt-3 md:mx-3   text-gray-200">Logout</a> --}}
                 <div class=" dropdown relativemt-3 md:mx-3 hover:text-red-500 font-bold inline-block">
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Mail\TestMail;
 use App\Models\Billing;
+use App\Models\Invoice;
 use Illuminate\Http\Request;
 use Illuminate\support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -236,6 +237,5 @@ class userController extends Controller
                 return'You are Not Eligible';
                 }
             }
-
 
 }

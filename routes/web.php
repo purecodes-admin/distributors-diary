@@ -7,6 +7,7 @@ use App\Http\Controllers\userController;
 use Illuminate\Database\MySqlConnection;
 use App\Http\Controllers\stockController;
 use App\Http\Controllers\BillingController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\supplierController;
 use App\Http\Controllers\InventoryController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -83,6 +84,10 @@ Route::group(['prefix' => 'users'], function()
     Route::get("Userbilling",[BillingController::class,'UserBilling']);
     Route::get("bills",[BillingController::class,'BillInvoice']);
     Route::get("send-invoice",[BillingController::class,'InvoiceEmail']);
+    Route::get("invoices",[InvoiceController::class,'ShowInvoices']);
+    Route::get("my-invoices",[InvoiceController::class,'index']);
+    Route::get("paid-invoices",[InvoiceController::class,'PaidInvoices']);
+    Route::get("unpaid-invoices",[InvoiceController::class,'UnpaidInvoices']);
 
 }); 
 

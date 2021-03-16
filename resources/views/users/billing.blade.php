@@ -1,9 +1,6 @@
 @extends('layout/master')
 @section('title', 'Billings')
 @section('content')
-    <marquee behavior="alternate" direction="right" class="text-sm">
-        {{ Auth::user()->name }} your dues Are Rs:{{ Auth::user()->payment }}
-    </marquee>
     <div class="bg-white rounded-xl mt-4 px-2">
 
         <input type="hidden" id="csrf-token" value="{{ csrf_token() }}" />
@@ -51,55 +48,17 @@
 
             @empty
                 <tr>
-                    <td colspan="8" class="text-center py-4">No records found.</td>
+                    <td colspan="4" class="text-center py-4">No records found.</td>
                 </tr>
             @endforelse
         </table>
 
-        <script>
-            function deleteStock(id) {
-                // Token is Not Required in Delete Function
-                // var token = document.getElementById('csrf-token').value; 
-                window.setTimeout("document.getElementById('success').style.display='none';", 3000);
-                window.setTimeout("document.getElementById('danger').style.display='none';", 3000);
+        <marquee behavior="alternate" direction="right" class="text-sm">
+            {{ Auth::user()->name }} your dues Are Rs:{{ Auth::user()->payment }}
+        </marquee>
 
-                if (confirm("Do you Really Want to Delete This Stock Record?")) {
-                    $.ajax({
-                        type: 'get',
-                        url: '/inventories/delete/' + id,
-                        success: function(response) {
-                            document.getElementById("success").style.display = ""
-                            $('#demo_' + id).remove();
-
-
-                        },
-                        error: function(res) {
-                            document.getElementById("danger").style.display = ""
-                        }
-                    });
-
-                }
-
-            }
-
-        </script>
         <span>
             {{ $data->links() }}
         </span>
     </div>
-
-    <script>
-        $(function() {
-            $('input[name="search"]').daterangepicker({
-                opens: 'left'
-            }, function(start, end, label) {
-                document.getElementById('from').value = start.format('YYYY-MM-DD');
-                document.getElementById('to').value = end.format('YYYY-MM-DD');
-                console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' +
-                    end
-                    .format('YYYY-MM-DD'));
-            });
-        });
-
-    </script>
 @endsection

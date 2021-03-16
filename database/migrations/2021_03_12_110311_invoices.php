@@ -18,9 +18,9 @@ class Invoices extends Migration
         $table->unsignedBigInteger('distributor_id');
         $table->integer('amount');
         $table->date('month');
-        $table->dateTime('due_date');
-        $table->date('has_paid');
-        $table->integer('has_send')->nullable();
+        $table->date('due_date');
+        $table->date('has_paid')->nullable();
+        $table->integer('has_sent')->nullable();
         $table->string('pdf');
         $table->timestamps();
 

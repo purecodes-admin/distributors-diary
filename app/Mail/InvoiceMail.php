@@ -35,7 +35,7 @@ class InvoiceMail extends Mailable
         // dd(storage_path());
         // dd($this->invoice->pdf);
         $this->invoice->load('distributor');
-        return $this->view('users.testmail')->attach(storage_path() . $this->invoice->pdf);
+        return $this->view('users.testmail')->attach(storage_path() .'/app/public/'. $this->invoice->pdf);
        
     }
 }
