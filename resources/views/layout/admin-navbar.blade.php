@@ -45,6 +45,7 @@
                 <a href="/users" class="menu mt-3 md:mx-3   text-gray-200">Home</a>
                 <a href="/users/billings" class="menu mt-3 md:mx-3   text-gray-200">Billings</a>
                 <a href="/users/invoices" class="menu mt-3 md:mx-3   text-gray-200">Invoices</a>
+                <a href="/users/tags" class="menu mt-3 md:mx-3   text-gray-200">Tags</a>
                 {{-- <a href="/users/logout" class="menu mt-3 md:mx-3   text-gray-200">Logout</a> --}}
                 <div class=" dropdown relativemt-3 md:mx-3 hover:text-red-500 font-bold inline-block">
 

@@ -115,12 +115,6 @@
     <script>
         $(".t_price").change(function() {
             var price = $(this).val();
-            // if (price == 'whole_sale') {
-            //     $("#price").val();
-            // }
-            // if (price == 'retail_price') {
-            //     $("#price").val();
-            // }
 
             $.ajax({
                 type: 'get',

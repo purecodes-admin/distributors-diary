@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TagController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\userController;
 use Illuminate\Database\MySqlConnection;
 use App\Http\Controllers\stockController;
 use App\Http\Controllers\BillingController;
+use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\supplierController;
 use App\Http\Controllers\InventoryController;
@@ -88,6 +90,15 @@ Route::group(['prefix' => 'users'], function()
     Route::get("my-invoices",[InvoiceController::class,'index']);
     Route::get("paid-invoices",[InvoiceController::class,'PaidInvoices']);
     Route::get("unpaid-invoices",[InvoiceController::class,'UnpaidInvoices']);
+    Route::get("create-tags",[TagController::class,'create']);
+    Route::post("add-tags",[TagController::class,'store']);
+    Route::get("create-expense",[ExpenseController::class,'create']);
+    Route::post("add-expense",[ExpenseController::class,'store']);
+    Route::get("custom-tags",[TagController::class,'CustomTag']);
+    Route::post("add-custom-tags",[TagController::class,'AddCustomTag']);
+    Route::get("tags",[TagController::class,'index']);
+    Route::get("delete/{tag}",[TagController::class,'destroy']);
+    Route::get("distributors-tags",[TagController::class,'DistributorsTags']);
 
 }); 
 
