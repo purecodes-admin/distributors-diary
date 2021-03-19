@@ -22,6 +22,7 @@
                 out!</span>
             <span class="ml-4 font-bold error" id="labelmsg1" style="color:Red;display:none">Label must be in
                 characters!</span>
+            <div id="errors"></div>
 
         </div>
 
@@ -65,6 +66,15 @@
                 },
                 error: function(res) {
                     console.log(res);
+
+                    // Html and whole process for getting and displaying error from server to javascript request
+                    let errors = res.responseJSON.message;
+                    let html = '<div style="color: red; font-weight:bold; margin-left:20px;">';
+                    html += '<p>' + errors + '</p>';
+                    html += '</div>';
+                    document.getElementById('errors').innerHTML = html;
+
+
                     document.getElementById("danger").style.display = ""
                 }
             });

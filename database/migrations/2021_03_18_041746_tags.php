@@ -16,9 +16,8 @@ class Tags extends Migration
         Schema::create('tags',function(Blueprint $table){
             $table->id();
             $table->string('label');
-            $table->string('slug');
-            $table->integer('has_global');
-            $table->unsignedBigInteger('distributor_id');
+            $table->string('slug')->unique();
+            $table->unsignedBigInteger('distributor_id')->nullable();
             $table->timestamps();
 
             $table->foreign('distributor_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');

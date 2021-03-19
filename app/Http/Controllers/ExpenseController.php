@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tag;
 use App\Models\Expense;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class ExpenseController extends Controller
 {
@@ -14,9 +16,29 @@ class ExpenseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+
+        $from=$request->searchFrom;
+            $to=$request->searchTo;
+
+            $tags= Tag::all();
+
+        $expense = Expense::with('tags')->where('distributor_id',auth()->user()->id)
+        ->when($from, function($query) use ($from) {
+            $query->where('date', '>=', $from);
+        })
+        ->when($to, function($query) use ($to) {
+            $query->where('date', '<=', $to);
+        })
+        ->paginate(5);
+        // return $expense;
+        if(Gate::allows('distributor-only')){
+        return view('users.expenses', ['data' => $expense , 'tags'=>$tags]);
+        }
+        else{
+            return response()->json(['message' => 'Forbidden!'], 403);
+        }
     }
 
     /**
@@ -27,7 +49,12 @@ class ExpenseController extends Controller
     public function create()
     {
         $tags = DB::table('tags')->get();
-        return view('users.create-expenses', compact('tags'));
+        if(Gate::allows('distributor-only')){
+            return view('users.create-expenses', compact('tags'));
+        }
+        else{
+            return response()->json(['message' => 'Forbidden!'], 403);
+        }
     }
 
     /**

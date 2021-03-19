@@ -1,4 +1,4 @@
-@extends('layout/admin-master')
+@extends('layout/master')
 @section('address', 'Add Tags')
 @section('content')
     <h3 class="p-5 font-semibold text-lg underline text-blue-700     hover:text-blue-900">

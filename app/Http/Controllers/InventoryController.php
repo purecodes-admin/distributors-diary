@@ -28,6 +28,7 @@ class InventoryController extends Controller
          }
          )
         ->paginate(3);
+        // return $inventories;
         if(Gate::allows('distributor-only')){
         return view('inventories.inventory', ['data' => $inventories]);
         }

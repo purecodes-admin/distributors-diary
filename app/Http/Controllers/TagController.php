@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Tag;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class TagController extends Controller
 {
@@ -19,8 +21,12 @@ class TagController extends Controller
             $q->where('label', 'like', '%' . request('search') . '%');
         })
         ->paginate(5);
-        return view('users.admin-tags', ['data' => $tags ]);
-           
+        if(Gate::allows('admin-only')){
+          return view('users.admin-tags', ['data' => $tags ]);
+        }
+        else{
+            return response()->json(['message' => 'Forbidden!'], 403);
+        }           
     }
 
     /**
@@ -30,7 +36,12 @@ class TagController extends Controller
      */
     public function create()
     {
+        if(Gate::allows('admin-only')){
         return view('users.create-tags');
+        }
+        else{
+            return response()->json( 403);
+        }    
     }
 
     /**
@@ -41,17 +52,18 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+
+            'slug'=> 'unique',
+        ]);
         
-        $tag= new Tag;
 
-        if(Tag::whereSlug(Str::slug($tag->label))->exists()) {
-            return "This Tags is Already Exist"; 
+        if(Tag::whereSlug(Str::slug($request->label))->exists()) {
+            return response()->json(['message' => 'This Label Already Exists!'], 422);
          }
-
+        $tag= new Tag;
         $tag->label= $request->label;
         $tag->slug= Str::slug($tag->label);
-        $tag->has_global= 1;
-        $tag->distributor_id=$request->user()->id;
         $tag->save();
     }
 
@@ -95,36 +107,36 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tag $tag)
+    public function destroy(Tag $tags)
     {
-        if ( Gate::allows('admin-only', $tag)) {
-            $tag->delete();
-        }
-        else{
-            return'You are Not Eligible';
-        }
+        $tag=Tag::find($tags);
+		$tag->each->delete();
     }
 
 
 
     public function CustomTag()
     {
+        if(Gate::allows('distributor-only')){
         return view('users.create-own-tags');
+        }
+        else{
+            return response()->json(['message' => 'Forbidden!'], 403);
+        }    
     }
 
 
 
     public function AddCustomTag( Request $request)
     {
-        $tag= new Tag;
+       
 
-        if(Tag::whereSlug(Str::slug($tag->label))->exists()) {
-            return "This Tags is Already Exist"; 
+        if(Tag::whereSlug(Str::slug($request->label))->exists()) {
+            return response()->json(['message' => 'This Label Already Exists!'], 422);
          }
-
+         $tag= new Tag;
         $tag->label= $request->label;
         $tag->slug= Str::slug($tag->label);
-        $tag->has_global= 1;
         $tag->distributor_id=$request->user()->id;
         $tag->save();
     }
@@ -132,11 +144,25 @@ class TagController extends Controller
 
     public function DistributorsTags()
     {
-        $tags = Tag::when(request('search') != '', function($q) {
+        $tags = Tag::where('distributor_id', auth()->user()->id)->orWhereNull('distributor_id')->when(request('search') != '', function($q) {
             $q->where('label', 'like', '%' . request('search') . '%');
         })
         ->paginate(5);
+        if(Gate::allows('distributor-only')){
         return view('users.distributors-tags', ['data' => $tags ]);
+        }
+        else{
+            return response()->json(['message' => 'Forbidden!'], 403);
+        }    
+
+    }
+
+    
+
+    public function DeleteDistributorTag(Tag $tags)
+    {
+        $tag=Tag::find($tags)->where('distributor_id',auth()->user()->id);
+		$tag->each->delete();
 
     }
 }

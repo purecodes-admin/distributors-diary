@@ -97,8 +97,10 @@ Route::group(['prefix' => 'users'], function()
     Route::get("custom-tags",[TagController::class,'CustomTag']);
     Route::post("add-custom-tags",[TagController::class,'AddCustomTag']);
     Route::get("tags",[TagController::class,'index']);
-    Route::get("delete/{tag}",[TagController::class,'destroy']);
     Route::get("distributors-tags",[TagController::class,'DistributorsTags']);
+    Route::get("delete-tag/{tags}",[TagController::class,'DeleteDistributorTag']);
+    Route::get("remove-tag/{tags}",[TagController::class,'destroy']);
+    Route::get("expenses",[ExpenseController::class,'index']);
 
 }); 
 

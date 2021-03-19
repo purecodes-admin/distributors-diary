@@ -13,4 +13,9 @@ class Tag extends Model
     {
         return $this->belongsToMany(Expenses::class);
     }
+
+    public function distributor()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

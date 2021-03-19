@@ -5,10 +5,10 @@
     <div class="bg-white rounded-xl mt-4 px-1 pt-1">
         <input type="hidden" id="csrf-token" value="{{ csrf_token() }}" />
 
-        <span class="ml-60 font-bold" id="success" style="color:green; display:none;">
+        <span class="ml-80 font-bold" id="success" style="color:green; display:none;">
             Tag Deleted Successfully...!!!
         </span>
-        <span class="ml-60 font-bold" id="danger" style="color:red; display:none;">
+        <span class="ml-80 font-bold" id="danger" style="color:red; display:none;">
             Tag Not Deleted...!!!
         </span>
         <h1 class="text-4xl text-gray-700 font-bold pt-2 mt-4 ml-2">
@@ -50,10 +50,12 @@
                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">{{ $tag->slug }}</td>
 
                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
-                            <a href="" class="ml-4">
-                                <button class="bg-red-500  hover:bg-red-700 text-white font-bold px-1 rounded"
-                                    onclick="deletetag({{ $tag->id }})"><i class="fa fa-trash-alt"></i></button>
-                            </a>
+                            @if ($tag->distributor_id)
+                                <a href="" class="ml-4">
+                                    <button class="bg-red-500  hover:bg-red-700 text-white font-bold px-1 rounded"
+                                        onclick="deletetag({{ $tag->id }})"><i class="fa fa-trash-alt"></i></button>
+                                </a>
+                            @endif
                         </td>
                     </tr>
                 @empty
@@ -77,7 +79,7 @@
             if (confirm("Do you Really Want to Delete This Tag?")) {
                 $.ajax({
                     type: 'get',
-                    url: '/users/delete/' + id,
+                    url: '/users/delete-tag/' + id,
                     success: function(response) {
                         document.getElementById("success").style.display = ""
                         var col = document.getElementById("demo-" + id);
