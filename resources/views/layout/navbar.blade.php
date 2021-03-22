@@ -10,19 +10,15 @@
         font-weight: bolder;
     }
 
-    .active,
-    .menu:hover {
-        text-decoration: underline;
-    }
-
-    .app a.active {
-        text-decoration: underline;
-        color: white;
-    }
-
     .dropdown:hover .dropdown-menu {
         display: block;
     }
+
+    /* .active,
+    .a:hover {
+        background-color: #666;
+        color: white;
+    } */
 
 </style>
 
@@ -57,7 +53,7 @@
 
             <div class="hidden md:block mobile-menu">
                 <div :class="open ? 'block' : 'hidden'" class="flex flex-col text-left md:block md:text-right md:mt-0">
-                    <a href="/items/home" class="menu mt-3 md:mx-3  text-gray-200">Home
+                    <a href="/items/home" class=" active menu mt-3 md:mx-3  text-gray-200">Home
 
                     </a>
                     <a href="/customers" class=" menu mt-3 md:mx-3   text-gray-200">Customers</a>

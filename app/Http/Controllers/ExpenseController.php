@@ -22,7 +22,8 @@ class ExpenseController extends Controller
         $from=$request->searchFrom;
             $to=$request->searchTo;
 
-            $tags= Tag::all();
+            $tags= Tag::where('distributor_id',auth()->user()->id)
+            ->orWhereNull('distributor_id')->get();
 
         $expense = Expense::with('tags')->where('distributor_id',auth()->user()->id)
         ->when($from, function($query) use ($from) {
@@ -31,8 +32,15 @@ class ExpenseController extends Controller
         ->when($to, function($query) use ($to) {
             $query->where('date', '<=', $to);
         })
+        ->when(request('tag_type'), function($q) {
+            $q->whereHas('tags', function($q) {
+                $q->whereIn('tags.id', request('tag_type'));
+            });
+        })
+        
         ->paginate(5);
-        // return $expense;
+        // print_r($expense);
+        // return($expense);
         if(Gate::allows('distributor-only')){
         return view('users.expenses', ['data' => $expense , 'tags'=>$tags]);
         }
@@ -48,7 +56,9 @@ class ExpenseController extends Controller
      */
     public function create()
     {
-        $tags = DB::table('tags')->get();
+        $tags = DB::table('tags')->where('distributor_id',auth()->user()->id)
+        ->orWhereNull('distributor_id')
+        ->get();
         if(Gate::allows('distributor-only')){
             return view('users.create-expenses', compact('tags'));
         }

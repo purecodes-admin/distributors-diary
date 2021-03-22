@@ -34,21 +34,15 @@
         <div>
             <form action="expenses" class="flex justify-between">
                 <div>
-                    <select name="tag_type"
+                    <select name="tag_type[]"
                         class="multiple-tags ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
                         onchange="this.form.submit()" multiple>
-                        <option>Select</option>
 
                         <option value="">Select Item Name</option>
                         @foreach ($tags as $tag)
-                            <option value="{{ $tag->id }}" {{ request('tag_type') == '{{ $tag->id  ?>' }}'
-                                ? 'selected' : '' }}>
+                            <option value="{{ $tag->id }}" {{ request('tag_type') == [$tag->id] ? 'selected' : '' }}>
                                 {{ $tag->label }}</option>
                         @endforeach
-                        {{-- <option value="paid" {{ request('invoice_type') == 'paid' ? 'selected' : '' }}>Paid Invoices
-                        </option>
-                        <option value="unpaid" {{ request('invoice_type') == 'unpaid' ? 'selected' : '' }}>Unpaid Invoices
-                        </option> --}}
                     </select>
 
                 </div>
@@ -106,7 +100,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="3" class="text-center py-4">No records found.</td>
+                        <td colspan="4" class="text-center py-4">No records found.</td>
                     </tr>
                 @endforelse
             </tbody>
