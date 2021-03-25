@@ -1,6 +1,7 @@
 @extends('layout/master')
 @section('title', 'Billings')
 @section('content')
+
     <div class="bg-white rounded-xl mt-4 px-2">
 
         <input type="hidden" id="csrf-token" value="{{ csrf_token() }}" />

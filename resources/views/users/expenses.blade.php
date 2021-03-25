@@ -34,13 +34,14 @@
         <div>
             <form action="expenses" class="flex justify-between">
                 <div>
-                    <select name="tag_type[]"
+                    <select name="tag_type[]" id="mySelect2"
                         class="multiple-tags ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
                         onchange="this.form.submit()" multiple>
 
                         <option value="">Select Item Name</option>
                         @foreach ($tags as $tag)
-                            <option value="{{ $tag->id }}" {{ request('tag_type') == [$tag->id] ? 'selected' : '' }}>
+                            <option value="{{ $tag->id }}"
+                                {{ request('tag_type') && in_array($tag->id, request('tag_type')) ? 'selected' : '' }}>
                                 {{ $tag->label }}</option>
                         @endforeach
                     </select>
@@ -143,6 +144,24 @@
                 tags: true,
                 tokenSeprators: ['/', ',', ',', ""]
             });
+        })
+
+        // code for search select2
+        $(document).ready(function() {
+            var abc = new Array;
+
+            <?php
+            if (isset($_GET['tag_type'])) {
+                foreach($_GET['tag_type'] as $tagID) {
+                    ?>
+                    abc.push('<?php echo $tagID; ?>');
+                    <?php
+                }
+            } ?>
+
+            console.log(abc);
+            $('#mySelect2').val(abc);
+            // $('#mySelect2').trigger('change');
         })
 
     </script>

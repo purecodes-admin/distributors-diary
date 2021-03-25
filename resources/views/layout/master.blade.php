@@ -51,9 +51,10 @@
 
 <body class="bg-gray-100 dark:bg-gray-900">
 
+
     @include('layout.navbar')
 
-    <div class="container mx-auto w-auto">
+    <div class="container mx-auto w-auto px-4 md:px-0">
         {{-- @include('layout.logo') --}}
         @yield('content')
     </div>

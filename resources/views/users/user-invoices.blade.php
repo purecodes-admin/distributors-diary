@@ -41,13 +41,13 @@
                         class="px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                         Amount</th>
                     <th
-                        class="px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                        class="hidden md:table-cell px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                         Month</th>
                     <th
-                        class="px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                        class="hidden md:table-cell px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                         Due Date</th>
                     <th
-                        class="px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                        class="hidden md:table-cell px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                         Has Sent</th>
                     <th
                         class="px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
@@ -68,13 +68,13 @@
 
                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ number_format($record->amount) }}
                         </td>
-                        <td class=" px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                        <td class="hidden md:table-cell px-5 py-5 border-b border-gray-200 bg-white text-sm">
                             {{ $record->month }}
                         </td>
-                        <td class=" px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                        <td class="hidden md:table-cell px-5 py-5 border-b border-gray-200 bg-white text-sm">
                             {{ $record->due_date }}
                         </td>
-                        <td class=" px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                        <td class="hidden md:table-cell px-5 py-5 border-b border-gray-200 bg-white text-sm">
                             @if ($record->has_sent == 1)
 
                                 <span class="bg-green-50  text-green-300 font-semibold px-2 rounded-xl text-xs">

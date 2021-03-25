@@ -1,10 +1,11 @@
 @extends('layout/master')
 @section('title', 'Records List')
 @section('content')
+
     <div class="bg-white rounded-xl mt-4 px-1">
         <input type="hidden" id="csrf-token" value="{{ csrf_token() }}" />
 
-        <h1 class="text-4xl text-gray-700 font-bold pt-2 mt-4 ml-2">
+        <h1 class="text-4xl text-gray-700 font-bold pt-2 mt-4 ml-2 text-center md:text-left">
             <span class="fa fa-users"></span> Customers List
         </h1>
 
@@ -19,7 +20,7 @@
                         class="hidden md:block bg-blue-700 px-2 py-1 rounded text-white font-bold overflow-hidden">Purchasers</button>
                 </a>
             </div>
-            <div class="flex justify-end">
+            <div class="flex md:justify-end justify-center">
 
                 <a href="/customers/add">
 
@@ -89,7 +90,7 @@
                             </td>
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->category }}</td>
 
-                            <td class="pl-2 pr-10 py-5 border-b border-gray-200 bg-white text-sm">
+                            <td class="flex pl-2 pr-10 py-5 border-b border-gray-200 bg-white text-sm">
                                 <a href={{ '/customers/edit/' . $record['id'] }}>
                                     <button class="bg-green-700  hover:bg-green-900 text-white font-bold px-1 rounded"><i
                                             class="fas fa-edit"></i></button>

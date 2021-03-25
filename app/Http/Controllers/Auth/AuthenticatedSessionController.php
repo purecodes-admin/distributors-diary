@@ -34,7 +34,7 @@ class AuthenticatedSessionController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect('items/home');
         }
 
         return back()->withErrors([

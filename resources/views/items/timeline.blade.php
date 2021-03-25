@@ -1,6 +1,27 @@
 @extends('layout/master')
 @section('title', 'Records List')
 @section('content')
+
+    {{-- code for breadcrumbs --}}
+    <style>
+        ul.breadcrumbs li+li :before {
+            padding: 8px;
+            color: black;
+            content: "/\00a0";
+        }
+
+    </style>
+
+    <ul class="flex p-3 bg-gray-200 breadcrumbs">
+        <li class="mr-2 text-gray-700 hover:text-gray-900">
+            <a href="../home" class="hover:underline">Home</a>
+        </li>
+        <li class="text-blue-700 hover:text-blue-900">
+            <a href="">Stock Timeline</a>
+        </li>
+    </ul>
+
+
     <div class="mb-3 flex justify-end">
         <input type="hidden" id="csrf-token" value="{{ csrf_token() }}" />
 

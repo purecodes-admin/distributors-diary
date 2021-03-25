@@ -26,28 +26,37 @@
 
 <div id="app" class="py-8">
     <header>
-        <div
-            class="fixed inset-x-0 top-0 text-white bg-blue-700 px-10 md:flex md:items-center md:justify-between md:px-40">
-            <div id="myDiv" class="flex items-center justify-between">
-                <div>@include('layout.logo')</div>
-                <a href="/dashboard" class="mt-3 md:mx-3 text-gray-200 hover:text-white font-light text-xl">
-                </a>
-                <div class="md:hidden align-middle">
-                    <i class="material-icons align-middle cursor-pointer" @click.prevent="toogle"></i>
+
+        <div class="fixed inset-x-0 top-0 text-white bg-blue-700 px-10 md:flex md:items-center md:justify-between">
+
+            {{-- mobile Menu is here --}}
+            <div class="flex justify-between">
+
+                <div id="myDiv" class="flex items-center justify-between">
+                    <div class="-ml-8 md:ml-0">@include('layout.logo')</div>
+                    <a href="/dashboard" class="mt-3 md:mx-3 text-gray-200 hover:text-white font-light text-xl">
+                    </a>
+                    <div class="md:hidden align-middle">
+                        <i class="material-icons align-middle cursor-pointer" @click.prevent="toogle"></i>
+                    </div>
+                </div>
+
+                {{-- mobile Menu is here --}}
+
+
+                <div class="md:hidden mt-4 -mr-4">
+                    <button class="moblie-menu-button" style="outline: none;">
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
                 </div>
             </div>
 
 
-            {{-- mobile Menu is here --}}
-            <div class="md:hidden flex justify-end">
-                <button class="moblie-menu-button" style="outline: none;">
-                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                </button>
-            </div>
+
 
 
 
@@ -61,6 +70,7 @@
                 <a href="/customer/purchaser" class="mt-3 md:mx-3 hover:text-blue-500 font-bold">Purchasers</a> --}}
                     <a href="/items" class="menu mt-3 md:mx-3   text-gray-200">Items</a>
                     <a href="/inventories" class=" menu mt-3 md:mx-3  text-gray-200">Inventory</a>
+                    <a href="/users/my-invoices" class=" menu mt-3 md:mx-3  text-gray-200">Invoices</a>
                     <a href="/users/Userbilling" class=" menu mt-3 md:mx-3  text-gray-200">Billings</a>
                     <div class=" dropdown relativemt-3 md:mx-3 hover:text-red-500 font-bold inline-block">
 
@@ -100,11 +110,7 @@
                                     Expenses
                                 </a>
                             </li>
-                            <li class=""><a class="block px-4 py-2 text-sm hover:bg-gray-400 font-extrabold"
-                                    href="/users/my-invoices"><span class="fas fa-file-invoice mr-1"></span>
-                                    Invoices
-                                </a>
-                            </li>
+
                             <li class=""><a class="block px-4 py-2 text-sm hover:bg-gray-400 font-extrabold"
                                     href="/users/distributors-tags"><span class="fas fa-file-invoice mr-1"></span>
                                     Tags

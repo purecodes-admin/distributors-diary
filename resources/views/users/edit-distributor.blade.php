@@ -1,6 +1,27 @@
 @extends('layout/admin-master')
 @section('title', 'Records List')
 @section('content')
+
+    {{-- code for breadcrumbs --}}
+    <style>
+        ul.breadcrumbs li+li :before {
+            padding: 8px;
+            color: black;
+            content: "/\00a0";
+        }
+
+    </style>
+
+    <ul class="flex p-3 bg-gray-200 breadcrumbs">
+        <li class="mr-2 text-gray-700 hover:text-gray-900">
+            <a href="../" class="hover:underline">Distributors</a>
+        </li>
+        <li class="text-blue-700 hover:text-blue-900">
+            <a href="">Edit Distributor</a>
+        </li>
+    </ul>
+
+
     <h3 class="p-5 font-semibold text-lg underline text-blue-700 hover:text-blue-900">
         <span class="fas fa-user"></span>
         <a>Update Distributor</a>

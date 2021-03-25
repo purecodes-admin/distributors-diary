@@ -4,7 +4,7 @@
     <div class="bg-white rounded-xl mt-4 px-2">
 
         <input type="hidden" id="csrf-token" value="{{ csrf_token() }}" />
-        <h1 class="text-4xl text-gray-700 font-bold p-2">Inventory</h1>
+        <h1 class="text-4xl text-gray-700 font-bold p-2 text-center md:text-left">Inventory</h1>
         <span class="ml-60 font-bold text-center" id="success" style="color:green; display:none;">
             Stock Record Deleted Successfully...!!!
         </span>
@@ -18,7 +18,7 @@
         @if (Session::has('payment'))
             <p class="text-center text-green-700 font-bold">{{ Session::get('payment') }}</p>
         @endif
-        <div class="mb-3 flex justify-end">
+        <div class="mb-3 flex md:justify-end justify-center">
             <a href="/inventories/create">
                 <button class=" mt-2 mr-2 bg-blue-700 hover:bg-blue-900 text-white font-bold  px-1 rounded">New <i
                         class="fas fa-plus"></i></button>
@@ -31,7 +31,7 @@
                 <button type="submit" style="outline: none;"><i class="fa fa-search"></i></button>
             </form>
         </div>
-        <table class="min-w-full leading-normal table-fixed">
+        <table class="min-w-full table-fixed">
             <thead>
                 <tr>
                     <th
@@ -82,17 +82,17 @@
                             class=" hidden md:table-cell px-5 py-5 border-b border-gray-200 bg-white text-sm">
                             {{ $record->created_at->diffForHumans() }}</td>
 
-                        <td class=" w-40 px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                        <td class=" flex pl-2 pr-10 py-5 border-b border-gray-200 bg-white text-sm">
                             @if (!$record->payment)
                                 <a href={{ '/inventories/payment/' . $record->id }} class="ml-3">
                                     <button class="bg-green-700  hover:bg-green-900 text-white font-bold px-1 rounded"
                                         id="payment" type="submit"><i class="fas fa-hand-holding-usd"></i></button>
-                                </a>
+                                </a>&nbsp;
                             @endif
                             <a href={{ '/inventories/edit/' . $record->id }} class="ml-3">
                                 <button class="bg-green-700  hover:bg-green-900 text-white font-bold px-1 rounded"><i
                                         class="fas fa-edit"></i></button>
-                            </a>
+                            </a>&nbsp;
                             <a href="" class="ml-3">
                                 <button class="bg-red-500  hover:bg-red-700 text-white font-bold px-1 rounded"
                                     onclick="deleteStock({{ $record->id }})"><i class="fas fa-trash-alt"></i></button>
@@ -107,38 +107,39 @@
                 </tr>
             @endforelse
         </table>
+    </div>
 
-        <script>
-            function deleteStock(id) {
-                // Token is Not Required in Delete Function
-                // var token = document.getElementById('csrf-token').value; 
-                window.setTimeout("document.getElementById('success').style.display='none';", 3000);
-                window.setTimeout("document.getElementById('danger').style.display='none';", 3000);
+    <script>
+        function deleteStock(id) {
+            // Token is Not Required in Delete Function
+            // var token = document.getElementById('csrf-token').value; 
+            window.setTimeout("document.getElementById('success').style.display='none';", 3000);
+            window.setTimeout("document.getElementById('danger').style.display='none';", 3000);
 
-                if (confirm("Do you Really Want to Delete This Stock Record?")) {
-                    $.ajax({
-                        type: 'get',
-                        url: '/inventories/delete/' + id,
-                        success: function(response) {
-                            document.getElementById("success").style.display = ""
-                            $('#demo_' + id).remove();
+            if (confirm("Do you Really Want to Delete This Stock Record?")) {
+                $.ajax({
+                    type: 'get',
+                    url: '/inventories/delete/' + id,
+                    success: function(response) {
+                        document.getElementById("success").style.display = ""
+                        $('#demo_' + id).remove();
 
 
-                        },
-                        error: function(res) {
-                            document.getElementById("danger").style.display = ""
-                        }
-                    });
-
-                }
+                    },
+                    error: function(res) {
+                        document.getElementById("danger").style.display = ""
+                    }
+                });
 
             }
 
-        </script>
-        <span>
-            {{ $data->links() }}
-        </span>
-    </div>
+        }
+
+    </script>
+    <span>
+        {{ $data->links() }}
+    </span>
+
 
     <script>
         $(function() {

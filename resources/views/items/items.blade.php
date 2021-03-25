@@ -54,7 +54,7 @@
                             {{ number_format($item->wholesale_price) }}</td>
                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
                             {{ number_format($item->retailsale_price) }}</td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
+                        <td class=" flex px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
                             <a href={{ '/items/edit/' . $item['id'] }} class="ml-4">
                                 <button class="bg-green-700  hover:bg-green-900 text-white font-bold px-1 rounded"><i
                                         class="fas fa-edit"></i></button>
