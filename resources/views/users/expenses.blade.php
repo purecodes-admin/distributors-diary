@@ -2,7 +2,7 @@
 @section('title', 'Expenses')
 @section('content')
 
-    <div class="bg-white rounded-xl mt-4 px-1 pt-1">
+    <div class="bg-white rounded-xl mt-4 px-1 pt-1" style="width: 88%; margin:auto;">
         <input type="hidden" id="csrf-token" value="{{ csrf_token() }}" />
 
         <span class="ml-80 font-bold" id="success" style="color:green; display:none;">

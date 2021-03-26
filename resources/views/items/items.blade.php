@@ -2,7 +2,7 @@
 @section('title', 'Items')
 @section('content')
 
-    <div class="bg-white rounded-xl mt-4 px-1 pt-1">
+    <div class="bg-white rounded-xl mt-4  pt-1" style="width: 88%; margin:auto;">
         <input type="hidden" id="csrf-token" value="{{ csrf_token() }}" />
 
         <span class="ml-60 font-bold" id="success" style="color:green; display:none;">
@@ -21,7 +21,7 @@
                         class="fas fa-plus"></i></button>
             </a>
             <form action="items">
-                <input type="search" placeholder="Search.." name="search" class="rounded border-none bg-gray-100"
+                <input type="search" placeholder="Search.." name="search" class="rounded border-none bg-gray-100 mr-10"
                     value="{{ request('search') }}">
             </form>
         </div>

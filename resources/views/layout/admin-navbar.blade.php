@@ -31,64 +31,89 @@
 
 <div id="app" class="py-8">
     <header>
-        <div
-            class="fixed inset-x-0 top-0 text-white bg-blue-700 px-10 md:flex md:items-center md:justify-between md:px-40">
-            <div id="myDiv" class="flex items-center justify-between">
-                <div>@include('layout.logo')</div>
-                {{-- <a href="/dashboard" class="mt-3 md:mx-3 text-green-700 hover:text-white font-bold text-xl">Welcome
-                    {{ Auth::user()->name }}</a> --}}
-                <div class="md:hidden align-middle">
-                    <i class="material-icons align-middle cursor-pointer" @click.prevent="toogle"></i>
+        <div class="fixed inset-x-0 top-0 text-white bg-blue-700 px-10 md:flex md:items-center md:justify-between">
+
+            {{-- mobile Menu is here --}}
+            <div class="flex justify-between">
+
+                <div id="myDiv" class="flex items-center justify-between">
+                    <div class="-ml-2 md:ml-16">@include('layout.logo')</div>
+                    <a href="/dashboard" class="mt-3 md:mx-3 text-gray-200 hover:text-white font-light text-xl">
+                    </a>
+                    <div class="md:hidden align-middle">
+                        <i class="material-icons align-middle cursor-pointer" @click.prevent="toogle"></i>
+                    </div>
+                </div>
+
+                {{-- mobile Menu is here --}}
+
+
+                <div class="md:hidden mt-4">
+                    <button class="moblie-menu-button" style="outline: none;">
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
                 </div>
             </div>
-            <div :class="open ? 'block' : 'hidden'" class="flex flex-col text-left md:block md:text-right mt-3 md:mt-0">
-                <a href="/users" class="menu mt-3 md:mx-3   text-gray-200">Home</a>
-                <a href="/users/billings" class="menu mt-3 md:mx-3   text-gray-200">Billings</a>
-                <a href="/users/invoices" class="menu mt-3 md:mx-3   text-gray-200">Invoices</a>
-                <a href="/users/tags" class="menu mt-3 md:mx-3   text-gray-200">Tags</a>
-                {{-- <a href="/users/logout" class="menu mt-3 md:mx-3   text-gray-200">Logout</a> --}}
-                <div class=" dropdown relativemt-3 md:mx-3 hover:text-red-500 font-bold inline-block">
 
 
-                    <img src="{{ asset('images/' . Auth::user()->image) }}" alt="" height="30px" width="30px"
-                        class="rounded-3xl inline-block">
-                    <a class="inline-block">
-                        <svg class="fill-current h-4 w-4 inline-block" xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 20 20">
-                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                        </svg>
-                    </a>
+            {{-- Desktop Menu Code Here --}}
+
+            <div class="hidden md:block mobile-menu mr-16">
+                <div :class="open ? 'block' : 'hidden'"
+                    class="flex flex-col text-left md:block md:text-right mt-3 md:mt-0">
+                    <a href="/users" class="menu mt-3 md:mx-3   text-gray-200">Home</a>
+                    <a href="/users/billings" class="menu mt-3 md:mx-3   text-gray-200">Billings</a>
+                    <a href="/users/invoices" class="menu mt-3 md:mx-3   text-gray-200">Invoices</a>
+                    <a href="/users/tags" class="menu mt-3 md:mx-3   text-gray-200">Tags</a>
+                    {{-- <a href="/users/logout" class="menu mt-3 md:mx-3   text-gray-200">Logout</a> --}}
+                    <div class=" dropdown relativemt-3 md:mx-3 hover:text-red-500 font-bold inline-block">
+
+
+                        <img src="{{ asset('images/' . Auth::user()->image) }}" alt="" height="30px" width="30px"
+                            class="rounded-3xl inline-block">
+                        <a class="inline-block">
+                            <svg class="fill-current h-4 w-4 inline-block" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20">
+                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                            </svg>
+                        </a>
 
 
 
-                    <ul class="dropdown-menu absolute hidden text-gray-200 bg-blue-700 rounded-xl"><br>
+                        <ul class="dropdown-menu absolute hidden text-gray-200 bg-blue-700 rounded-xl"><br>
 
-                        {{-- <li class="">
+                            {{-- <li class="">
                             <a class="block px-4 py-2 text-sm hover:bg-gray-400 font-extrabold"
                                 href="/users/set-password">Change
                                 Password
                             </a>
                         </li> --}}
-                        <li class="">
-                            <a class="block px-4 py-2 text-sm  hover:bg-gray-400 font-extrabold" href="/users/image">
-                                Upload
-                                Profile
-                            </a>
-                        </li>
-                        <li class="">
-                            <a class="block px-4 py-2 text-sm  hover:bg-gray-400 font-extrabold" href="/users/logout">
-                                Logout
-                            </a>
-                        </li>
-                        {{-- <li class="">
+                            <li class="">
+                                <a class="block px-4 py-2 text-sm  hover:bg-gray-400 font-extrabold"
+                                    href="/users/image">
+                                    Upload
+                                    Profile
+                                </a>
+                            </li>
+                            <li class="">
+                                <a class="block px-4 py-2 text-sm  hover:bg-gray-400 font-extrabold"
+                                    href="/users/logout">
+                                    Logout
+                                </a>
+                            </li>
+                            {{-- <li class="">
                             <a class="block px-4 py-2 text-sm hover:bg-gray-400 font-extrabold"
                                 href="/users/set-password">Edit
                                 Profile
                             </a>
                         </li> --}}
 
-                        <!-- Authentication -->
-                        {{-- <li>
+                            <!-- Authentication -->
+                            {{-- <li>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
 
@@ -100,11 +125,12 @@
                         </li> --}}
 
 
-                        </form>
-                    </ul>
-                </div>
-                {{-- Logout --}}
+                            </form>
+                        </ul>
+                    </div>
+                    {{-- Logout --}}
 
+                </div>
             </div>
         </div>
     </header>
@@ -139,6 +165,24 @@
 <script>
     $('.myDiv').on('click', 'li', function() {
         $(this).addClass('active').siblings().removeClass('active');
+    });
+
+
+
+
+    $('.myDiv').on('click', 'li', function() {
+        $(this).addClass('active').siblings().removeClass('active');
+    });
+
+    // grab everthing we need for mobile menu
+
+    var btn = document.querySelector("button.moblie-menu-button");
+    var menu = document.querySelector(".mobile-menu");
+
+    // add event listener
+    btn.addEventListener("click", () => {
+        menu.classList.toggle("hidden");
+
     });
 
 </script>

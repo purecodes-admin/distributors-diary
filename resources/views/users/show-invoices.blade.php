@@ -1,7 +1,7 @@
 @extends('layout/admin-master')
 @section('title', 'Billings')
 @section('content')
-    <div class="bg-white rounded-xl mt-4 px-2">
+    <div class="bg-white rounded-xl mt-4 px-2" style="width: 88%; margin:auto;">
 
         <input type="hidden" id="csrf-token" value="{{ csrf_token() }}" />
 
@@ -19,7 +19,8 @@
                 </div>
 
                 <div>
-                    <select name="invoice_type" class="rounded mb-1 bg-gray-100 border-none" onchange="this.form.submit()">
+                    <select name="invoice_type" class="rounded mb-1 bg-gray-100 border-none hidden md:inline-block"
+                        onchange="this.form.submit()">
                         <option>Select</option>
                         <option value="paid" {{ request('invoice_type') == 'paid' ? 'selected' : '' }}>Paid Invoices
                         </option>
@@ -28,9 +29,9 @@
                     </select>
                 </div>
 
-                <div>
+                <div class="hidden md:inline-block">
                     From: <input type="date" value="{{ request('searchFrom') }}" placeholder="Search by Date.."
-                        name="searchFrom" class="rounded border-none w-auto bg-gray-100">
+                        name="searchFrom" class="rounded border-none w-auto bg-gray-100 ">
                     To: <input type="date" value="{{ request('searchTo') }}" placeholder="Search by Date.."
                         name="searchTo" class="rounded border-none w-auto bg-gray-100">
                     <button type="submit" style="outline: none;"><i class="fa fa-search"></i></button>
@@ -53,13 +54,13 @@
                         class="px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                         Amount</th>
                     <th
-                        class="px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                        class="hidden md:table-cell px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                         Month</th>
                     <th
-                        class="px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                        class="hidden md:table-cell px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                         Due Date</th>
                     <th
-                        class="px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                        class="hidden md:table-cell px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                         Has Sent</th>
                     <th
                         class="px-5 py-3 border-b-2  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
@@ -80,13 +81,13 @@
 
                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ number_format($record->amount) }}
                         </td>
-                        <td class=" px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                        <td class="hidden md:table-cell px-5 py-5 border-b border-gray-200 bg-white text-sm">
                             {{ $record->month }}
                         </td>
-                        <td class=" px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                        <td class="hidden md:table-cell px-5 py-5 border-b border-gray-200 bg-white text-sm">
                             {{ $record->due_date }}
                         </td>
-                        <td class=" px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                        <td class="hidden md:table-cell px-5 py-5 border-b border-gray-200 bg-white text-sm">
                             @if ($record->has_sent == 1)
 
                                 <span class="bg-green-50  text-green-300 font-semibold px-2 rounded-xl text-xs">

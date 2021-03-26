@@ -2,7 +2,7 @@
 @section('address', 'Add Distributor')
 @section('content')
 
-    <h3 class="p-5 font-semibold text-lg underline text-blue-700     hover:text-blue-900">
+    <h3 class="p-5 font-semibold text-lg underline text-blue-700  hover:text-blue-900" style="width: 88%; margin:auto;">
         <span class="fas fa-user"></span>
         <a>Change Password</a>
         <span class="ml-60 font-bold" id="success" style="color:green; display:none;">
@@ -13,50 +13,55 @@
         </span>
     </h3>
     <div id="errors"></div>
-    <form method="post" name="myForm" id="addForm">
-        @csrf
-        <input type="hidden" name="id" value="">
-        <div class="flex flex-col w-1/2">
-            <label for="old_password" class="leading-10 pl-2 ml-4">Old Password:</label>
-            <input type="password" value="{{ old('password') }}" name="old_password"
-                class=" ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
-                placeholder="Old Password">
-            <span class="ml-4 error font-bold" id="old_passwordmsg" style="color:Red;display:none">Old Password must be
-                filled
-                out!</span>
-            <span class="ml-4 error font-bold" id="old_passwordmsg1" style="color:Red;display:none">The password must be at
-                least 8 characters.</span>
 
-        </div>
-        <div class="flex flex-col w-1/2">
-            <label for="password" class="leading-10 pl-2 ml-4">New Password:</label>
-            <input type="password" value="{{ old('password') }}" name="password"
-                class=" ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
-                placeholder="New Password">
-            <span class="ml-4 error font-bold" id="passwordmsg" style="color:Red;display:none">Password must be filled
-                out!</span>
-            <span class="ml-4 error font-bold" id="passwordmsg1" style="color:Red;display:none">The password must be at
-                least 8 characters.</span>
+    <div style="width: 88%; margin:auto;">
+        <form method="post" name="myForm" id="addForm">
+            @csrf
+            <input type="hidden" name="id" value="">
+            <div class="flex flex-col md:w-1/2">
+                <label for="old_password" class="leading-10 pl-2 ml-4">Old Password:</label>
+                <input type="password" value="{{ old('password') }}" name="old_password"
+                    class=" ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+                    placeholder="Old Password">
+                <span class="ml-4 error font-bold" id="old_passwordmsg" style="color:Red;display:none">Old Password must be
+                    filled
+                    out!</span>
+                <span class="ml-4 error font-bold" id="old_passwordmsg1" style="color:Red;display:none">The password must be
+                    at
+                    least 8 characters.</span>
 
-        </div>
+            </div>
+            <div class="flex flex-col md:w-1/2">
+                <label for="password" class="leading-10 pl-2 ml-4">New Password:</label>
+                <input type="password" value="{{ old('password') }}" name="password"
+                    class=" ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+                    placeholder="New Password">
+                <span class="ml-4 error font-bold" id="passwordmsg" style="color:Red;display:none">Password must be filled
+                    out!</span>
+                <span class="ml-4 error font-bold" id="passwordmsg1" style="color:Red;display:none">The password must be at
+                    least 8 characters.</span>
 
-        <div class="flex flex-col w-1/2">
-            <label for="c_password" class="leading-10 pl-2 ml-4">Confirm New Password:</label>
-            <input type="password" value="{{ old('password') }}" name="c_password"
-                class=" ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
-                placeholder="Confirm New Password">
-            <span class="ml-4 error font-bold" id="c_passwordmsg" style="color:Red;display:none">Password must be filled
-                out!</span>
-            <span class="ml-4 error font-bold" id="c_passwordmsg1" style="color:Red;display:none">The password confirmation
-                does not match!</span>
+            </div>
 
-        </div>
+            <div class="flex flex-col md:w-1/2">
+                <label for="c_password" class="leading-10 pl-2 ml-4">Confirm New Password:</label>
+                <input type="password" value="{{ old('password') }}" name="c_password"
+                    class=" ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+                    placeholder="Confirm New Password">
+                <span class="ml-4 error font-bold" id="c_passwordmsg" style="color:Red;display:none">Password must be filled
+                    out!</span>
+                <span class="ml-4 error font-bold" id="c_passwordmsg1" style="color:Red;display:none">The password
+                    confirmation
+                    does not match!</span>
 
-        <div class="flex flex-col w-1/2 mt-2">
-            <button class="bg-blue-700 hover:bg-blue-900 font-bold text-white ml-2 py-2 rounded" type="button"
-                onclick="validateForm()">Set Password</button><br>
-        </div>
-    </form>
+            </div>
+
+            <div class="flex flex-col md:w-1/2 mt-2">
+                <button class="bg-blue-700 hover:bg-blue-900 font-bold text-white ml-2 py-2 rounded" type="button"
+                    onclick="validateForm()">Set Password</button><br>
+            </div>
+        </form>
+    </div>
 
     <script>
         function validateForm() {

@@ -12,18 +12,19 @@
         }
 
     </style>
+    <div style="width: 88%; margin:auto;">
+        <ul class="flex p-3 bg-gray-200 breadcrumbs">
+            <li class="mr-2 text-gray-700 hover:text-gray-900">
+                <a href="../users/expenses" class="hover:underline">Expenses</a>
+            </li>
+            <li class="text-blue-700 hover:text-blue-900">
+                <a href="">Create Expenses</a>
+            </li>
+        </ul>
+    </div>
 
-    <ul class="flex p-3 bg-gray-200 breadcrumbs">
-        <li class="mr-2 text-gray-700 hover:text-gray-900">
-            <a href="../users/expenses" class="hover:underline">Expenses</a>
-        </li>
-        <li class="text-blue-700 hover:text-blue-900">
-            <a href="">Create Expenses</a>
-        </li>
-    </ul>
 
-
-    <h3 class="p-5 font-semibold text-lg underline text-blue-700     hover:text-blue-900">
+    <h3 class="p-5 font-semibold text-lg underline text-blue-700 hover:text-blue-900" style="width: 88%; margin:auto;">
         <span class="fas fa-user"></span>
         <a>Create Your Expenses</a>
         <span class="ml-60 font-bold" id="success" style="color:green; display:none;">
@@ -33,44 +34,48 @@
             Expense Creation Failed...!!!
         </span>
     </h3>
-    <form name="myForm" id="addForm">
-        @csrf
-        <div class="flex flex-col w-1/2">
-            <label for="expense_amount" class="leading-10 pl-2">Expense Amount:</label>
-            <input type="text" name="expense_amount" value="{{ old('expense_amount') }}"
-                class=" ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600 "
-                placeholder="Expense Amount">
-            <span class="ml-4 font-bold error" id="expense_amountmsg" style="color:Red;display:none">Expense Amount must be
-                filled
-                out!</span>
-            <span class="ml-4 font-bold error" id="expense_amountmsg1" style="color:Red;display:none">Expense Amount must be
-                in
-                digits!</span>
+    <div style="width: 88%; margin:auto;">
+        <form name="myForm" id="addForm">
+            @csrf
+            <div class="flex flex-col md:w1/2">
+                <label for="expense_amount" class="leading-10 pl-2">Expense Amount:</label>
+                <input type="text" name="expense_amount" value="{{ old('expense_amount') }}"
+                    class=" ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600 "
+                    placeholder="Expense Amount">
+                <span class="ml-4 font-bold error" id="expense_amountmsg" style="color:Red;display:none">Expense Amount must
+                    be
+                    filled
+                    out!</span>
+                <span class="ml-4 font-bold error" id="expense_amountmsg1" style="color:Red;display:none">Expense Amount
+                    must be
+                    in
+                    digits!</span>
 
-        </div>
-
-
-        <div class="flex flex-col w-1/2">
-            <label for="tags" class="leading-10 pl-2">Select Tags:</label>
-            <select name="tags" id="tags"
-                class="multiple-tags ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
-                multiple>
-                <option value="">Select Item Name</option>
-                @foreach ($tags as $tag)
-                    <option value="{{ $tag->id }}">{{ $tag->label }}</option>
-                @endforeach
-            </select>
-            <span class="ml-4 error font-bold" id="tagsmsg" style="color:Red;display:none">Tag must be
-                Selected!</span>
-
-        </div>
+            </div>
 
 
-        <div class="flex flex-col w-1/2 mt-2">
-            <button class="bg-blue-700 hover:bg-blue-900 font-bold text-white ml-2 py-2 rounded" type="button"
-                onclick="return validateForm()">Add</button><br>
-        </div>
-    </form>
+            <div class="flex flex-col md:w-1/2">
+                <label for="tags" class="leading-10 pl-2">Select Tags:</label>
+                <select name="tags" id="tags"
+                    class="multiple-tags ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+                    multiple>
+                    <option value="">Select Item Name</option>
+                    @foreach ($tags as $tag)
+                        <option value="{{ $tag->id }}">{{ $tag->label }}</option>
+                    @endforeach
+                </select>
+                <span class="ml-4 error font-bold" id="tagsmsg" style="color:Red;display:none">Tag must be
+                    Selected!</span>
+
+            </div>
+
+
+            <div class="flex flex-col md:w1/2w-1/2 mt-2">
+                <button class="bg-blue-700 hover:bg-blue-900 font-bold text-white ml-2 py-2 rounded" type="button"
+                    onclick="return validateForm()">Add</button><br>
+            </div>
+        </form>
+    </div>
 
     <script>
         function validateForm() {

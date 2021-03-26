@@ -33,7 +33,7 @@
             <div class="flex justify-between">
 
                 <div id="myDiv" class="flex items-center justify-between">
-                    <div class="-ml-8 md:ml-0">@include('layout.logo')</div>
+                    <div class="-ml-2 md:ml-16">@include('layout.logo')</div>
                     <a href="/dashboard" class="mt-3 md:mx-3 text-gray-200 hover:text-white font-light text-xl">
                     </a>
                     <div class="md:hidden align-middle">
@@ -44,7 +44,7 @@
                 {{-- mobile Menu is here --}}
 
 
-                <div class="md:hidden mt-4 -mr-4">
+                <div class="md:hidden mt-4">
                     <button class="moblie-menu-button" style="outline: none;">
                         <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
@@ -56,11 +56,9 @@
             </div>
 
 
+            {{-- Desktop Menu Code Here --}}
 
-
-
-
-            <div class="hidden md:block mobile-menu">
+            <div class="hidden md:block mobile-menu mr-16">
                 <div :class="open ? 'block' : 'hidden'" class="flex flex-col text-left md:block md:text-right md:mt-0">
                     <a href="/items/home" class=" active menu mt-3 md:mx-3  text-gray-200">Home
 
@@ -72,6 +70,7 @@
                     <a href="/inventories" class=" menu mt-3 md:mx-3  text-gray-200">Inventory</a>
                     <a href="/users/my-invoices" class=" menu mt-3 md:mx-3  text-gray-200">Invoices</a>
                     <a href="/users/Userbilling" class=" menu mt-3 md:mx-3  text-gray-200">Billings</a>
+
                     <div class=" dropdown relativemt-3 md:mx-3 hover:text-red-500 font-bold inline-block">
 
 

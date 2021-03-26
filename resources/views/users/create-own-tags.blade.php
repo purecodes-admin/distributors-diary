@@ -12,18 +12,19 @@
         }
 
     </style>
+    <div style="width: 88%; margin:auto;">
+        <ul class="flex p-3 bg-gray-200 breadcrumbs">
+            <li class="mr-2 text-gray-700 hover:text-gray-900">
+                <a href="../users/distributors-tags" class="hover:underline">Tags</a>
+            </li>
+            <li class="text-blue-700 hover:text-blue-900">
+                <a href="">Create Tags</a>
+            </li>
+        </ul>
+    </div>
 
-    <ul class="flex p-3 bg-gray-200 breadcrumbs">
-        <li class="mr-2 text-gray-700 hover:text-gray-900">
-            <a href="../users/distributors-tags" class="hover:underline">Tags</a>
-        </li>
-        <li class="text-blue-700 hover:text-blue-900">
-            <a href="">Create Tags</a>
-        </li>
-    </ul>
 
-
-    <h3 class="p-5 font-semibold text-lg underline text-blue-700     hover:text-blue-900">
+    <h3 class="p-5 font-semibold text-lg underline text-blue-700 hover:text-blue-900" style="width: 88%; margin:auto;">
         <span class="fas fa-user"></span>
         <a>Create Custom Tags</a>
         <span class="ml-60 font-bold" id="success" style="color:rgb(71, 134, 71); display:none;">
@@ -33,27 +34,29 @@
             Tag Creation Failed...!!!
         </span>
     </h3>
-    <form method="POST" name="myForm" id="addForm" onsubmit=" return validateForm()">
-        @csrf
-        <div class="flex flex-col w-1/2">
-            <label for="label" class="leading-10 pl-2">Label:</label>
-            <input type="text" name="label" value="{{ old('label') }}"
-                class=" ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600 "
-                placeholder="Label">
-            <span class="ml-4 font-bold error" id="labelmsg" style="color:Red;display:none">Label must be filled
-                out!</span>
-            <span class="ml-4 font-bold error" id="labelmsg1" style="color:Red;display:none">Label must be in
-                characters!</span>
-            <div id="errors"></div>
+    <div style="width: 88%; margin:auto;">
+        <form method="POST" name="myForm" id="addForm" onsubmit=" return validateForm()">
+            @csrf
+            <div class="flex flex-col md:w-1/2">
+                <label for="label" class="leading-10 pl-2">Label:</label>
+                <input type="text" name="label" value="{{ old('label') }}"
+                    class=" ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600 "
+                    placeholder="Label">
+                <span class="ml-4 font-bold error" id="labelmsg" style="color:Red;display:none">Label must be filled
+                    out!</span>
+                <span class="ml-4 font-bold error" id="labelmsg1" style="color:Red;display:none">Label must be in
+                    characters!</span>
+                <div id="errors"></div>
 
-        </div>
+            </div>
 
 
-        <div class="flex flex-col w-1/2 mt-2">
-            <button class="bg-blue-700 hover:bg-blue-900 font-bold text-white ml-2 py-2 rounded"
-                type="submit">Add</button><br>
-        </div>
-    </form>
+            <div class="flex flex-col md:w-1/2 mt-2">
+                <button class="bg-blue-700 hover:bg-blue-900 font-bold text-white ml-2 py-2 rounded"
+                    type="submit">Add</button><br>
+            </div>
+        </form>
+    </div>
 
     <script>
         function validateForm() {

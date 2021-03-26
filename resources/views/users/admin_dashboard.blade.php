@@ -1,7 +1,7 @@
 @extends('layout/admin-master')
 @section('title', 'Admin Dashboard')
 @section('content')
-    <div class="bg-white rounded-xl mt-4 px-2">
+    <div class="bg-white rounded-xl mt-4 px-2" style="width: 88%; margin:auto;">
 
         <input type="hidden" id="csrf-token" value="{{ csrf_token() }}" />
 
@@ -44,13 +44,14 @@
                         class="px-5 py-3 border-b-2 border-gray-200  text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                         Image</th>
                     <th
-                        class="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                        class=" hidden md:table-cell px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                         Dues</th>
                     <th
-                        class="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                        class=" hidden md:table-cell px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                         Date & Time</th>
                     <th
                         class="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                        Operations
                     </th>
                 </tr>
             </thead>
@@ -67,30 +68,47 @@
                             <img src="{{ asset('images/' . $record->image) }}" alt="image" height="100px" width="100px">
                         </td>
 
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->payment }}</td>
+                        <td class=" hidden md:table-cell px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                            {{ $record->payment }}</td>
 
                         <td title="{{ $record->created_at }}" style="overflow-wrap:anywhere;"
-                            class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                            class="hidden md:table-cell  px-5 py-5 border-b border-gray-200 bg-white text-sm">
                             {{ $record->created_at->diffForHumans() }}
                         </td>
 
-                        <td class="pl-2  py-5 border-b border-gray-200 bg-white text-sm">
-                            @if ($record->payment)
-                                <a href={{ '/users/billings/' . $record->id }} class="ml-3">
-                                    <button class="bg-green-700  hover:bg-green-900 text-white font-bold px-1 rounded"><i
-                                            class="fas fa-hand-holding-usd"></i></button>
-                                </a>&nbsp;
-                            @endif
+                        {{-- code fo dropdown Operations --}}
 
-                            <a href={{ '/users/edit-distributor/' . $record->id }}>
-                                <button class="bg-green-700  hover:bg-green-900 text-white font-bold px-1 rounded"><i
-                                        class="fas fa-edit"></i></button>
-                            </a>&nbsp;
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
 
-                            <a href="">
-                                <button class="  bg-red-500  hover:bg-red-700 text-white font-bold px-1 rounded"
-                                    onclick="deleteDistributor({{ $record->id }})"><i class="fas fa-trash-alt"></i></button>
-                            </a>
+                            <div class=" dropdown relativemt-3 md:mx-3 hover:text-red-500 font-bold inline-block">
+                                Operations
+                                <a class="inline-block">
+                                    <svg class="fill-current h-4 w-4 inline-block" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20">
+                                        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                    </svg>
+                                </a>
+
+                                <ul class="dropdown-menu absolute hidden text-gray-200 bg-white rounded-b-xl">
+
+                                    <li class="">
+                                        @if ($record->payment)
+                                            <a class=" text-gray-700 px-1 rounded hover:underline"
+                                                href={{ '/users/billings/' . $record->id }}>
+                                                Add Payment
+                                            </a>
+                                        @endif
+                                    </li>
+                                    <li class=""><a class=" text-gray-700 px-1 rounded hover:underline"
+                                            href="{{ '/users/edit-distributor/' . $record->id }}">
+                                            Edit</a>
+                                    </li>
+                                    <li class=""><a class=" text-gray-700 px-1 rounded hover:underline"
+                                            onclick="deleteDistributor({{ $record->id }})">
+                                            Delete</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </td>
                     </tr>
                 </tbody>
