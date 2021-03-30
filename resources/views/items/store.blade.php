@@ -17,7 +17,7 @@
                 <a href="../items" class="hover:underline">Items</a>
             </li>
             <li class="text-blue-700 hover:text-blue-900">
-                <a href="">Add Items</a>
+                <a>Add Items</a>
             </li>
         </ul>
     </div>

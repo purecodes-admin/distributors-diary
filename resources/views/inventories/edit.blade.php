@@ -17,7 +17,7 @@
                 <a href="../" class="hover:underline">Inventories</a>
             </li>
             <li class="text-blue-700 hover:text-blue-900">
-                <a href="">Update Stock</a>
+                <a>Update Stock</a>
             </li>
         </ul>
     </div>

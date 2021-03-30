@@ -18,7 +18,7 @@
                 <a href="../users/distributors-tags" class="hover:underline">Tags</a>
             </li>
             <li class="text-blue-700 hover:text-blue-900">
-                <a href="">Create Tags</a>
+                <a>Create Tags</a>
             </li>
         </ul>
     </div>

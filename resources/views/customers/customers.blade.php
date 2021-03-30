@@ -2,18 +2,6 @@
 @section('title', 'Customers')
 @section('content')
 
-    <style>
-        .menu {
-            font-size: 14px;
-            letter-spacing: 1px;
-            font-weight: bolder;
-        }
-
-        .dropdown:hover .dropdown-menu {
-            display: block;
-        }
-
-    </style>
 
     <div class="bg-white rounded-xl mt-4 px-1" style="width: 88%; margin:auto;">
         <input type="hidden" id="csrf-token" value="{{ csrf_token() }}" />
@@ -104,44 +92,33 @@
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->category }}</td>
 
 
-                            {{-- code for buttons --}}
-
-                            {{-- <td class="flex pl-2 pr-10 py-5 border-b border-gray-200 bg-white text-sm">
-                                <a href={{ '/customers/edit/' . $record['id'] }}>
-                                    <button class="bg-green-700  hover:bg-green-900 text-white font-bold px-1 rounded"><i
-                                            class="fas fa-edit"></i></button>
-                                </a> &nbsp;
-                                <a href="">
-                                    <button class="  bg-red-500  hover:bg-red-700 text-white font-bold px-1 rounded"
-                                        onclick="deleteCustomer({{ $record->id }})"><i class="fas fa-trash-alt"></i></button>
-                                </a>
-                            </td> --}}
-
                             {{-- code fo dropdown Operations --}}
 
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
 
-                                <div class=" dropdown relativemt-3 md:mx-3 font-bold inline-block">
-                                    <button class="p-1 bg-gray-200 rounded-xl" style="outline:none;"> Actions
-                                        <a class=" inline-block">
-                                            <svg class="fill-current h-4 w-4 inline-block" xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 20 20">
-                                                <path
-                                                    d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                                            </svg>
-                                        </a>
-                                    </button>
+                                <div class=" dropdown relativemt-3 md:mx-3 inline-block">
+                                    <div class="pb-1">
+                                        <button class="bg-gray-200 rounded py-1 pl-2 pr-1" style="outline:none;"> Actions
+                                            <a class=" inline-block">
+                                                <svg class="fill-current h-4 w-4 inline-block"
+                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                                    <path
+                                                        d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                                </svg>
+                                            </a>
+                                        </button>
+                                    </div>
 
 
-                                    <ul class="dropdown-menu absolute hidden text-gray-200 bg-white rounded-b-xl">
 
-                                        <li class=""><a
-                                                class=" text-green-700 hover:text-green-900 px-1 rounded hover:underline"
+                                    <ul class="leading-7 dropdown-menu absolute hidden bg-gray-200 rounded">
+
+                                        <li class=""><a class="pr-20 hover:bg-white block px-2 rounded hover:underline"
                                                 href="{{ '/customers/edit/' . $record['id'] }}">
                                                 Edit</a>
                                         </li>
                                         <li class=""><button style="outline:none;"
-                                                class=" text-red-500 hover:text-red-700 px-1 rounded hover:underline font-bold"
+                                                class="pr-20 hover:bg-white px-2 rounded hover:underline"
                                                 onclick="deleteCustomer({{ $record->id }})">
                                                 Delete</button>
                                         </li>
@@ -173,6 +150,7 @@
                         success: function(response) {
                             document.getElementById("success").style.display = ""
                             $('#demo_' + id).remove();
+                            window.location.reload();
                         },
                         error: function(res) {
                             document.getElementById("danger").style.display = ""

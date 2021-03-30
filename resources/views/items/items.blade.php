@@ -42,6 +42,7 @@
                         Retail Price</th>
                     <th
                         class="px-5 py-3 border-b-2  text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                        actions
                     </th>
                 </tr>
             </thead>
@@ -54,15 +55,39 @@
                             {{ number_format($item->wholesale_price) }}</td>
                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
                             {{ number_format($item->retailsale_price) }}</td>
-                        <td class=" flex px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
-                            <a href={{ '/items/edit/' . $item['id'] }} class="ml-4">
-                                <button class="bg-green-700  hover:bg-green-900 text-white font-bold px-1 rounded"><i
-                                        class="fas fa-edit"></i></button>
-                            </a>
-                            <a href="" class="ml-4">
-                                <button class="bg-red-500  hover:bg-red-700 text-white font-bold px-1 rounded"
-                                    onclick="deleteitem({{ $item->id }})"><i class="fa fa-trash-alt"></i></button>
-                            </a>
+
+                        {{-- code fo dropdown Operations --}}
+
+                        <td class="text-center px-5 py-5 border-b border-gray-200 bg-white text-sm">
+
+                            <div class=" dropdown relativemt-3 md:mx-3 inline-block">
+                                <div class="pb-1">
+                                    <button class="bg-gray-200 rounded py-1 pl-2 pr-1" style="outline:none;"> Actions
+                                        <a class=" inline-block">
+                                            <svg class="fill-current h-4 w-4 inline-block" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 20 20">
+                                                <path
+                                                    d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                            </svg>
+                                        </a>
+                                    </button>
+                                </div>
+
+
+
+                                <ul class="leading-7 dropdown-menu absolute hidden bg-gray-200 rounded">
+
+                                    <li class=""><a class="pr-20 hover:bg-white block px-2 rounded hover:underline"
+                                            href="{{ '/items/edit/' . $item['id'] }}">
+                                            Edit</a>
+                                    </li>
+                                    <li class=""><button style="outline:none;"
+                                            class="pr-20 hover:bg-white px-2 rounded hover:underline"
+                                            onclick="deleteitem({{ $item->id }})">
+                                            Delete</button>
+                                    </li>
+                                </ul>
+                            </div>
                         </td>
                     </tr>
                 </tbody>
@@ -88,10 +113,9 @@
                             // $('#demo_'+ id).remove();
                             document.getElementById("success").style.display = ""
                             var col = document.getElementById("demo-" + id);
+                            window.location.reload();
+                            Toaster.show("The record is deleted");
                             col.fadeToggle();
-                            // $("success.very-slow").fadeToggle(7000);
-                            // col.fadeOut("slow");
-                            // $("p").fadeOut();
                         },
                         error: function(res) {
                             document.getElementById("danger").style.display = ""

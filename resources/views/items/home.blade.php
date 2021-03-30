@@ -99,7 +99,7 @@
 
         {{-- code for top items --}}
 
-        <div class=" mt-4 px-2 pt-2 bg-white rounded-xl mb-5 md:w-1/3">
+        <div class=" mt-4 px-2 pt-2 bg-white rounded-xl mb-5 md:w-1/3 pb-20">
             <h1 class="text-2xl text-gray-700 font-bold m-4 ">Top Items</h1>
             <table class="w-auto leading-normal">
                 <thead>

@@ -111,14 +111,44 @@
 
                             {{-- code fo dropdown Operations --}}
 
-                            <td class="hidden md:table-cell px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <button class="bg-gray-200 action">Actions
-                                </button>
-                                <ul class="actionlist hidden">
-                                    <li>Payment</li>
-                                    <li>Edit</li>
-                                    <li>Delete</li>
-                                </ul>
+                            {{-- code fo dropdown Operations --}}
+
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+
+                                <div class="leading-5 dropdown relativemt-3 md:mx-3 font-normal inline-block">
+                                    <div class="pb-1">
+                                        <button class="bg-gray-200 rounded pb-1 pt-1 pl-2 pr-1" style="outline:none;"> Actions
+                                            <a class=" inline-block">
+                                                <svg class="fill-current h-4 w-4 inline-block"
+                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                                    <path
+                                                        d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                                </svg>
+                                            </a>
+                                        </button>
+                                    </div>
+
+
+                                    <ul class="rounded leading-7 dropdown-menu absolute hidden bg-gray-200">
+
+                                        <li>
+                                            @if (!$record->payment)
+                                                <a class="pr-20 hover:bg-white px-2 rounded hover:underline"
+                                                    href="{{ '/inventories/payment/' . $record['id'] }}">
+                                                    Payment</a>
+                                            @endif
+                                        </li>
+                                        <li class=""><a class="pr-20 hover:bg-white block px-2 rounded hover:underline"
+                                                href="{{ '/inventories/edit/' . $record['id'] }}">
+                                                Edit</a>
+                                        </li>
+                                        <li><button style="outline:none;"
+                                                class="pr-20 hover:bg-white px-2 rounded hover:underline"
+                                                onclick="deleteStock({{ $record->id }})">
+                                                Delete</button>
+                                        </li>
+                                    </ul>
+                                </div>
                             </td>
                         </tr>
 
@@ -149,6 +179,7 @@
                         success: function(response) {
                             document.getElementById("success").style.display = ""
                             $('#demo_' + id).remove();
+                            window.location.reload();
 
 
                         },
@@ -178,26 +209,13 @@
                 });
 
                 // drop down actions
-                $('.action').on('click', function(event) {
-                    $(event.target).next('ul').css('display', 'block');
+                // $('.action').on('click', function(event) {
+                //     $(event.target).next('ul').css('display', 'block');
 
-                });
+                // });
 
 
             });
-
-
-            // for dropdown button
-            // var button = document.getElementsByClassName("dropbtn");
-            // var list = document.getElementsByClassName("actionlist");
-            // list.style.display = "none";
-            // button.addEventListener("click", (event) => {
-            //     if (list.style.display == "none") {
-            //         list.style.display == "block";
-            //     } else {
-            //         list.style.display == "none";
-            //     }
-            // })
 
         </script>
     @endsection

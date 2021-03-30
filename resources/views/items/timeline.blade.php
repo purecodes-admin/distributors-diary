@@ -1,5 +1,5 @@
 @extends('layout/master')
-@section('title', 'Records List')
+@section('title', 'Stock timeline')
 @section('content')
 
     {{-- code for breadcrumbs --}}
@@ -17,7 +17,7 @@
                 <a href="../home" class="hover:underline">Home</a>
             </li>
             <li class="text-blue-700 hover:text-blue-900">
-                <a href="">Stock Timeline</a>
+                <a>Stock Timeline</a>
             </li>
         </ul>
     </div>

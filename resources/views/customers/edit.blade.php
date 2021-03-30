@@ -17,7 +17,7 @@
                 <a href="../" class="hover:underline">Customers</a>
             </li>
             <li class="text-blue-700 hover:text-blue-900">
-                <a href="">Add Customer</a>
+                <a>Update Customer</a>
             </li>
         </ul>
     </div>
