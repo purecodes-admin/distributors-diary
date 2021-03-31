@@ -192,13 +192,24 @@ class InventoryController extends Controller
      */
     public function destroy(Inventory $inventory)
     {
-        if(Gate::allows('update-customer',$inventory)){
-        $inventory->delete();
-        }
-        else{
+        if(!Gate::allows('update-customer',$inventory)){
             return'You Are Not The Owner of This Inventory....!!!';
         }
+        try{
+            
+            $inventory->delete();
+            Session::flash('success', 'Stock Record Deleted Successfully!');  
+            return redirect('inventories');
+        }
+        catch(exception $e){
+            Session::flash('error', 'Stock Record Not Deleted!'); 
+             return redirect('inventories');
+        }
     }
+
+
+
+
     public function payment(Inventory $inventory ,Request $request)
     {
     	if(is_null($inventory->payment)){

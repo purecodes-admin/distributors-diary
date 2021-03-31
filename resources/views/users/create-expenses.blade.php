@@ -40,7 +40,7 @@
             <div class="flex flex-col md:w1/2">
                 <label for="expense_amount" class="leading-10 pl-2">Expense Amount:</label>
                 <input type="text" name="expense_amount" value="{{ old('expense_amount') }}"
-                    class=" ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600 "
+                    class="md:w-1/2 ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600 "
                     placeholder="Expense Amount">
                 <span class="ml-4 font-bold error" id="expense_amountmsg" style="color:Red;display:none">Expense Amount must
                     be

@@ -6,27 +6,70 @@
     <div class="bg-white rounded-xl mt-4 px-1" style="width: 88%; margin:auto;">
         <input type="hidden" id="csrf-token" value="{{ csrf_token() }}" />
 
-        <h1 class="text-4xl text-gray-700 font-bold pt-2 mt-4 ml-2 text-center md:text-left">
+        <h1 class="text-4xl text-gray-700 font-bold pt-2 mt-4 ml-2 text-left">
             <span class="fa fa-users"></span> Customers List
         </h1>
 
-        <div class="md:flex justify-between mt-8">
-            <div class="flex justify-start">
-                <a href="/customers/suppliers">
-                    <button
-                        class="hidden md:block ml-6 bg-blue-700 px-2 py-1 rounded text-white font-bold mr-2">Suppliers</button>
-                </a>
-                <a href="/customers/purchasers">
-                    <button
-                        class="hidden md:block bg-blue-700 px-2 py-1 rounded text-white font-bold overflow-hidden">Purchasers</button>
-                </a>
+        {{-- code for success message --}}
+        @if (Session::has('message'))
+            <div class="flex justify-between md:w-2/6 text-green-800 px-3 py-3 rounded-md font-bold  text-center mx-auto"
+                style="background-color: #F2FAF7;">
+                <p class="self-center">
+                    <span class="fas fa-check-circle" style="color: #32C48D;"></span> Success!
+                    {{ Session::get('message') }}
+                </p>
+                <strong class="self-center text-2xl cursor-pointer alert-del" style="color: #32C48D;">
+                    &times;
+                </strong>
             </div>
-            <div class="flex md:justify-end justify-center">
+        @endif
+
+        {{-- code for error message --}}
+        @if (Session::has('error'))
+            <div class="flex justify-between md:w-2/6 text-red-800 px-3 py-3 rounded-md font-bold  text-center mx-auto"
+                style="background-color: #FDF2F2;">
+                <p class="self-center">
+                    <span class="fas fa-check-circle" style="color: #F98A8A;"></span> Failed!
+                    {{ Session::get('error') }}
+                </p>
+                <strong class="self-center text-2xl cursor-pointer alert-del" style="color: #F98A8A;">
+                    &times;
+                </strong>
+            </div>
+        @endif
+
+
+        {{-- code for drop down and search box --}}
+
+        <div class="flex justify-between mt-8">
+            <form action="customers">
+
+                <div>
+                    <select name="customer_type" class="rounded mb-1 bg-gray-100 border-none" onchange="this.form.submit()">
+                        <option>Select</option>
+                        <option value="suppliers" {{ request('customer_type') == 'suppliers' ? 'selected' : '' }}>
+                            Suppliers
+                        </option>
+                        <option value="purchasers" {{ request('customer_type') == 'purchasers' ? 'selected' : '' }}>
+                            Purchasers
+                        </option>
+                    </select>
+                </div>
+            </form>
+
+            <div class="flex md:justify-end justify-end">
 
                 <a href="/customers/add">
 
-                    <button class="mt-2 mr-2 bg-blue-700 hover:bg-blue-900 text-white font-bold  px-1 rounded">New <i
-                            class="fas fa-plus"></i></button>
+                    {{-- for md view --}}
+                    <button
+                        class=" hidden md:block mt-2 mr-2 bg-blue-700 hover:bg-blue-900 text-white font-bold  px-1 rounded">New
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    {{-- for mobile view --}}
+                    <button class=" md:hidden mt-2 mr-2 bg-blue-700 hover:bg-blue-900 text-white font-bold  px-1 rounded">
+                        <i class="fas fa-plus"></i>
+                    </button>
                 </a>
 
                 <form action="customers">
@@ -37,12 +80,12 @@
             </div>
         </div>
 
-        <span class="ml-60 font-bold" id="success" style="color:green; display:none;">
+        {{-- <span class="ml-60 font-bold" id="success" style="color:green; display:none;">
             Customer Record Deleted Successfully...!!!
         </span>
         <span class="ml-60 font-bold" id="danger" style="color:red; display:none;">
             Customer Record Not Deleted...!!!
-        </span>
+        </span> --}}
         <div>
             <table class="table-fixed w-full ">
                 <thead>
@@ -117,11 +160,12 @@
                                                 href="{{ '/customers/edit/' . $record['id'] }}">
                                                 Edit</a>
                                         </li>
-                                        <li class=""><button style="outline:none;"
-                                                class="pr-20 hover:bg-white px-2 rounded hover:underline"
-                                                onclick="deleteCustomer({{ $record->id }})">
-                                                Delete</button>
+
+                                        <li class=""><a class="pr-20 hover:bg-white block px-2 rounded hover:underline"
+                                                href="{{ '/customers/delete/' . $record['id'] }}">
+                                                Delete</a>
                                         </li>
+
                                     </ul>
                                 </div>
                             </td>
@@ -129,42 +173,57 @@
 
                     @empty
                         <tr>
-                            <td colspan="8" class="text-center py-4">No records found.</td>
+                            <td colspan="5" class="text-center py-4">No records found.</td>
                         </tr>
                     @endforelse
                 </tbody>
             </table>
         </div>
-
-        <script>
-            function deleteCustomer(id) {
-                var token = document.getElementById('csrf-token').value;
-
-                if (confirm("Do you Really Want to Delete This Customer?")) {
-                    $.ajax({
-                        type: 'get',
-                        url: '/customers/delete/' + id,
-                        data: {
-                            _token: token
-                        },
-                        success: function(response) {
-                            document.getElementById("success").style.display = ""
-                            $('#demo_' + id).remove();
-                            window.location.reload();
-                        },
-                        error: function(res) {
-                            document.getElementById("danger").style.display = ""
-                        }
-                    });
-
-                }
-
-            }
-
-        </script>
         <span>
             {{ $data->links() }}
         </span>
 
     </div>
+
+
+
+    {{-- code for close alert --}}
+    <script>
+        var alert_del = document.querySelectorAll('.alert-del');
+
+        alert_del.forEach((x) => {
+            x.addEventListener('click', () =>
+                x.parentElement.classList.add('hidden')
+            );
+        });
+
+    </script>
+
+    {{-- <script>
+        function deleteCustomer(id) {
+            var token = document.getElementById('csrf-token').value;
+
+            if (confirm("Do you Really Want to Delete This Customer?")) {
+                $.ajax({
+                    type: 'get',
+                    url: '/customers/delete/' + id,
+                    data: {
+                        _token: token
+                    },
+                    success: function(response) {
+                        document.getElementById("success").style.display = ""
+                        $('#demo_' + id).remove();
+                        window.location.reload();
+                    },
+                    error: function(res) {
+                        document.getElementById("danger").style.display = ""
+                    }
+                });
+
+            }
+
+        }
+
+    </script> --}}
+
 @endsection

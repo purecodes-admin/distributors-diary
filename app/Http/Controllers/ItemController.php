@@ -8,6 +8,7 @@ use App\Models\Inventory;
 use Illuminate\Http\Request;
 use Illuminate\support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\ItemController;
 
 class ItemController extends Controller
@@ -118,13 +119,28 @@ class ItemController extends Controller
      */
     public function destroy(Item $item)
     {
-        if ( Gate::allows('update-customer', $item)) {
-        $item->delete();
-    }
-    else{
+        
+        if ( !Gate::allows('update-customer', $item)) {
         return'You are Not Eligible';
+        }
+
+        try
+        {
+            // throw new \Exception('item not Deleted');
+        $item->delete();
+        Session::flash('message', 'Item Deleted Successfully!');  
+        return redirect('items');
     }
+    catch(exception $e){
+
+        Session::flash('error', 'Item Not Deleted!'); 
+        return redirect('items');
+
     }
+    
+    }
+
+
 
     public function RemainingStock()
     {

@@ -7,18 +7,28 @@ use Illuminate\support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Database\MySqlConnection;
 use App\Http\Controllers\supplierController;
+use Illuminate\Support\Facades\Session;
 
 class supplierController extends Controller
 {
 
 // View Customers code
 
-    public function index()
+    public function index(Request $request)
 	{
         $customers=supplier::where('distributor_id',auth()->user()->id)
         ->when(request('search') !='', function($query){
             $query->where('name','like','%'.request('search').'%');
         })
+            // code for drop down to select type
+        ->when(request('customer_type') != '', function($q) {
+            if(request('customer_type') == 'suppliers') {
+                $q->where('category','supplier');
+            } else {
+                $q->where('category','purchaser');
+            }
+        })
+
         ->paginate(3);
         if(Gate::allows('distributor-only')){
 		return view('customers.customers', ['data' => $customers ]);
@@ -112,12 +122,20 @@ class supplierController extends Controller
 
     public function delete(supplier $supplier)
 	{
-		if(Gate::allows('update-customer',$supplier)){
+		if(!Gate::allows('update-customer',$supplier)){
+            return'You are Unauthorized for this Record....!!!';
+        }
+        try{
         $supplier->delete();
+        Session::flash('message', 'Customer Deleted Successfully!');  
+        return redirect('customers');
+        }
+        catch(exception $e){
+        Session::flash('error', 'Customer Not Deleted!');  
+        return redirect('customers');
+
     }
-    else
-    {
-        return'You are Unauthorized for this Record....!!!';
-    }
-    }
+   
+   }
+    
 }

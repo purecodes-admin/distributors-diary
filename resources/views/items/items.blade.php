@@ -5,16 +5,50 @@
     <div class="bg-white rounded-xl mt-4  pt-1" style="width: 88%; margin:auto;">
         <input type="hidden" id="csrf-token" value="{{ csrf_token() }}" />
 
-        <span class="ml-60 font-bold" id="success" style="color:green; display:none;">
+
+
+        {{-- <span class="ml-60 font-bold" id="success" style="color:green; display:none;">
             Item Deleted Successfully...!!!
         </span>
         <span class="ml-60 font-bold" id="danger" style="color:red; display:none;">
             Item Not Deleted...!!!
-        </span>
+        </span> --}}
+
         <h1 class="text-4xl text-gray-700 font-bold pt-2 mt-4 ml-2">
             <span class="fas fa-shopping-cart"></span> Items List
         </h1>
-        <div class="flex justify-end">
+
+        {{-- code for success message --}}
+        @if (Session::has('message'))
+            <div class="flex justify-between md:w-2/6 text-green-800 px-3 py-3 rounded-md font-bold  text-center mx-auto"
+                style="background-color: #F2FAF7;">
+                <p class="self-center">
+                    <span class="fas fa-check-circle" style="color: #32C48D;"></span> Success!
+                    {{ Session::get('message') }}
+                </p>
+                <strong class="self-center text-2xl cursor-pointer alert-del" style="color: #32C48D;">
+                    &times;
+                </strong>
+            </div>
+        @endif
+
+        {{-- code for error message --}}
+        @if (Session::has('error'))
+            <div class="flex justify-between md:w-2/6 text-red-800 px-3 py-3 rounded-md font-bold  text-center mx-auto"
+                style="background-color: #FDF2F2;">
+                <p class="self-center">
+                    <span class="fas fa-check-circle" style="color: #F98A8A;"></span> Failed!
+                    {{ Session::get('error') }}
+                </p>
+                <strong class="self-center text-2xl cursor-pointer alert-del" style="color: #F98A8A;">
+                    &times;
+                </strong>
+            </div>
+        @endif
+
+
+
+        <div class="flex justify-start md:justify-end">
             <a href="/items/add">
 
                 <button class="mt-2 mr-2 bg-blue-700 hover:bg-blue-900 text-white font-bold  px-1 rounded">New <i
@@ -77,15 +111,15 @@
 
                                 <ul class="leading-7 dropdown-menu absolute hidden bg-gray-200 rounded">
 
-                                    <li class=""><a class="pr-20 hover:bg-white block px-2 rounded hover:underline"
+                                    <li class=""><a class="-ml-1 pr-20 hover:bg-white block px-2 rounded hover:underline"
                                             href="{{ '/items/edit/' . $item['id'] }}">
                                             Edit</a>
                                     </li>
-                                    <li class=""><button style="outline:none;"
-                                            class="pr-20 hover:bg-white px-2 rounded hover:underline"
-                                            onclick="deleteitem({{ $item->id }})">
-                                            Delete</button>
+                                    <li class=""><a class="pr-20 hover:bg-white block px-2 rounded hover:underline"
+                                            href="{{ '/items/delete/' . $item['id'] }}">
+                                            Delete</a>
                                     </li>
+
                                 </ul>
                             </div>
                         </td>
@@ -94,41 +128,65 @@
 
             @empty
                 <tr>
-                    <td colspan="4" class="text-center py-4">No records found.</td>
+                    <td colspan="5" class="text-center py-4">No records found.</td>
                 </tr>
             @endforelse
         </table>
-
-        <script>
-            function deleteitem(id) {
-                window.setTimeout("document.getElementById('success').style.display='none';", 4000);
-                window.setTimeout("document.getElementById('danger').style.display='none';", 4000);
-                var token = document.getElementById('csrf-token').value;
-
-                if (confirm("Do you Really Want to Delete This Item?")) {
-                    $.ajax({
-                        type: 'get',
-                        url: '/items/delete/' + id,
-                        success: function(response) {
-                            // $('#demo_'+ id).remove();
-                            document.getElementById("success").style.display = ""
-                            var col = document.getElementById("demo-" + id);
-                            window.location.reload();
-                            Toaster.show("The record is deleted");
-                            col.fadeToggle();
-                        },
-                        error: function(res) {
-                            document.getElementById("danger").style.display = ""
-                        }
-                    });
-
-                }
-
-            }
-
-        </script>
         <span>
             {{ $data->links() }}
         </span>
     </div>
+
+
+
+    {{-- code for close alert --}}
+    <script>
+        var alert_del = document.querySelectorAll('.alert-del');
+
+        alert_del.forEach((x) => {
+            x.addEventListener('click', () =>
+                x.parentElement.classList.add('hidden')
+            );
+        });
+
+    </script>
+
+
+    {{-- code for delete throught ajax --}}
+
+    {{-- <script>
+        function deleteitem(id) {
+            window.setTimeout("document.getElementById('success').style.display='none';", 4000);
+            window.setTimeout("document.getElementById('danger').style.display='none';", 4000);
+            var token = document.getElementById('csrf-token').value;
+
+            // jquery('#demo_' + id).hide();
+
+            if (confirm("Do you Really Want to Delete This Item?")) {
+                $.ajax({
+                    type: 'get',
+                    url: '/items/delete/' + id,
+                    success: function(response) {
+                        // $('#demo_'+ id).remove();
+                        document.getElementById("success").style.display = ""
+                        var col = document.getElementById("demo-" + id).fadeOut('slow');
+
+                        // setTimeout(function() { // wait 3 seconds and reload
+                        //     window.location.reload(true);
+                        // }, 4000);
+                        // col.fadeToggle();
+                    },
+                    error: function(res) {
+                        document.getElementById("danger").style.display = ""
+                    }
+                });
+
+            }
+
+        }
+
+    </script> --}}
+
+
+
 @endsection

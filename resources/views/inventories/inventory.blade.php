@@ -18,12 +18,40 @@
     <div class="bg-white rounded-xl mt-4 px-1" style="width: 88%; margin:auto;">
         <input type="hidden" id="csrf-token" value="{{ csrf_token() }}" />
 
-        <h1 class="text-4xl text-gray-700 font-bold pt-2 mt-4 ml-2 text-center md:text-left">
+        <h1 class="text-4xl text-gray-700 font-bold pt-2 mt-4 ml-2 text-left">
             Inventory
         </h1>
 
+        {{-- code for success message --}}
+        @if (Session::has('success'))
+            <div class="flex justify-between md:w-2/5 text-green-800 px-3 py-3 rounded-md font-bold  text-center mx-auto"
+                style="background-color: #F2FAF7;">
+                <p class="self-center">
+                    <span class="fas fa-check-circle" style="color: #32C48D;"></span> Success!
+                    {{ Session::get('success') }}
+                </p>
+                <strong class="self-center text-2xl cursor-pointer alert-del" style="color: #32C48D;">
+                    &times;
+                </strong>
+            </div>
+        @endif
+
+        {{-- code for error message --}}
+        @if (Session::has('error'))
+            <div class="flex justify-between md:w-2/6 text-red-800 px-3 py-3 rounded-md font-bold  text-center mx-auto"
+                style="background-color: #FDF2F2;">
+                <p class="self-center">
+                    <span class="fas fa-check-circle" style="color: #F98A8A;"></span> Failed!
+                    {{ Session::get('error') }}
+                </p>
+                <strong class="self-center text-2xl cursor-pointer alert-del" style="color: #F98A8A;">
+                    &times;
+                </strong>
+            </div>
+        @endif
+
         {{-- code for search boxes --}}
-        <div class="mb-3 flex md:justify-end justify-center">
+        <div class="mb-3 flex md:justify-end justify-start">
             <a href="/inventories/create">
                 <button class=" mt-2 mr-2 bg-blue-700 hover:bg-blue-900 text-white font-bold  px-1 rounded">New <i
                         class="fas fa-plus"></i></button>
@@ -39,12 +67,12 @@
 
         {{-- code for success and error messages --}}
 
-        <span class="ml-60 font-bold text-center" id="success" style="color:green; display:none;">
+        {{-- <span class="ml-60 font-bold text-center" id="success" style="color:green; display:none;">
             Stock Record Deleted Successfully...!!!
         </span>
         <span class="ml-60 font-bold text-center" id="danger" style="color:red; display:none;">
             Stock Record Not Deleted...!!!
-        </span>
+        </span> --}}
 
         @if (Session::has('message'))
             <p class="text-center text-red-600 font-bold">{{ Session::get('message') }}</p>
@@ -142,11 +170,11 @@
                                                 href="{{ '/inventories/edit/' . $record['id'] }}">
                                                 Edit</a>
                                         </li>
-                                        <li><button style="outline:none;"
-                                                class="pr-20 hover:bg-white px-2 rounded hover:underline"
-                                                onclick="deleteStock({{ $record->id }})">
-                                                Delete</button>
+                                        <li class=""><a class="pr-20 hover:bg-white block px-2 rounded hover:underline"
+                                                href="{{ '/inventories/delete/' . $record['id'] }}">
+                                                Delete</a>
                                         </li>
+
                                     </ul>
                                 </div>
                             </td>
@@ -155,7 +183,7 @@
 
                     @empty
                         <tr>
-                            <td colspan="8" class="text-center py-4">No records found.</td>
+                            <td colspan="5" class="text-center py-4">No records found.</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -165,7 +193,23 @@
             </span>
         </div>
 
+
+
+
+        {{-- code for close alert --}}
         <script>
+            var alert_del = document.querySelectorAll('.alert-del');
+
+            alert_del.forEach((x) => {
+                x.addEventListener('click', () =>
+                    x.parentElement.classList.add('hidden')
+                );
+            });
+
+        </script>
+
+        {{-- Code for delete throught javascript --}}
+        {{-- <script>
             function deleteStock(id) {
                 // Token is Not Required in Delete Function
                 // var token = document.getElementById('csrf-token').value; 
@@ -192,7 +236,7 @@
 
             }
 
-        </script>
+        </script> --}}
 
 
 

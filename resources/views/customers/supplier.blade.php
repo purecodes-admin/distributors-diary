@@ -31,13 +31,6 @@
         </h1>
 
 
-
-        <span class="ml-60 font-bold" id="success" style="color:green; display:none;">
-            Supplier Record Deleted Successfully...!!!
-        </span>
-        <span class="ml-60 font-bold" id="danger" style="color:red; display:none;">
-            Supplier Record Not Deleted...!!!
-        </span>
         <div>
             <table class="table-fixed w-full ">
                 <thead>
@@ -112,11 +105,11 @@
                                                 href="{{ '/customers/edit/' . $record['id'] }}">
                                                 Edit</a>
                                         </li>
-                                        <li class=""><button style="outline:none;"
-                                                class="pr-20 hover:bg-white px-2 rounded hover:underline"
-                                                onclick="deleteSupplier({{ $record->id }})">
-                                                Delete</button>
+                                        <li class=""><a class="pr-20 hover:bg-white block px-2 rounded hover:underline"
+                                                href="{{ '/customers/delete/' . $record['id'] }}">
+                                                Delete</a>
                                         </li>
+
                                     </ul>
                                 </div>
                             </td>
@@ -130,33 +123,6 @@
                 </tbody>
             </table>
         </div>
-
-        <script>
-            function deleteSupplier(id) {
-                var token = document.getElementById('csrf-token').value;
-
-                if (confirm("Do you Really Want to Delete This Supplier?")) {
-                    $.ajax({
-                        type: 'get',
-                        url: '/customers/delete/' + id,
-                        data: {
-                            _token: token
-                        },
-                        success: function(response) {
-                            document.getElementById("success").style.display = ""
-                            $('#demo_' + id).remove();
-                            window.location.reload();
-                        },
-                        error: function(res) {
-                            document.getElementById("danger").style.display = ""
-                        }
-                    });
-
-                }
-
-            }
-
-        </script>
         <span>
             {{ $data->links() }}
         </span>
