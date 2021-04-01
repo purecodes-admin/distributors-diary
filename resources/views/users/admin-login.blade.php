@@ -7,8 +7,6 @@
                 <span class="fas fa-user"></span>
                 <a>Admin Login</a>
             </h3>
-            <a href="{{ route('register') }}"
-                class="p-5 font-semibold text-lg underline text-blue-700     hover:text-blue-900">Register</a>
         </div>
         @if ($errors->any())
             <div class="text-red-700 ml-4">
