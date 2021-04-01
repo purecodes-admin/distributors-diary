@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Auth\Events\Registered;
 use App\Http\Controllers\userController;
+use Illuminate\Support\Facades\Session;
 
 class userController extends Controller
 {
@@ -128,12 +129,8 @@ class userController extends Controller
     //  Change Password Get Form Code
 
     public function UpdatePassword(){
-        if(Gate::allows('distributor-only')){
+        
         return view('users.password');
-        }
-        else{
-            return"405! Method Not Allowed!";
-        }
     }
 
         //  Change Password Code
@@ -179,7 +176,8 @@ class userController extends Controller
                     $user->image='';
                 }
         $user->save();
-        return redirect('items/home');
+        Session::flash('profile', 'Profile Uploaded Successfully!'); 
+        return redirect('users/image');
         }
 
         public function edit()

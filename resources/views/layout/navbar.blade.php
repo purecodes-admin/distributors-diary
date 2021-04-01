@@ -7,18 +7,23 @@
     .menu {
         font-size: 14px;
         letter-spacing: 1px;
-        font-weight: bolder;
+        font-weight: normal;
+
     }
 
     .dropdown:hover .dropdown-menu {
         display: block;
     }
 
-    /* .active,
-    .a:hover {
-        background-color: #666;
-        color: white;
-    } */
+    a.active {
+        font-weight: bold;
+        font-size: 14px;
+        letter-spacing: 1px;
+    }
+
+    a:hover {
+        font-weight: bold;
+    }
 
 </style>
 
@@ -32,7 +37,7 @@
             {{-- mobile Menu is here --}}
             <div class="flex justify-between">
 
-                <div id="myDiv" class="flex items-center justify-between">
+                <div class="flex items-center justify-between">
                     <div class="-ml-2 md:ml-16">@include('layout.logo')</div>
                     <a href="/dashboard" class="mt-3 md:mx-3 text-gray-200 hover:text-white font-light text-xl">
                     </a>
@@ -60,12 +65,10 @@
 
             <div class="hidden md:block mobile-menu mr-16">
                 <div :class="open ? 'block' : 'hidden'" class="flex flex-col text-left md:block md:text-right md:mt-0">
-                    <a href="/items/home" class=" active menu mt-3 md:mx-3  text-gray-200">Home
+                    <a href="/items/home" class=" menu mt-3 md:mx-3  text-gray-200">Home
 
                     </a>
                     <a href="/customers" class=" menu mt-3 md:mx-3   text-gray-200">Customers</a>
-                    {{-- <a href="/customer/supplier" class="mt-3 md:mx-3 hover:text-blue-500 font-bold">Suppliers</a>
-                <a href="/customer/purchaser" class="mt-3 md:mx-3 hover:text-blue-500 font-bold">Purchasers</a> --}}
                     <a href="/items" class="menu mt-3 md:mx-3   text-gray-200">Items</a>
                     <a href="/inventories" class=" menu mt-3 md:mx-3  text-gray-200">Inventory</a>
                     <a href="/users/my-invoices" class=" menu mt-3 md:mx-3  text-gray-200">Invoices</a>
@@ -87,30 +90,29 @@
 
                         <ul class="dropdown-menu absolute hidden text-gray-200 bg-blue-700 rounded-b-xl"><br>
 
-                            <li class=""><a class="block px-4 py-2 text-sm hover:bg-gray-400 font-extrabold"
+                            <li class=""><a class="block px-4 py-2 text-sm hover:bg-gray-400 font-normal"
                                     href="/users/set-password"> <span class="fas fa-exchange-alt"></span> Change
                                     Password</a></li>
                             <li class="">
-                                <a class="block px-4 py-2 text-sm  hover:bg-gray-400 font-extrabold"
-                                    href="/users/image">
+                                <a class="block px-4 py-2 text-sm  hover:bg-gray-400 font-normal" href="/users/image">
                                     <span class="	fas fa-cloud-upload-alt"></span>
                                     Upload
                                     Profile
                                 </a>
                             </li>
-                            <li class=""><a class="block px-4 py-2 text-sm hover:bg-gray-400 font-extrabold"
+                            <li class=""><a class="block px-4 py-2 text-sm hover:bg-gray-400 font-normal"
                                     href="/users/edit"><span class="fas fa-user-edit mr-1"></span>Edit
                                     Profile
                                 </a>
                             </li>
 
-                            <li class=""><a class="block px-4 py-2 text-sm hover:bg-gray-400 font-extrabold"
+                            <li class=""><a class="block px-4 py-2 text-sm hover:bg-gray-400 font-normal"
                                     href="/users/expenses"><span class="	fas fa-dollar-sign mr-1"></span>
                                     Expenses
                                 </a>
                             </li>
 
-                            <li class=""><a class="block px-4 py-2 text-sm hover:bg-gray-400 font-extrabold"
+                            <li class=""><a class="block px-4 py-2 text-sm hover:bg-gray-400 font-normal"
                                     href="/users/distributors-tags"><span class="fas fa-file-invoice mr-1"></span>
                                     Tags
                                 </a>
@@ -121,7 +123,7 @@
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
 
-                                    <a class="block px-4 py-2 text-sm font-extrabold  hover:bg-gray-400"
+                                    <a class="block px-4 py-2 text-sm font-normal  hover:bg-gray-400"
                                         href="route('logout')" onclick="event.preventDefault();
                                                             this.closest('form').submit();">
                                         <span class="fas fa-sign-out-alt mr-1"></span>{{ __('Logout') }}
@@ -143,26 +145,13 @@
 
 
 <script>
-    // Add active class to the current menu (highlight it)
-    // Get the container element
-    var menuContainer = document.getElementById("myDiv");
-
-    // Get all buttons with class="btn" inside the container
-    var menu = menuContainer.getElementsByClassName("menu");
-
-    // Loop through the buttons and add the active class to the current/clicked button
-    for (var i = 0; i < menu.length; i++) {
-        menu[i].addEventListener("click", function() {
-            var current = document.getElementsByClassName("active");
-
-            // If there's no active class
-            if (current.length > 0) {
-                current[0].className = current[0].className.replace(" active", "");
-            }
-
-            // Add the active class to the current/clicked button
-            this.className += " active";
-        });
+    var currentLocation = location.href;
+    var menuItem = document.querySelectorAll('a');
+    var menuLength = menuItem.length
+    for (let i = 0; i < menuLength; i++) {
+        if (menuItem[i].href === currentLocation) {
+            menuItem[i].className = "active"
+        }
     }
 
 </script>

@@ -6,7 +6,6 @@
         .menu {
             font-size: 14px;
             letter-spacing: 1px;
-            font-weight: bolder;
         }
 
         .dropdown:hover .dropdown-menu {

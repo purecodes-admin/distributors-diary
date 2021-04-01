@@ -1,4 +1,5 @@
-@extends('layout/master')
+@extends(auth()->user()->set_as ? 'layout/admin-master' : 'layout/master')
+
 @section('address', 'Update Records')
 @section('content')
     <h3 class="p-5 font-semibold text-lg underline text-blue-700 hover:text-blue-900" style="width: 88%; margin:auto;">

@@ -14,7 +14,7 @@
         <h1 class="text-4xl text-gray-700 font-bold pt-2 mt-4 ml-2">
             <span class="fas fa-tags"></span> Tags List
         </h1>
-        <div class="flex justify-end">
+        <div class="flex md:justify-end justify-start">
             <a href="/users/custom-tags">
 
                 <button class="mt-2 mr-2 bg-blue-700 hover:bg-blue-900 text-white font-bold  px-1 rounded">New <i

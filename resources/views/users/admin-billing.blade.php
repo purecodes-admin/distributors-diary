@@ -22,7 +22,7 @@
                     <input type="search" placeholder="Search.." name="search" class="rounded border-none bg-gray-100"
                         value="{{ request('search') }}">
                 </div>
-                <div>
+                <div class="hidden md:block">
                     From: <input type="month" value="{{ request('searchFrom') }}" placeholder="Search by Date.."
                         name="searchFrom" class="rounded border-none w-auto bg-gray-100">
                     To: <input type="month" value="{{ request('searchTo') }}" placeholder="Search by Date.."

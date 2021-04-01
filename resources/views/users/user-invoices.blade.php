@@ -10,9 +10,9 @@
 
         {{-- Search Boxes Code --}}
 
-        <div class="">
+        <div class="hidden md:block">
 
-            <form action="/users/my-invoices" class="flex justify-between">
+            <form action="/users/my-invoices" class="flex md:justify-between">
                 <div>
 
                 </div>

@@ -35,13 +35,6 @@
     <link href="/fonts/Roboto-Thin.ttf" rel="stylesheet"> --}}
 
     <style>
-        /* @font-face {
-            font-family: Roboto;
-            src: url('/fonts/Roboto-Thin.ttf');
-            src: url('/fonts/Roboto-Bold.ttf');
-            src: url('/fonts/Roboto-Regular.ttf');
-        } */
-
         body {
             font-family: 'Roboto', sans-serif;
         }

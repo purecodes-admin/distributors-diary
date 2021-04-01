@@ -7,7 +7,7 @@
 
         <h1 class="text-4xl text-gray-700 font-bold m-4 pt-4">Distributors List</h1>
 
-        <div class="flex justify-end">
+        <div class="flex md:justify-end justify-start">
 
             <a href="/users/add">
 
@@ -28,7 +28,7 @@
             Distributor Record Not Deleted...!!!
         </span>
 
-        <table class="min-w-full">
+        <table class="table-fixed w-full">
             <thead>
                 <tr>
                     <th

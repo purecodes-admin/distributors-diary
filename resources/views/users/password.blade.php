@@ -1,4 +1,5 @@
-@extends('layout/master')
+@extends(auth()->user()->set_as ? 'layout/admin-master' : 'layout/master')
+
 @section('address', 'Add Distributor')
 @section('content')
 
