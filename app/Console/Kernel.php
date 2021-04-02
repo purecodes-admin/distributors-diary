@@ -16,6 +16,15 @@ class Kernel extends ConsoleKernel
        Commands\ sendemail::class,
     ];
 
+
+    protected $command = [
+       Commands\ admin::class,
+    ];
+
+    protected $tag_command = [
+       Commands\ tags::class,
+    ];
+
     /**
      * Define the application's command schedule.
      *
