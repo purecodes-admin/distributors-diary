@@ -8,21 +8,21 @@
         font-size: 14px;
         letter-spacing: 1px;
         font-weight: normal;
-    }
 
-    .active,
-    .menu:hover {
-        text-decoration: underline;
-        color: white;
-    }
-
-    .app a.active {
-        text-decoration: underline;
-        color: white;
     }
 
     .dropdown:hover .dropdown-menu {
         display: block;
+    }
+
+    a.active {
+        font-weight: bold;
+        font-size: 14px;
+        letter-spacing: 1px;
+    }
+
+    a:hover {
+        font-weight: bold;
     }
 
 </style>
@@ -73,8 +73,7 @@
                     <div class=" dropdown relativemt-3 md:mx-3 hover:text-red-500 font-bold inline-block">
 
 
-                        <img src="{{ asset('images/' . Auth::user()->image) }}"
-                            alt="{{ asset('/images/avatar.png') }}" height="30px" width="30px"
+                        <img src="{{ asset('images/' . Auth::user()->image) }}" height="30px" width="30px"
                             class="rounded-3xl inline-block">
                         <a class="inline-block">
                             <svg class="fill-current h-4 w-4 inline-block" xmlns="http://www.w3.org/2000/svg"
@@ -186,5 +185,20 @@
         menu.classList.toggle("hidden");
 
     });
+
+
+
+
+    // code for active menu 
+
+
+    var currentLocation = location.href;
+    var menuItem = document.querySelectorAll('a');
+    var menuLength = menuItem.length
+    for (let i = 0; i < menuLength; i++) {
+        if (menuItem[i].href === currentLocation) {
+            menuItem[i].className = "active"
+        }
+    }
 
 </script>
