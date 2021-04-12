@@ -143,6 +143,7 @@
     </header>
 </div>
 
+{{-- code for active menu --}}
 
 <script>
     var currentLocation = location.href;

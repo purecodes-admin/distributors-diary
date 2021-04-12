@@ -30,9 +30,14 @@
             @csrf
             <div class="flex flex-col md:w-1/2">
                 <label for="image" class="leading-10 pl-2 ml-4">Image:</label>
+
+                <img id="preimage" alt="" height="200px" width="200px"
+                    class="rounded-3xl inline-block border-gray-300 ml-2 px-4 py-2 focus:border-gray-900"
+                    src="{{ asset('images/avatar4.jpg') }}"><br>
+
                 <input type="file" name="image"
                     class=" ml-2 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
-                    required>
+                    required onchange="loadfile(event)">
 
             </div>
 
@@ -57,7 +62,14 @@
             );
         });
 
-    </script>
 
+        // code for pre image while uploading image
+
+        function loadfile(event) {
+            var output = document.getElementById('preimage');
+            output.src = URL.createObjectURL(event.target.files[0]);
+        }
+
+    </script>
 
 @endsection

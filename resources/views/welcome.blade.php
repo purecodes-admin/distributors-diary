@@ -18,7 +18,7 @@
 
     <div class="flex justify-center">
         <h1 class="text-xl text-gray-700">
-            Welcome To Direct Shot
+            Welcome To PureCodes
             (A Distributing Company).....!!!
         </h1>
     </div>

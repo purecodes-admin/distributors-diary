@@ -10,3 +10,5 @@ Steps To Deploy This Project on Your System.
     in your .env file.
 8.) Run Command => php artisan migrate
 9.) Run Command => php artisan serve
+10.) Run Command => php artisan admin  (This Command is use to add Admin)
+11.) Run Command => php artisan tags  (This Command is use to add tags)
