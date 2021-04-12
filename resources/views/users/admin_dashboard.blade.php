@@ -65,7 +65,15 @@
                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $record->email }}</td>
 
                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                            <img src="{{ asset('images/' . $record->image) }}" alt="image" height="100px" width="100px">
+
+                            @if ($record->image == '')
+
+                                <img src="/images/avatar4.jpg" height="100px" width="100px" class="rounded-3xl inline-block">
+
+                            @else
+                                <img src="{{ asset('images/' . $record->image) }}" alt="image" height="100px" width="100px">
+
+                            @endif
                         </td>
 
                         <td class=" hidden md:table-cell px-5 py-5 border-b border-gray-200 bg-white text-sm">

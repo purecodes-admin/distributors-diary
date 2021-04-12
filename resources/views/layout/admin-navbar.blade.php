@@ -71,10 +71,17 @@
                     <a href="/users/tags" class="menu mt-3 md:mx-3   text-gray-200">Tags</a>
                     {{-- <a href="/users/logout" class="menu mt-3 md:mx-3   text-gray-200">Logout</a> --}}
                     <div class=" dropdown relativemt-3 md:mx-3 hover:text-red-500 font-bold inline-block">
+                        @if (Auth::user()->image == '')
+
+                            <img src="/images/avatar4.jpg" height="30px" width="30px" class="rounded-3xl inline-block">
+
+                        @else
+                            <img src="{{ asset('images/' . Auth::user()->image) }}" height="30px" width="30px"
+                                class="rounded-3xl inline-block">
+
+                        @endif
 
 
-                        <img src="{{ asset('images/' . Auth::user()->image) }}" height="30px" width="30px"
-                            class="rounded-3xl inline-block">
                         <a class="inline-block">
                             <svg class="fill-current h-4 w-4 inline-block" xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 20 20">
