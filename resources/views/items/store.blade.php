@@ -34,7 +34,7 @@
         </span>
     </h3>
     <div style="width: 88%; margin:auto;">
-        <form action="add" method="POST" name="myForm" id="addForm">
+        <form action="add" method="POST" name="myForm" id="addForm" class="form-once-only">
             @csrf
             <div class="flex flex-col md:w-1/2">
                 <label for="name" class="leading-10 pl-2">Name:</label>
@@ -137,6 +137,14 @@
             return false;
 
         }
+
+
+        $(document).ready(function() {
+            $("form.form-once-only").submit(function() {
+                $(this).find(':button').prop('disabled', true);
+                $(this).val('Submitted');
+            });
+        });
 
     </script>
 @endsection
