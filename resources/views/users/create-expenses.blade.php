@@ -70,15 +70,15 @@
             </div>
 
 
-            <div class="flex flex-col md:w1/2w-1/2 mt-2">
-                <button class="bg-blue-700 hover:bg-blue-900 font-bold text-white ml-2 py-2 rounded" type="button"
-                    onclick="return validateForm()">Add</button><br>
+            <div class="flex flex-col md:w-1/2 mt-2">
+                <button class="disabled:opacity-50 bg-blue-700 hover:bg-blue-900 font-bold text-white ml-2 py-2 rounded"
+                    type="button" onclick="return validateForm(this)">Add</button><br>
             </div>
         </form>
     </div>
 
     <script>
-        function validateForm() {
+        function validateForm(e) {
             window.setTimeout("document.getElementById('success').style.display='none';", 3000);
             window.setTimeout("document.getElementById('danger').style.display='none';", 3000);
 
@@ -105,6 +105,7 @@
                 return false;
             }
 
+            $(e).prop('disabled', true);
             $.ajax({
                 type: 'POST',
                 url: 'add-expense',
@@ -119,6 +120,9 @@
                 },
                 error: function(res) {
                     document.getElementById("danger").style.display = ""
+                },
+                complete: function(res) {
+                    $(e).prop('disabled', false);
                 }
             });
 

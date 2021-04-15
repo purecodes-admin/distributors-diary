@@ -105,15 +105,15 @@
             </div>
 
             <div class="flex flex-col w-1/2 mt-2">
-                <button class="bg-blue-700 hover:bg-blue-900 font-bold text-white ml-2 py-2 rounded"
-                    type="submit">Update</button><br>
+                <button class="disabled:opacity-50 bg-blue-700 hover:bg-blue-900 font-bold text-white ml-2 py-2 rounded"
+                    type="submit" onclick="return UpdateForm(this)">Update</button><br>
             </div>
 
         </form>
     </div>
 
     <script>
-        function UpdateForm() {
+        function UpdateForm(e) {
             window.setTimeout("document.getElementById('success').style.display='none';", 3000);
             window.setTimeout("document.getElementById('danger').style.display='none';", 3000);
 
@@ -160,6 +160,8 @@
                 return false;
             }
 
+
+            $(e).prop('disabled', true);
             $.ajax({
                 type: 'POST',
                 url: '/customers/update',
@@ -179,6 +181,9 @@
                 error: function(res) {
                     document.getElementById("danger").style.display = ""
                     return false;
+                },
+                complete: function(res) {
+                    $(e).prop('disabled', false);
                 }
             });
 

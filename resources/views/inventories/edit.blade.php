@@ -35,7 +35,7 @@
     </h3>
 
     <div style="width: 88%; margin:auto;">
-        <form action="" method="POST" name="myForm" id="addForm" onsubmit=" return UpdateStock()">
+        <form action="" method="POST" name="myForm" id="addForm">
             @csrf
             <input type="hidden" name="id" value="{{ $inventory->id }}">
 
@@ -122,7 +122,8 @@
 
 
             <div class="flex flex-col w-1/2 mt-2">
-                <button class="bg-blue-700 hover:bg-blue-900 font-bold text-white ml-2 py-2 rounded" type="submit">Update
+                <button class="disabled:opacity-50 bg-blue-700 hover:bg-blue-900 font-bold text-white ml-2 py-2 rounded"
+                    type="submit" onclick="return UpdateStock(this)">Update
                     Record</button><br>
             </div>
 
@@ -130,7 +131,7 @@
     </div>
 
     <script>
-        function UpdateStock() {
+        function UpdateStock(e) {
             window.setTimeout("document.getElementById('success').style.display='none';", 3000);
             window.setTimeout("document.getElementById('danger').style.display='none';", 3000);
             for (let el of document.querySelectorAll('.error')) el.style.display = 'none';
@@ -168,6 +169,7 @@
                 return false;
             }
 
+            $(e).prop('disabled', true);
             $.ajax({
                 type: 'POST',
                 url: '/inventories/update',
@@ -185,6 +187,9 @@
                 },
                 error: function(res) {
                     document.getElementById("danger").style.display = ""
+                },
+                complete: function(res) {
+                    $(e).prop('disabled', false);
                 }
             });
 

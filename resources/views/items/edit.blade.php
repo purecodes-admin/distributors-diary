@@ -35,7 +35,7 @@
     </h3>
 
     <div style="width: 88%; margin:auto;">
-        <form action="" method="POST" name="myForm" onsubmit="return validateForm()" id="updateForm" class="form-once-only">
+        <form action="" method="POST" name="myForm" id="updateForm" class="form-once-only">
             @csrf
             <input type="hidden" name="id" value="{{ $item->id }}">
             <div class="flex flex-col md:w-1/2">
@@ -76,52 +76,15 @@
             </div>
 
             <div class="flex flex-col md:w-1/2 mt-2">
-                <button class="bg-blue-700 hover:bg-blue-900 font-bold text-white ml-2 py-2 rounded" type="submit"
-                    id="btnsubmit">Update</button><br>
+                <button class="disabled:opacity-50 bg-blue-700 hover:bg-blue-900 font-bold text-white ml-2 py-2 rounded"
+                    type="submit" id="btnsubmit" onclick="return validateForm(this)">Update</button><br>
             </div>
         </form>
     </div>
 
 
-
     <script>
-        // $(document).ready(function() {
-        //     $("form.form-once-only").submit(function() {
-        //         $(this).find(':button').prop('disabled', true);
-        //         $(this).val('Updated');
-        //     });
-        // });
-
-        // $(document).ready(function() {
-        //     $("#btnsubmit").click(function() {
-        //         $(this).prop("disabled", true);
-        //         $(this).css("cursor", "not-allowed");
-        //         $(this).val('Updated');
-        //     });
-
-        // });
-
-        // var button = document.getElementById("btnsubmit");
-        // button.disabled = true;
-
-        $(document).ready(function() {
-            $('#btnsubmit').on('click', function() {
-                var myForm = $('#updateForm');
-                if (myForm) {
-                    $(this).prop('disabled', true);
-                    $(this).val('updated');
-                    $(this).css("cursor", "not-allowed");
-                    $(myForm).submit();
-                } else {
-                    $(this).prop('disabled', false);
-                }
-            });
-        });
-
-    </script>
-
-    <script>
-        function validateForm() {
+        function validateForm(e) {
             window.setTimeout("document.getElementById('success').style.display='none';", 3000);
             window.setTimeout("document.getElementById('danger').style.display='none';", 3000);
 
@@ -156,6 +119,7 @@
                 return false;
             }
 
+            $(e).prop('disabled', true);
             $.ajax({
                 type: 'POST',
                 url: '/items/update',
@@ -172,6 +136,9 @@
                 },
                 error: function(res) {
                     document.getElementById("danger").style.display = ""
+                },
+                complete: function(res) {
+                    $(e).prop('disabled', false);
                 }
             });
 
