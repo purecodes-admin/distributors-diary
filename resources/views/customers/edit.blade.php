@@ -34,7 +34,7 @@
         </span>
     </h3>
     <div style="width: 88%; margin:auto;">
-        <form action="" method="POST" name="myForm" id="addForm" onsubmit="return UpdateForm()">
+        <form action="" method="POST" name="myForm" id="addForm">
             @csrf
             <input type="hidden" name="id" value="{{ $supplier->id }}">
             <div class="flex">
