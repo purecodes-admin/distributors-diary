@@ -35,7 +35,7 @@
     </h3>
 
     <div style="width: 88%; margin:auto;">
-        <form action="add" method="POST" name="myForm" onsubmit="return validateForm()" id="addForm">
+        <form action="add" method="POST" name="myForm" id="addForm">
             @csrf
             <div class="flex">
                 <div class="flex flex-col w-1/2">
