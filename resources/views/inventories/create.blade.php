@@ -38,7 +38,7 @@
     <div id="errors"></div>
 
     <div style="width: 88%; margin:auto;">
-        <form action="store" method="POST" name="myForm" id="addForm" onsubmit=" return AddStock()">
+        <form action="store" method="POST" name="myForm" id="addForm">
             @csrf
             <div class="flex">
                 <div class="flex flex-col w-1/2">
@@ -132,7 +132,8 @@
             </div>
 
             <div class="flex flex-col w-1/2 mt-2">
-                <button class="bg-blue-700 hover:bg-blue-900 font-bold text-white ml-2 py-2 rounded" type="submit">Confirm
+                <button class="disabled:opacity-50 bg-blue-700 hover:bg-blue-900 font-bold text-white ml-2 py-2 rounded"
+                    type="submit" onclick="return AddStock(this)">Confirm
                     Order</button><br>
             </div>
 
@@ -172,7 +173,7 @@
             window.location = window.location.pathname + "?category=" + cat;
         }
 
-        function AddStock() {
+        function AddStock(e) {
             window.setTimeout("document.getElementById('success').style.display='none';", 3000);
             window.setTimeout("document.getElementById('danger').style.display='none';", 3000);
             for (let el of document.querySelectorAll('.error')) el.style.display = 'none';
@@ -214,6 +215,7 @@
                 return false;
             }
 
+            $(e).prop('disabled', true);
             $.ajax({
                 type: 'POST',
                 url: 'store',
@@ -240,6 +242,9 @@
 
                     document.getElementById('errors').innerHTML = html;
                     document.getElementById("danger").style.display = ""
+                },
+                complete: function(res) {
+                    $(e).prop('disabled', false);
                 }
             });
 
